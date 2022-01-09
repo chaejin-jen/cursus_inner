@@ -1,20 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_isprint.c                                       :+:      :+:    :+:   */
+/*   ft_strmapi.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: chaejkim <chaejkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/17 15:47:58 by chaejkim          #+#    #+#             */
-/*   Updated: 2022/01/05 20:05:37 by chaejkim         ###   ########.fr       */
+/*   Created: 2022/01/08 11:38:54 by chaejkim          #+#    #+#             */
+/*   Updated: 2022/01/09 15:45:51 by chaejkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int	ft_isprint(int c)
+char	*ft_strmapi(char const *s, char (*f)(unsigned int, char))
 {
-	if (c > 31 && c < 127)
-		return (1);
-	return (0);
+	char	*result;
+	int		len;
+	int		i;
+
+	if (!s || !f)
+		return (0);
+	len = (int)ft_strlen(s);
+	i = -1;
+	result = (char *)malloc(sizeof(char) * (len + 1));
+	if (len == 0)
+	{
+		result[len] = '\0';
+		return (result);
+	}
+	if (!result)
+		return (NULL);
+	while (++i < len)
+		result[i] = f(i, s[i]);
+	result[len] = '\0';
+	return (result);
 }

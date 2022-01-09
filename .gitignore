@@ -1,0 +1,9 @@
+main.c
+mola.c
+text.c
+
+tester*
+
+*.h.gch
+
+a.out*

@@ -1,20 +1,40 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_isprint.c                                       :+:      :+:    :+:   */
+/*   ft_putnbr_fd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: chaejkim <chaejkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/17 15:47:58 by chaejkim          #+#    #+#             */
-/*   Updated: 2022/01/05 20:05:37 by chaejkim         ###   ########.fr       */
+/*   Created: 2022/01/08 13:57:23 by chaejkim          #+#    #+#             */
+/*   Updated: 2022/01/09 16:08:11 by chaejkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int	ft_isprint(int c)
+void	write_nb(int fd, long nb)
 {
-	if (c > 31 && c < 127)
-		return (1);
-	return (0);
+	char	c;
+
+	if (nb < 0)
+		return ;
+	if (nb > 9)
+		write_nb(fd, nb / 10);
+	c = nb % 10 + '0';
+	write(fd, &c, 1);
+}
+
+void	ft_putnbr_fd(int n, int fd)
+{
+	long	long_n;
+
+	long_n = (long)n;
+	if (fd < 0)
+		return ;
+	if (long_n < 0)
+	{
+		write(fd, "-", 1);
+		long_n = -long_n;
+	}
+	write_nb(fd, long_n);
 }

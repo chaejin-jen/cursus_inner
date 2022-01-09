@@ -1,27 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_lstdelone.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: chaejkim <chaejkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/17 17:37:52 by chaejkim          #+#    #+#             */
-/*   Updated: 2021/11/17 17:37:53 by chaejkim         ###   ########.fr       */
+/*   Created: 2022/01/08 20:25:22 by chaejkim          #+#    #+#             */
+/*   Updated: 2022/01/09 15:31:02 by chaejkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
-#include "libc.h"
+#include "libft.h"
 
-int	main(void)
+void	ft_lstdelone(t_list *lst, void (*del)(void *))
 {
-	char	*s1;
-	char	*s2;
-
-	s1 = "abcdef";
-	s2 = "abdsfcdef";
-	printf("%d\n", ft_strlen(s1));
-	printf("%d\n", ft_strlen(s2));
-
-	// ft_strncmp(s1, s2, 5);
+	del(lst->content);
+	free(lst);
+	lst = NULL;
 }
