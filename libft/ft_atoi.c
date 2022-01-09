@@ -1,30 +1,42 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strncmp.c                                       :+:      :+:    :+:   */
+/*   ft_atoi.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: chaejkim <chaejkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/17 17:35:54 by chaejkim          #+#    #+#             */
-/*   Updated: 2022/01/07 11:45:10 by chaejkim         ###   ########.fr       */
+/*   Created: 2022/01/07 12:38:58 by chaejkim          #+#    #+#             */
+/*   Updated: 2022/01/09 15:32:13 by chaejkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int	ft_strncmp(const char *s1, const char *s2, size_t n)
+int	ft_atoi(const char *str)
 {
-	unsigned char	c1;
-	unsigned char	c2;
+	size_t	result;
+	int		sign;
 
-	while (n-- > 0)
+	sign = 1;
+	result = 0;
+	while ((*str >= 9 && *str <= 13) || *str == 32)
+		str++;
+	if (*str == '-')
+		sign = -1;
+	if (*str == '+' || *str == '-')
+		str++;
+	while (*str >= 48 && *str <= 57)
 	{
-		c1 = *(unsigned char *)s1++;
-		c2 = *(unsigned char *)s2++;
-		if (c1 != c2)
-			return (c1 - c2);
-		if (!c1)
-			return (0);
+		result = result * 10 + *str - 48;
+		if (result > 9223372036854775807)
+		{
+			if (sign == 1)
+				return (-1);
+			else
+				return (0);
+		}
+		str++;
 	}
-	return (0);
+	result *= sign;
+	return ((int)result);
 }

@@ -6,7 +6,7 @@
 /*   By: chaejkim <chaejkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/17 16:11:03 by chaejkim          #+#    #+#             */
-/*   Updated: 2021/11/17 16:11:05 by chaejkim         ###   ########.fr       */
+/*   Updated: 2022/01/05 20:34:06 by chaejkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,10 @@
 
 size_t	ft_strlen(const char *s)
 {
-	const char	*tmp;
+	size_t	len;
 
-	tmp = s;
-	while (*tmp)
-		tmp++;
-	return ((int)(tmp - s - 1));
+	len = 0;
+	while (*s++)
+		len++;
+	return (len);
 }

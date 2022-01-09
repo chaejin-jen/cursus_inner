@@ -1,20 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_isprint.c                                       :+:      :+:    :+:   */
+/*   ft_putchar_fd.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: chaejkim <chaejkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/17 15:47:58 by chaejkim          #+#    #+#             */
-/*   Updated: 2022/01/05 20:05:37 by chaejkim         ###   ########.fr       */
+/*   Created: 2022/01/08 13:48:15 by chaejkim          #+#    #+#             */
+/*   Updated: 2022/01/09 15:49:17 by chaejkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int	ft_isprint(int c)
+void	ft_putchar_fd(char c, int fd)
 {
-	if (c > 31 && c < 127)
-		return (1);
-	return (0);
+	if (fd < 0)
+		return ;
+	write(fd, &c, 1);
 }
