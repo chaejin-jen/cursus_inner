@@ -6,7 +6,7 @@
 /*   By: chaejkim <chaejkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/05 17:42:38 by chaejkim          #+#    #+#             */
-/*   Updated: 2022/01/09 16:03:37 by chaejkim         ###   ########.fr       */
+/*   Updated: 2022/01/10 18:55:33 by chaejkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,6 @@ void	*ft_memcpy(void *dst, const void *src, size_t n)
 	if (dst_tmp == src_tmp)
 		return (dst);
 	while (n-- > 0)
-	{
 		*dst_tmp++ = *src_tmp++;
-	}
 	return (dst);
 }
