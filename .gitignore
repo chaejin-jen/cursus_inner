@@ -3,7 +3,11 @@ mola.c
 text.c
 
 tester*
+test*
+*test.c
 
 *.h.gch
 
 a.out*
+
+hyko*
