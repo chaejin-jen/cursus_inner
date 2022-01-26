@@ -5,17 +5,17 @@
 #                                                     +:+ +:+         +:+      #
 #    By: chaejkim <chaejkim@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2022/01/24 17:37:27 by chaejkim          #+#    #+#              #
-#    Updated: 2022/01/26 18:08:22 by chaejkim         ###   ########.fr        #
+#    Created: 2022/01/26 15:05:28 by chaejkim          #+#    #+#              #
+#    Updated: 2022/01/26 15:05:29 by chaejkim         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME = get_next_line.a
+NAME = libftprintf.a
 
 CC = gcc
 CFLAGS = -Wall -Wextra -Werror -c
 
-SOURCES = get_next_line.c get_next_line_utils.c
+SOURCES = ft_printf.c
 
 OBJECTS = $(SOURCES:.c=.o)
 
