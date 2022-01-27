@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chaejkim <chaejkim@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: chaejkim <chaejkim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/19 08:52:19 by chaejkim          #+#    #+#             */
-/*   Updated: 2022/01/25 23:31:46 by chaejkim         ###   ########.fr       */
+/*   Updated: 2022/01/26 18:08:16 by chaejkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
