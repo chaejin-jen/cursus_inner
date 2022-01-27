@@ -6,13 +6,19 @@
 /*   By: chaejkim <chaejkim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/26 18:41:49 by chaejkim          #+#    #+#             */
-/*   Updated: 2022/01/26 18:50:35 by chaejkim         ###   ########.fr       */
+/*   Updated: 2022/01/27 19:21:41 by chaejkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-static void check_fmt(char )
+static void check_fmt(char *fmt)
 {
-	if
+	if (*(fmt+1) == 'c')
+		return ;
+	if (*(fmt+1) == 's')
+		return ;
+	if (*(fmt+1) == 'i' || *(fmt+1) == 'd')
+		return ;
+	if (*(fmt+1) == 'u' || 
 }
 
 static void doprnt(const char *fmt, va_list *arg_ptr)
@@ -23,8 +29,11 @@ static void doprnt(const char *fmt, va_list *arg_ptr)
 	{
 		if (*fmt != '%')
 		{
-			check_fmt(*fmt);      
+			check_fmt(fmt);
+			
 		}
+		else
+			wrtie(1, fmt, 1);
 		fmt++;
 	}
 }
