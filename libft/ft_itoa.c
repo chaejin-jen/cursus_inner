@@ -6,7 +6,7 @@
 /*   By: chaejkim <chaejkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/07 16:06:06 by chaejkim          #+#    #+#             */
-/*   Updated: 2022/01/09 16:19:28 by chaejkim         ###   ########.fr       */
+/*   Updated: 2022/02/02 04:01:23 by chaejkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,28 +28,28 @@ static size_t	get_len(long long_n)
 char	*ft_itoa(int n)
 {
 	char	*result;
-	int		sign;
+	int		minus;
 	size_t	len;
 	long	long_n;
 
 	long_n = (long)n;
-	sign = 0;
+	minus = 0;
 	if (long_n < 0)
 	{
-		sign = 1;
+		minus = 1;
 		long_n *= -1;
 	}
 	len = get_len(long_n);
-	result = (char *)ft_calloc(len + sign + 1, sizeof(char));
+	result = (char *)ft_calloc(len + minus + 1, sizeof(char));
 	if (!result)
 		return (NULL);
 	while (long_n > 9)
 	{
-		result[--len + sign] = (long_n % 10) + 48;
+		result[--len + minus] = (long_n % 10) + 48;
 		long_n /= 10;
 	}
-	result[sign] = (long_n % 10) + 48;
-	if (sign)
+	result[minus] = (long_n % 10) + 48;
+	if (minus)
 		result[0] = '-';
 	return (result);
 }
