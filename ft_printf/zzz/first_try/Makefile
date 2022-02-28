@@ -6,11 +6,11 @@
 #    By: chaejkim <chaejkim@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/01/26 15:05:28 by chaejkim          #+#    #+#              #
-#    Updated: 2022/02/02 02:22:42 by chaejkim         ###   ########.fr        #
+#    Updated: 2022/02/06 15:43:42 by chaejkim         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME = libftprintf.a
+NAME = printf.a
 
 CC = gcc
 CFLAGS = -Wall -Wextra -Werror -c

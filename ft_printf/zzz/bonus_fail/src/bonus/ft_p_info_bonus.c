@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_print_info.c                                    :+:      :+:    :+:   */
+/*   ft_p_info_bonus.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: chaejkim <chaejkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/03 22:58:44 by chaejkim          #+#    #+#             */
-/*   Updated: 2022/02/06 13:52:23 by chaejkim         ###   ########.fr       */
+/*   Updated: 2022/02/18 01:18:16 by chaejkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "ft_printf_bonus.h"
 
 void	print_info_init(t_print_info *p_info)
 {
@@ -42,19 +42,18 @@ static int	set_width_preci(t_print_info *p_info, int flag, const char *fmt)
 			p_info->preci = (p_info->preci * 10) + (fmt[f_i] - '0');
 			f_i++;
 		}
-		return (f_i);
+		return (p_info->preci);
 	}
 	while (fmt[f_i] > '0' || fmt[f_i] <= '9')
 	{
 		p_info->width = (p_info->width * 10) + (fmt[f_i] - '0');
 		fmt++;	
 	}
-	return (f_i);
+	return (p_info->width);
 }
 
 int	set_p_info(t_print_info *p_info, const char *fmt)
 {
-	//t_flags	flag;
 	int	f_i;
 
 	f_i = 1;
@@ -73,9 +72,4 @@ int	set_p_info(t_print_info *p_info, const char *fmt)
 	if ((*fmt > '0' || *fmt <= '9') && !(p_info->width))
 		f_i = set_width_preci(p_info, 0, fmt);
 	return (f_i);
-}
-
-char	*set_p_info(t_print_info *p_info, const char *fmt)
-{
-	
 }
