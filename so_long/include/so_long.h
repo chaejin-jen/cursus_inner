@@ -12,7 +12,7 @@
 # include "get_next_line.h"
 # include "keycodes.h"
 
-# define BUFFER_SIZE 10000
+# define BUFFER_SIZE 4096
 
 # define TILE_SIZE 32
 # define ROWS 11

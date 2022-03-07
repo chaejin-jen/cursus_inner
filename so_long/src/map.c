@@ -10,7 +10,7 @@ int check_extention(char *file_name)
 	return (0);
 }
 
-int read_map(char *file_name, char *map_buf)
+int read_map(char *file_name, char *read_buf)
 {
 	int fd;
 	int read_len;
@@ -21,11 +21,11 @@ int read_map(char *file_name, char *map_buf)
 		//printf("파일 열기에 실패했습니다.\n");
 		exit(0);
 	}
-	read_len = read(fd, map_buf, BUFFER_SIZE);
+	read_len = read(fd, read_buf, BUFFER_SIZE);
 	if (read_len == -1)
 		exit(0);
-	map_buf[read_len] = '\0';
-	printf("map_buf 체크 %s", map_buf);
+	read_buf[read_len] = '\0';
+	printf("read_buf 체크 %s", read_buf);
 	return (read_len);
 }
 
@@ -50,12 +50,19 @@ char	**parse_map(t_game *game, char *map_buf)
 
 void	map_init(t_game *game, char *file_name)
 {
-	char	map_buf[BUFFER_SIZE + 1];
+	char	read_buf[BUFFER_SIZE + 1];
+	char	**map_buf;
 	int		read_len;
 
 	if (check_extention(file_name))
 		exit(0);
-	read_len = read_map(file_name, map_buf);
+	read_len = BUFFER_SIZE
+	while (read_len != -1 || read_len != BUFFER_SIZE)
+	{
+		read_len = read_map(file_name, read_buf);
+		map_buf = split_read_buff()
+	}
+	
 	valid_map();
 	//game = parse_map(map_buf, read_len);
 }
