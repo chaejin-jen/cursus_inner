@@ -1,9 +1,14 @@
 {
-    "files.associations": {
-        "so_long.h": "c",
-        "stdlib.h": "c",
-        "libft.h": "c",
-        "string.h": "c",
-        "__locale": "c"
-    }
+  "files.associations": {
+    "so_long.h": "c",
+    "stdlib.h": "c",
+    "libft.h": "c",
+    "string.h": "c",
+    "__locale": "c",
+    "fcntl.h": "c",
+    "errno.h": "c",
+    "get_next_line.h": "c",
+    "cstdlib": "c",
+    "stdio.h": "c"
+  }
 }

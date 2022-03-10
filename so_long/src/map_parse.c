@@ -1,122 +1,95 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
+#include <fcntl.h>
+#include <errno.h>
+#include "so_long.h"
+#include "so_long_int.h"
 
-#include "../lib/libft/libft.h"
-// #include "so_long.h"
-// #include "so_long.h"
-
-/*
-width, height \n 이후로 고정 (다음 \n 일때 비교)
-*/
-
-// int	count_nb_word(char *str, int len)
-// {
-// 	// int		len;
-// 	int		nb_word;
-// 	int		cur;
-	
-// 	// len = strlen(str);
-// 	nb_word = 0;
-// 	cur = 0;
-// 	while (cur < len)
-// 	{
-// 		while (*(str + cur) == '\n')
-// 			cur++;
-// 		if (*(str + cur))
-// 			nb_word++;
-// 		while (*(str + cur) && *(str + cur) != '\n')
-// 			cur++;
-// 	}
-// 	return	(nb_word);
-// }
-
-static int	count_nb_word(char const *s, char c)
+static int open_file(char *file_name)
 {
-	int	cnt;
+	int	fd;
+	int	s_len;
 
-	cnt = 0;
-	while (*s)
-	{
-		if (*s != c && (*(s + 1) == c || *(s + 1) == '\0'))
-			cnt++;
-		s++;
-	}
-	return (cnt);
+	s_len = ft_strlen(file_name);
+	if (!ft_strncmp(file_name + s_len - 5, ".ber", 4))
+		read_error("valid file extention \".ber\"\n");
+	fd = open(file_name, O_RDONLY);
+	if (fd < 0)
+		read_error("cat not open file\n");
+		//if (errno == ENOENT)
+		//{
+		//	/* file doesn’t exist */
+		//}
+		//exit(0);
+	return (fd);
 }
 
-char **str_to_map_lines(char *str)
+static int read_map(int fd, char *read_buf)
 {
-	char	**map_lines;
-	int		cur;
-	int		nb_word;
-	int		len;
+	int read_len;
 
-	len = strlen(str);
-	nb_word = count_nb_word(str, len);
-	map_lines = (char **)calloc(nb_word + 1, sizeof(*map_lines));
-	if (!map_lines)
-		return ((char **)0);
-	nb_word = 0;
-	cur = 0;
-	while (cur < len)
+	read_len = read(fd, read_buf, BUFFER_SIZE);
+	if (read_len == -1)
+		read_error("read error\n");
+	read_buf[read_len] = '\0';
+	return (read_len);
+}
+
+static void	copy_buf_to_lst(t_map *map, char *buf)
+{
+	void	*content;
+	t_list	*new_lst;
+
+	content = ft_memcpy(content, (const void *)buf, map->cols);
+	new_lst = ft_lstnew(content);
+	if (new_lst == NULL)
+		map_error(map, "malloc error\n");
+	ft_lstadd_back(&map->lst, new_lst);
+}
+
+static void	put_buf_on_map(t_map *map, char *buf, int buf_len)
+{
+	int	cols;
+
+	if (map->cols == 0)
+		map->cols = index_nl(buf);
+	while (*buf)
 	{
-		while (*(str + cur) == '\n')
+		printf("map->rows : %d, map->cols : %d\n", map->rows, map->cols);
+		cols = index_nl(buf);
+		printf("cols : %d, map->cols : %d\n", cols, map->cols);
+		valid_rectangle_map(map, buf, cols);
+		valid_object(map, buf, map->cols);
+		valid_wall(map, buf, cols, buf_len);
+		copy_buf_to_lst(map, buf);
+		if (cols == -1)
 		{
-			*(str + cur) = 0;
-			cur++;
+			if (buf_len != BUFFER_SIZE)
+			{
+				/* 이거 외않되 */
+				printf("valid_object_num\n obj_c : %d, obj_p : %d, obj_e : %d\n", map->obj_c, map->obj_p, map->obj_e);
+				valid_object_num(map);
+			}
+			return ;
 		}
-		if (*(str + cur))
-		{
-
-			map_lines[nb_word] = str + cur;
-			nb_word++;
-		}
-		while (*(str + cur) && *(str + cur) != '\n')
-			cur++;
+		buf += (map->cols + 1);
+		map->rows++;
 	}
-	map_lines[nb_word] = 0;
-	int	line;
-	line = 0;
-	while (map_lines[line])
+}
+
+void	map_parse(t_game *game, char *file_name)
+{
+	char	read_buf[BUFFER_SIZE + 1];
+	int		read_len;
+	int		fd;
+
+	fd = open_file(file_name);
+	read_len = BUFFER_SIZE;
+	map_init(&game->map);
+	while (read_len == BUFFER_SIZE)
 	{
-		printf("%d: %s", line, map_lines[line]);
-		line++;
+		read_len = read_map(fd, read_buf);
+		put_buf_on_map(&game->map, read_buf, read_len);
 	}
-	free(map_lines);
-	return (0);
+	game->width = game->map.cols * TILE_SIZE;
+	game->height = game->map.rows * TILE_SIZE;
+	//game = parse_map(map_buf, read_len);
 }
-
-char **str_to_map_lines_split(char *str)
-{
-	return (ft_split(str, '\n'));
-}
-
-int	main(void)
-{
-	char	**result;
-	int		line;
-	char	*str;
-	
-	str= "123\n abc\n 456\n 54";
-	line = 0;
-	result = str_to_map_lines(str);
-	// // result = str_to_map_lines_split(str);
-	// while (result[line])
-	// {
-	// 	printf("%d: %s", line, result[line]);
-	// 	// printf("%s", result[line]);
-	// 	line++;
-	// }
-	free(result);
-	return (0);
-}
-
-// char	**
-
-
-// int parse_map(t_game *game, char *str)
-// {
-
-// 	return (0);
-// }

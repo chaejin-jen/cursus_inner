@@ -5,35 +5,34 @@ FLAGS = -Wall -Werror -Wextra
 
 MLX = lib/mlx/libmlx.a
 LFT = lib/libft/libft.a
-GNL = lib/gnl/libgnl.a
+#GNL = lib/gnl/libgnl.a
 
-INC = -Iinclude -Ilib/mlx -Ilib/libft -Ilib/gnl
-LIB = -Llib/libft -lft -Llib/gnl -lgnl -Llib/mlx -lmlx -framework OpenGL -framework AppKit
+#INC = -Iinclude -Ilib/mlx -Ilib/libft -Ilib/gnl
+#LIB = -Llib/libft -lft -Llib/gnl -lgnl -Llib/mlx -lmlx -framework OpenGL -framework AppKit
+INC = -Iinclude -Ilib/mlx -Ilib/libft
+LIB = -Llib/libft -lft -Llib/mlx -lmlx -framework OpenGL -framework AppKit
 
 SRC = src/main.c src/error.c src/event_exit.c \
 	  src/game_init.c src/game_event.c src/game_update.c \
-	  src/map_parse.c src/map_set.c src/map_valify.c src/put_image.c
-
+	  src/map_parse.c src/map_utils.c src/map_valify.c src/put_image.c 
 OBJ = $(patsubst src%, obj%, $(SRC:.c=.o))
 
 obj/%.o : src/%.c
-	@ $(CC) $(INC) -o $@ -c $<
+	$(CC) $(INC) -o $@ -c $<
 #	$(CC) $(FLAGS) $(INC) -o $@ -c $<
 
-all: $(LFT) $(GNL) $(MLX) obj $(NAME)
-#all: obj $(NAME)
-#	@$(MAKE) -C lib
-#	@$(MAKE) -s -C mlx
+#all: $(LFT) $(GNL) $(MLX) obj $(NAME)
+all: $(LFT) $(MLX) obj $(NAME)
 
 $(NAME) : $(OBJ)
-	@$(CC) -fsanitize=address -o $@ $^ $(LIB)
+	$(CC) -o $@ $^ $(LIB)
 #	$(CC) $(FLAGS) -o $@ $^ $(LIB)
 
 $(LFT):
-	@$(MAKE) -s -C lib/libft bonus
+	@$(MAKE) -s -C lib/libft
 
-$(GNL):
-	@$(MAKE) -s -C lib/gnl
+#$(GNL):
+#	@$(MAKE) -s -C lib/gnl
 
 #$(MLX):
 #	@$(MAKE) -s -C lib/mlx
@@ -52,6 +51,3 @@ fclean: clean
 
 obj:
 	@mkdir -p obj
-
-
-

@@ -1,0 +1,13 @@
+	printf("new_line index : %d\n", index_nl(buf));
+		write(1, buf, map->cols); // 지워야 함
+		write(1, "\n", 1); // 지워야 함
+		printf("map->cols : %d, cols : %d\n", map->cols, cols);
+		printf("passed : valid_rectangle_map\n");
+		printf("passed : valid_object\n");
+		printf("passed : valid_wall\n");
+		printf("passed : copy_buf_to_lst\n");
+		printf("map->rows : %d, map->cols : %d\n", map->rows, map->cols);
+	printf("map->rows : %d, map->cols : %d\n", map->rows, map->cols);
+
+
+	printf("game->map.rows : %d, game->map.cols : %d\n", game->map.rows, game->map.cols);
