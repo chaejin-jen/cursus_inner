@@ -1,31 +1,23 @@
-collec.c
-draw_scene.c
-draw_sprites.c
-enemy_draw.c
-enemy_script.c
-error.c
-event.c
-ft_mlx.c
-img_init.c
-init_game.c
-key.c
-main.c
-map_check_ext.c
-map_compo_coord.c
-map_draw.c
-map_parse.c
-map_read.c
-move_collision.c
-move_dir.c
-move_init.c
-move_spin.c
-player_draw.c
-reset_game.c
-step_count.c
-util_lst.c
+	int		cols;
+	t_list	*new_lst;
 
-0x999999999999
-168884986026393
-9223372036854775807
-18446744073709551615
-9223372036854775807
+	if (map->cols == 0)
+		map->cols = index_nl(buf);
+	while (*buf)
+	{
+		cols = index_nl(buf);
+		map->rows++;
+		map_valid(map, buf, cols, buf_len);
+		new_lst = ft_lstnew((void *)buf);
+		if (!map->tmp_lst)
+			map->tmp_lst = new_lst;
+		else
+			ft_lstadd_front(&map->tmp_lst, new_lst);
+		if (cols == -1 || buf[cols] == '\0')
+		{
+			if (buf_len != BUFFER_SIZE)
+				valid_object_num(map);
+			return ;
+		}
+		buf += (map->cols + 1);
+	}

@@ -21,6 +21,7 @@
 # define KEY_S 1
 # define KEY_D 2
 # define KEY_W 13
+# define KEY_R 15
 
 //typedef enum e_game_object
 //{

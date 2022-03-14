@@ -8,6 +8,9 @@ static void	mmap_tile_imgs(t_game *game)
 	game->tile_img.water = mlx_xpm_file_to_image(game->mlx,
 			"assets/tiles/water_0.xpm",
 			&game->img_size.x, &game->img_size.y);
+	game->tile_img.success = mlx_xpm_file_to_image(game->mlx,
+			"assets/success.xpm",
+			&game->img_size.x, &game->img_size.y);
 }
 
 static void	mmap_obj_imgs(t_game *game)

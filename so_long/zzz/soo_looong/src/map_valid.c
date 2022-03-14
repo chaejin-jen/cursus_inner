@@ -69,7 +69,7 @@ void	valid_object_num(t_map *map, t_list *lst)
 		map_error(map, lst, "unvalid number of exits (at least more then 1)\n");
 }
 
-void map_valid(t_map *map, t_list *lst, char *buf, int cols, int buf_len)
+void map_valid(t_map *map char *buf, int cols, int buf_len)
 {
 	valid_object(map, lst, buf);
 	valid_rectangle_map(map, lst, buf, cols);

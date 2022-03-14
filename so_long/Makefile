@@ -7,15 +7,16 @@ MLX = lib/mlx/libmlx.a
 LFT = lib/libft/libft.a
 GNL = lib/gnl/libgnl.a
 
-INC = -Iinclude -Ilib/mlx -Ilib/libft -Ilib/gnl
-LIB = -Llib/libft -lft -Llib/gnl -lgnl -Llib/mlx -lmlx -framework OpenGL -framework AppKit
+# INC = -Iinclude -Ilib/mlx -Ilib/libft -Ilib/gnl
+INC = -Iinclude -Ilib/libft -Ilib/gnl
+LIB = -Llib/libft -lft -Llib/gnl -lgnl -lmlx -framework OpenGL -framework AppKit
+# LIB = -Llib/libft -lft -Llib/gnl -lgnl -Llib/mlx -lmlx -framework OpenGL -framework AppKit
 
 SRC = src/main.c src/error.c src/event_exit.c src/utils.c\
 	  src/game_init.c src/keypress.c src/set_player.c \
 	  src/map_parse.c src/map_set.c src/map_valid.c \
 	  src/mmap_imgs.c src/render_map.c src/update.c src/move_event.c\
 	  src/test_print.c
-#  src/update.c
 
 OBJ = $(patsubst src%, obj%, $(SRC:.c=.o))
 

@@ -12,6 +12,8 @@ t_map	*map_init(void)
 	map->obj_p = 0;
 	map->player.pos.x = 0;
 	map->player.pos.y = 0;
+	map->exit_lst = 0;
+	map->tmp_lst = 0;
 	return (map);
 }
 
@@ -28,17 +30,19 @@ void	map_obj_set(t_map *map, char c, int col)
 		pos->x = col;
 		pos->y = map->rows - 1;
 		new_lst = ft_lstnew((void *)pos);
+		if (!new_lst)
+			read_error("malloc failed\n");
 		if (!map->obj_e)
 			map->exit_lst = new_lst;
 		else
 			ft_lstadd_front(&map->exit_lst, new_lst);
 		map->obj_e++;
-		printf("=======map_set=========");
-		print_exit_lst(map->obj_e, map->exit_lst);
 	}
 	else if (c == 'P')
 	{
 		map->obj_p++;
+		map->player.pos_init.x = col;
+		map->player.pos_init.y = map->rows - 1;
 		map->player.pos.x = col;
 		map->player.pos.y = map->rows - 1;
 		map->player.pos_next.x = col;

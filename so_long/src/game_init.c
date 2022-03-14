@@ -13,4 +13,5 @@ void	game_init(t_game *game)
 	window_init(game);
 	mmap_imgs(game);
 	render_map(game);
+	game->play = 1;
 }

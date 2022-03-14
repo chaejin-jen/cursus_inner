@@ -26,21 +26,6 @@ t_vector	calc_vector(t_vector dst_pos, t_vector cur_pos)
 	return (pos);
 }
 
-t_list	*lst_init()
-{
-	t_list	*lst;
-
-	lst = (t_list *)malloc(sizeof(t_list));
-	if (lst == NULL)
-		/* "malloc failed (t_list lst)\n" */
-		/* map, lst free */
-		read_error("malloc failed (t_list lst)\n");
-	//lst = 0;
-	lst->content = 0;
-	lst->next = 0;
-	return (lst);
-}
-
 void	del_ptr(void *ptr)
 {
 	ptr = 0;
