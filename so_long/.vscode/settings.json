@@ -9,6 +9,9 @@
     "errno.h": "c",
     "get_next_line.h": "c",
     "cstdlib": "c",
-    "stdio.h": "c"
+    "stdio.h": "c",
+    "so_long_int.h": "c",
+    "ios": "c",
+    "__node_handle": "c"
   }
 }

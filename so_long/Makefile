@@ -10,9 +10,12 @@ GNL = lib/gnl/libgnl.a
 INC = -Iinclude -Ilib/mlx -Ilib/libft -Ilib/gnl
 LIB = -Llib/libft -lft -Llib/gnl -lgnl -Llib/mlx -lmlx -framework OpenGL -framework AppKit
 
-SRC = src/main.c src/error.c src/event_exit.c \
-	  src/game_init.c src/game_event.c src/game_update.c \
-	  src/map_parse.c src/map_set.c src/map_valify.c src/put_image.c
+SRC = src/main.c src/error.c src/event_exit.c src/utils.c\
+	  src/game_init.c src/keypress.c src/set_player.c \
+	  src/map_parse.c src/map_set.c src/map_valid.c \
+	  src/mmap_imgs.c src/render_map.c src/update.c src/move_event.c\
+	  src/test_print.c
+#  src/update.c
 
 OBJ = $(patsubst src%, obj%, $(SRC:.c=.o))
 
@@ -26,7 +29,8 @@ all: $(LFT) $(GNL) $(MLX) obj $(NAME)
 #	@$(MAKE) -s -C mlx
 
 $(NAME) : $(OBJ)
-	@$(CC) -fsanitize=address -o $@ $^ $(LIB)
+	@$(CC) -g3 -fsanitize=address -o $@ $^ $(LIB)
+#	@$(CC) -o $@ $^ $(LIB)
 #	$(CC) $(FLAGS) -o $@ $^ $(LIB)
 
 $(LFT):
@@ -40,7 +44,7 @@ $(GNL):
 
 #	@$(MAKE) -s -C lib/mlx $@
 
-clean: 
+clean:
 	@$(MAKE) -s -C lib/libft $@
 	@$(MAKE) -s -C lib/gnl $@
 	rm -rf obj

@@ -1,17 +1,21 @@
 #include "so_long.h"
 
-//void	free_exit()
+// void	free_exit()
 
-int		close_window(t_game *game)
+int	close_window(t_game *game)
 {
-	ft_lstclear(&(game->map.lst), free);
-	//mlx_destroy_window(game->mlx, game->win);
+	free_pptr(game->map->data);
+	free(game->map);
+	game->map = NULL;
+	// mlx_destroy_window(game->mlx, game->win);
 	exit(0);
 }
 
 void	game_exit(t_game *game)
 {
-	ft_lstclear(&(game->map.lst), free);
+	free_pptr(game->map->data);
+	free(game->map);
+	game->map = NULL;
 	mlx_destroy_window(game->mlx, game->win);
 	exit(0);
 }

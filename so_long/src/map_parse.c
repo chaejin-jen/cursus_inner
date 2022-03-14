@@ -3,28 +3,9 @@
 #include "so_long.h"
 #include "so_long_int.h"
 
-static int open_file(char *file_name)
+static int	read_file(int fd, char *read_buf)
 {
-	int	fd;
-	int	s_len;
-
-	s_len = ft_strlen(file_name);
-	if (!ft_strncmp(file_name + s_len - 5, ".ber", 4))
-		read_error("valid file extention \".ber\"\n");
-	fd = open(file_name, O_RDONLY);
-	if (fd < 0)
-		read_error("cat not open file\n");
-		//if (errno == ENOENT)
-		//{
-		//	/* file doesn’t exist */
-		//}
-		//exit(0);
-	return (fd);
-}
-
-static int read_map(int fd, char *read_buf)
-{
-	int read_len;
+	int	read_len;
 
 	read_len = read(fd, read_buf, BUFFER_SIZE);
 	if (read_len == -1)
@@ -33,45 +14,73 @@ static int read_map(int fd, char *read_buf)
 	return (read_len);
 }
 
-static void	copy_buf_to_lst(t_map *map, char *buf)
+static void	buf_to_lst(t_list *lst, char *buf)
 {
-	void	*content;
 	t_list	*new_lst;
 
-	content = ft_memcpy(content, (const void *)buf, map->cols);
-	new_lst = ft_lstnew(content);
-	if (new_lst == NULL)
-		map_error(map, "malloc error\n");
-	ft_lstadd_back(&map->lst, new_lst);
+	if (lst->content == NULL)
+		lst->content = (void *)buf;
+	else
+	{
+		new_lst = ft_lstnew((void *)buf);
+		if (!new_lst)
+			read_error("malloc error (ft_newlst)");
+		lst->next = new_lst;
+		lst = lst->next;
+	}
 }
 
-static void	put_buf_on_map(t_map *map, char *buf, int buf_len)
+static void	buf_to_map_and_lst(t_map *map, t_list *lst, char *buf, int buf_len)
 {
-	int	cols;
+	int		cols;
+	char	*content;
+	t_list	*head;
 
 	if (map->cols == 0)
 		map->cols = index_nl(buf);
+	head = lst;
 	while (*buf)
 	{
-		printf("map->rows : %d, map->cols : %d\n", map->rows, map->cols);
+		lst = ft_lstlast(lst);
 		cols = index_nl(buf);
-		printf("cols : %d, map->cols : %d\n", cols, map->cols);
-		valid_rectangle_map(map, buf, cols);
-		valid_object(map, buf, map->cols);
-		valid_wall(map, buf, cols, buf_len);
-		copy_buf_to_lst(map, buf);
-		if (cols == -1)
+		map->rows++;
+		map_valid(map, head, buf, cols, buf_len);
+		buf_to_lst(lst, buf);
+		if (cols == -1 || buf[cols] == '\0')
 		{
 			if (buf_len != BUFFER_SIZE)
-			{
-				/* 이거 외않되 */
-				printf("valid_object_num\n obj_c : %d, obj_p : %d, obj_e : %d\n", map->obj_c, map->obj_p, map->obj_e);
-				valid_object_num(map);
-			}
+				valid_object_num(map, lst);
 			return ;
 		}
 		buf += (map->cols + 1);
-		map->rows++;
+	}
+}
+
+static void	lst_to_map(t_map *map, t_list *lst)
+{
+	int		row;
+	char	*content;
+
+	row = 0;
+	map->data = (char **)malloc(sizeof(char *) * (map->rows + 1));
+	if (map->data == NULL)
+	{
+		free_pptr(map->data);
+		read_error("malloc failed (t_map *map.map)\n");
+	}
+	map->data[map->rows] = 0;
+	while (lst)
+	{
+		content = (char *)(lst->content);
+		map->data[row] = ft_strndup(content, map->cols);
+		if (map->data[row] == NULL)
+		{
+			free_pptr(map->data);
+			read_error("malloc failed (t_map *map.map[row])\n");
+		}
+		map->data[row][map->cols] = 0;
+		row++;
+		lst = lst->next;
 	}
 }
 
@@ -80,16 +89,26 @@ void	map_parse(t_game *game, char *file_name)
 	char	read_buf[BUFFER_SIZE + 1];
 	int		read_len;
 	int		fd;
+	t_list	*lst;
 
-	fd = open_file(file_name);
+	if (!ft_strncmp(file_name + ft_strlen(file_name) - 5, ".ber", 4))
+		read_error("valid file extention \".ber\"\n");
+	fd = open(file_name, O_RDONLY);
+	if (fd < 0)
+		read_error("cat not open file\n");
 	read_len = BUFFER_SIZE;
-	map_init(&game->map);
+	game->map = map_init();
+	lst = lst_init();
 	while (read_len == BUFFER_SIZE)
 	{
-		read_len = read_map(fd, read_buf);
-		put_buf_on_map(&game->map, read_buf, read_len);
+		read_len = read_file(fd, read_buf);
+		buf_to_map_and_lst(game->map, lst, read_buf, read_len);
 	}
-	game->width = game->map.cols * TILE_SIZE;
-	game->height = game->map.rows * TILE_SIZE;
-	//game = parse_map(map_buf, read_len);
+	lst_to_map(game->map, lst);
+	ft_lstclear(&lst, del_ptr);
+	printf("=======map_parse=========");
+	print_exit_lst(game->map->obj_e, game->map->exit_lst);
+	free(lst);
+	game->win_size.x = game->map->cols * TILE_SIZE;
+	game->win_size.y = game->map->rows * TILE_SIZE;
 }

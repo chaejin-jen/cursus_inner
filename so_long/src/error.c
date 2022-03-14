@@ -16,11 +16,12 @@ void	read_error(char *message)
 	exit(0);
 }
 
-void	map_error(t_map *map, char *message)
+void	map_error(t_map *map, t_list *lst, char *message)
 {
 	write(1, "\033[0;31m", 8);
 	write(1, message, ft_strlen(message));
 	write(1, "\033[0m", 5);
-	ft_lstclear(&map->lst, free);
+	ft_lstclear(&lst, del_ptr);
+	free(map);
 	exit(0);
 }
