@@ -1,8 +1,21 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: chaejkim <chaejkim@student.42seoul.kr>     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/03/15 01:50:13 by chaejkim          #+#    #+#             */
+/*   Updated: 2022/03/15 14:45:59 by chaejkim         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "so_long.h"
 
 int	main(int argc, char *argv[])
 {
 	t_game	game;
+
 	if (argc != 2)
 		read_error("unvaild argc (only one \".ber\" file path need)");
 	map_parse(&game, argv[1]);

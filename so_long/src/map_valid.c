@@ -1,16 +1,31 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   map_valid.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: chaejkim <chaejkim@student.42seoul.kr>     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/03/15 01:50:18 by chaejkim          #+#    #+#             */
+/*   Updated: 2022/03/15 16:57:00 by chaejkim         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "so_long.h"
 
 static void	valid_object(t_map *map, char *buf)
 {
 	int	col;
 
+	if (*buf == '\n')
+		return ;
 	col = -1;
 	while (++col < map->cols)
 	{
 		if (*buf != '0' && *buf != '1' && *buf != 'C'
 			&& *buf != 'E' && *buf != 'P')
-			map_error(map, "valid charcters only '0(empty)',\
-					'1(wall)', 'C(collection)', 'E(exit)', 'P(player)'\n");
+			map_error(map, "unvalid charcters\
+					\nnote: '0(empty)', '1(wall)',\
+					\n\t'C(collection)', 'E(exit)', 'P(player)'\n");
 		map_obj_set(map, *buf, col);
 		buf++;
 	}
@@ -42,30 +57,29 @@ static void	valid_wall(t_map *map,
 		while (i < map->cols)
 		{
 			if (*buf != '1')
-				map_error(map, "The map must be a rectangle surrounded by walls '1'(top, bottom)\n");
+				map_error(map, "not rectangle walls (top/bottom)\n");
 			buf++;
 			i++;
 		}
 		return ;
 	}
-	if (*buf != '1' || *(buf + map->cols - 1) != '1') // buf + map->cols - 1 이 맞나?
-		map_error(map, "The map must be a rectangle surrounded by walls '1'(side)\n");
+	if (*buf != '1' || *(buf + map->cols - 1) != '1')
+		map_error(map, "not rectangle walls (left/right)\n");
 }
 
-void	valid_object_num(t_map *map)
-{
-	if (map->obj_p != 1)
-		map_error(map, "unvalid number of players (only 1 available)\n");
-	if (map->obj_c == 0)
-		map_error(map, "unvalid number of collectables (at least more then 1)\n");
-	if (map->obj_e == 0)
-		map_error(map, "unvalid number of exits (at least more then 1)\n");
-}
-
-void map_valid(t_map *map, char *buf, int cols, int buf_len)
+void	map_valid(t_map *map, char *buf, int cols, int buf_len)
 {
 	valid_object(map, buf);
 	valid_rectangle_map(map, buf, cols);
 	valid_wall(map, buf, cols, buf_len);
-	//valid_object_num(map, lst);
+}
+
+void	valid_obj_num(t_map *map)
+{
+	if (map->obj_p != 1)
+		map_error(map, "unvalid number of players (only 1 available)\n");
+	if (map->obj_c == 0)
+		map_error(map, "unvalid number of collectables (at least 1)\n");
+	if (map->obj_e == 0)
+		map_error(map, "unvalid number of exits (at least 1)\n");
 }

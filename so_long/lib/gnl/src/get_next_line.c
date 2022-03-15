@@ -6,7 +6,7 @@
 /*   By: chaejkim <chaejkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/19 08:51:46 by chaejkim          #+#    #+#             */
-/*   Updated: 2022/03/09 15:43:57 by chaejkim         ###   ########.fr       */
+/*   Updated: 2022/03/15 16:59:45 by chaejkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ static void	join_buf(char *buf, char **result, char *prestr, int size)
 	tmp = *result;
 	if (size == -1)
 	{
-		*result = ft_strjoin((const char*)*result, (const char*)buf);
+		*result = ft_strjoin((const char *)*result, (const char *)buf);
 		free(tmp);
 	}
 	else

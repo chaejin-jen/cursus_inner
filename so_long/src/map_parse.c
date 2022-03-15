@@ -1,9 +1,21 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   map_parse.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: chaejkim <chaejkim@student.42seoul.kr>     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/03/15 01:50:15 by chaejkim          #+#    #+#             */
+/*   Updated: 2022/03/15 16:57:26 by chaejkim         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include <fcntl.h>
 #include <errno.h>
 #include "so_long.h"
 #include "so_long_int.h"
 
-static int open_file(char *file_name)
+static int	open_file(char *file_name)
 {
 	int	fd;
 	int	s_len;
@@ -34,23 +46,23 @@ static void	buf_to_map(t_map *map, char *buf, int buf_len)
 	t_list	*new_lst;
 
 	if (map->cols == 0)
+	{
+		while (!index_nl(buf))
+			buf++;
 		map->cols = index_nl(buf);
+		if (!*buf && map->cols == -1)
+			map_error(map, "no map data\n");
+	}
 	while (*buf)
 	{
 		cols = index_nl(buf);
 		map->rows++;
 		map_valid(map, buf, cols, buf_len);
-		new_lst = ft_lstnew((void *)buf);
-		if (!new_lst)
-			read_error("malloc failed\n");
-		if (!map->tmp_lst)
-			map->tmp_lst = new_lst;
-		else
-			ft_lstadd_front(&map->tmp_lst, new_lst);
+		map_lst_add(map, buf);
 		if (cols == -1 || buf[cols] == '\0')
 		{
 			if (buf_len != BUFFER_SIZE)
-				valid_object_num(map);
+				valid_obj_num(map);
 			return ;
 		}
 		buf += (map->cols + 1);
@@ -60,10 +72,9 @@ static void	buf_to_map(t_map *map, char *buf, int buf_len)
 static void	lst_to_map(t_map *map)
 {
 	int		row;
-	char	*content;
 	t_list	*lst;
 
-	row =  map->rows - 1;
+	row = map->rows - 1;
 	lst = map->tmp_lst;
 	map->data = (char **)malloc(sizeof(char *) * (map->rows + 1));
 	if (map->data == NULL)
@@ -74,8 +85,7 @@ static void	lst_to_map(t_map *map)
 	map->data[map->rows] = 0;
 	while (lst)
 	{
-		content = (char *)(lst->content);
-		map->data[row] = ft_strndup(content, map->cols);
+		map->data[row] = ft_strndup((char *)(lst->content), map->cols);
 		if (map->data[row] == NULL)
 		{
 			free_pptr(map->data);
@@ -104,7 +114,6 @@ void	map_parse(t_game *game, char *file_name)
 	game->map->obj_c_init = game->map->obj_c;
 	lst_to_map(game->map);
 	ft_lstclear(&game->map->tmp_lst, del_ptr);
-	print_exit_lst(game->map->obj_e, game->map->exit_lst);
 	game->win_size.x = game->map->cols * TILE_SIZE;
 	game->win_size.y = game->map->rows * TILE_SIZE;
 }

@@ -1,0 +1,9 @@
+
+norm:
+	norminette src/ include/
+libftnorm:
+	norminette lib/libft/*.h
+	norminette lib/libft/*/**.c
+gnlnorm:
+	norminette lib/gnl/*.h
+	norminette lib/gnl/*/**.c

@@ -12,6 +12,11 @@
     "stdio.h": "c",
     "so_long_int.h": "c",
     "ios": "c",
-    "__node_handle": "c"
+    "__node_handle": "c",
+    "array": "c",
+    "iterator": "c",
+    "string": "c",
+    "string_view": "c",
+    "vector": "c"
   }
 }

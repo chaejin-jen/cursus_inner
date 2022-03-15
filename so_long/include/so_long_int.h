@@ -1,8 +1,19 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   so_long_int.h                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: chaejkim <chaejkim@student.42seoul.kr>     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/03/15 01:49:27 by chaejkim          #+#    #+#             */
+/*   Updated: 2022/03/15 15:17:56 by chaejkim         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef SO_LONG_INT_H
 # define SO_LONG_INT_H
 
 /* map */
-
 # ifndef BUFFER_SIZE
 #  define BUFFER_SIZE 1028 //4096
 # endif
@@ -22,21 +33,6 @@
 # define KEY_D 2
 # define KEY_W 13
 # define KEY_R 15
-
-//typedef enum e_game_object
-//{
-//	EMPTY = '0',
-//	WALL = '1',
-//	COLLECTION = 'C',
-//	PLAYER = 'P',
-//	EXIT = 'E'
-//}	t_game_object;
-
-typedef enum e_bool
-{
-	FALSE = 0,
-	TRUE = 1
-}	t_bool;
 
 typedef struct s_vector
 {

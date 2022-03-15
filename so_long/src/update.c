@@ -1,7 +1,19 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   update.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: chaejkim <chaejkim@student.42seoul.kr>     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/03/15 01:51:40 by chaejkim          #+#    #+#             */
+/*   Updated: 2022/03/15 16:12:47 by chaejkim         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "so_long.h"
 #include "so_long_int.h"
 
-static void set_img_i(t_player *player)
+static void	set_img_i(t_player *player)
 {
 	if (player->img_i == 0)
 	{
@@ -19,16 +31,18 @@ static void set_img_i(t_player *player)
 		player->img_i--;
 }
 
-
-
-static void	player_walk(t_game *game,  t_map *map, t_player *player)
+static void	player_walk(t_game *game, t_map *map, t_player *player)
 {
-	set_img_i(player);
+	t_vector	pos;
 
+	pos.x = player->pos_next.x * TILE_SIZE + TILE_SIZE / 8;
+	pos.y = player->pos_next.y * TILE_SIZE + TILE_SIZE / 8;
+	set_img_i(player);
+	if (game->play)
+		mlx_put_image_to_window(game->mlx, game->win, game->tile_img.grass,
+			player->pos.x * TILE_SIZE, player->pos.y * TILE_SIZE);
 	mlx_put_image_to_window(game->mlx, game->win,
-		game->tile_img.grass, player->pos.x * TILE_SIZE, player->pos.y * TILE_SIZE);
-	mlx_put_image_to_window(game->mlx, game->win,
-		player->img_ptr[player->img_i], player->pos_next.x * TILE_SIZE + TILE_SIZE / 8, player->pos_next.y * TILE_SIZE + TILE_SIZE / 8);
+		player->img_ptr[player->img_i], pos.x, pos.y);
 	player->pos.x = player->pos_next.x;
 	player->pos.y = player->pos_next.y;
 }
