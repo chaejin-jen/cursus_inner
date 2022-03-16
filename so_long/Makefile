@@ -43,8 +43,6 @@ $(GNL):
 #$(MLX):
 #	@$(MAKE) -s -C lib/mlx
 
-#	@$(MAKE) -s -C lib/mlx $@
-
 clean:
 	@$(MAKE) -s -C lib/libft $@
 	@$(MAKE) -s -C lib/gnl $@
@@ -58,6 +56,7 @@ fclean: clean
 obj:
 	@mkdir -p obj
 
+re: fclean all
 
 norm:
 	@norminette src/ include/
@@ -70,4 +69,4 @@ gnlnorm:
 	@norminette lib/gnl/*/**.c
 	@norminette lib/gnl/*.h
 
-
+.PHONY: all clean fclean re 
