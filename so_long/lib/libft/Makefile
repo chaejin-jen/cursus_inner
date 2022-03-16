@@ -1,53 +1,58 @@
 # **************************************************************************** #
 #                                                                              #
 #                                                         :::      ::::::::    #
-#    makefile                                           :+:      :+:    :+:    #
+#    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
 #    By: chaejkim <chaejkim@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/01/05 19:28:38 by chaejkim          #+#    #+#              #
-#    Updated: 2022/01/08 21:53:18 by chaejkim         ###   ########.fr        #
+#    Updated: 2022/03/09 16:22:04 by chaejkim         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
+
+NAME = libft.a
 
 CC = gcc
 CFLAGS = -Wall -Wextra -Werror -c
 
-NAME = libft.a
+INC = -I.
 
-SOURCES = ft_toupper.c ft_tolower.c ft_isascii.c ft_isprint.c ft_isdigit.c \
-		  ft_isalpha.c ft_isalnum.c ft_strncmp.c ft_strlen.c ft_strlcpy.c \
-		  ft_memcpy.c ft_strchr.c ft_strrchr.c ft_strlcat.c ft_strnstr.c \
-		  ft_memset.c ft_bzero.c ft_memchr.c ft_memmove.c ft_memcmp.c ft_atoi.c \
-		  ft_calloc.c ft_strdup.c ft_substr.c ft_strjoin.c ft_strtrim.c ft_split.c \
-		  ft_itoa.c ft_strmapi.c ft_putchar_fd.c ft_putstr_fd.c ft_putendl_fd.c \
-		  ft_putnbr_fd.c ft_striteri.c
+SRC = src/ft_toupper.c src/ft_tolower.c src/ft_isascii.c src/ft_isprint.c src/ft_isdigit.c \
+	  src/ft_isalpha.c src/ft_isalnum.c src/ft_strncmp.c src/ft_strlen.c src/ft_strlcpy.c \
+	  src/ft_memcpy.c src/ft_strchr.c src/ft_strrchr.c src/ft_strlcat.c src/ft_strnstr.c \
+	  src/ft_memset.c src/ft_bzero.c src/ft_memchr.c src/ft_memmove.c src/ft_memcmp.c src/ft_atoi.c \
+	  src/ft_calloc.c src/ft_strdup.c src/ft_substr.c src/ft_strjoin.c src/ft_strtrim.c src/ft_split.c \
+	  src/ft_itoa.c src/ft_strmapi.c src/ft_putchar_fd.c src/ft_putstr_fd.c src/ft_putendl_fd.c \
+	  src/ft_putnbr_fd.c src/ft_striteri.c
 
-BSRCS = ft_lstnew.c ft_lstadd_front.c ft_lstsize.c ft_lstlast.c ft_lstadd_back.c ft_lstdelone.c \
-		ft_lstclear.c ft_lstiter.c ft_lstmap.c
+BSRC = src/ft_lstnew.c src/ft_lstadd_front.c src/ft_lstsize.c src/ft_lstlast.c src/ft_lstadd_back.c src/ft_lstdelone.c \
+	   src/ft_lstclear.c src/ft_lstiter.c src/ft_lstmap.c
 
-OBJECTS = $(SOURCES:.c=.o)
-BOBJS = $(BSRCS:.c=.o)
+OBJ = $(patsubst src%, obj%, $(SRC:.c=.o))
+BOBJ = $(patsubst src%, obj%, $(BSRC:.c=.o))
 
 ifdef BONUS_FLAG
-	OBJ_SWITCH = $(OBJECTS) $(BOBJS)
+	OBJ_SWITCH = $(OBJ) $(BOBJ)
 else
-	OBJ_SWITCH = $(OBJECTS)
+	OBJ_SWITCH = $(OBJ)
 endif
 
-all: $(NAME)
+all: obj $(NAME)
 
-%.o: %.c
-	$(CC) $(CFLAGS) $< -o $@
+obj/%.o : src/%.c
+	$(CC) $(CFLAGS) $(INC) $< -o $@
 
 $(NAME): $(OBJ_SWITCH)
 	ar -cr $@ $^
 
+obj:
+	@mkdir -p obj
+
 clean:
-	rm -f $(OBJECTS) $(BOBJS)
+	rm -rf obj
 
 bonus:
-	$(MAKE) BONUS_FLAG=1 $(NAME)
+	$(MAKE) BONUS_FLAG=1 all
 
 fclean: clean
 	rm -f $(NAME)

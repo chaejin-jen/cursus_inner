@@ -1,8 +1,20 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   keycodes.h                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: chaejkim <chaejkim@student.42seoul.kr>     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/03/15 01:49:11 by chaejkim          #+#    #+#             */
+/*   Updated: 2022/03/15 01:49:12 by chaejkim         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef KEYCODES_H
 # define KEYCODES_H
 
 //# define X_EVENT_KEY_PRESS		2
-# define X_EVENT_KEY_EXIT	17 //Exit program key code
+# define X_EVENT_DESTROY_NOTIFY	17 //Exit program key code
 # define KEY_ESC			53
 
 # define KEY_LEFT 123

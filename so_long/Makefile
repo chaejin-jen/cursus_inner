@@ -8,13 +8,20 @@ LFT = lib/libft/libft.a
 GNL = lib/gnl/libgnl.a
 
 INC = -Iinclude -Ilib/mlx -Ilib/libft -Ilib/gnl
+#INC = -Iinclude -Ilib/libft -Ilib/gnl
+#LIB = -Llib/libft -lft -Llib/gnl -lgnl -lmlx -framework OpenGL -framework AppKit
 LIB = -Llib/libft -lft -Llib/gnl -lgnl -Llib/mlx -lmlx -framework OpenGL -framework AppKit
 
-SRC = src/so_long.c src/init.c src/draw.c src/key_event.c src/map.c 
+SRC = src/main.c src/error.c src/event_exit.c src/utils.c\
+	  src/map_parse.c src/map_init.c src/map_set.c src/map_valid.c \
+	  src/game_init.c src/mmap_imgs.c src/render_map.c \
+	  src/keypress.c src/set_player.c src/replay.c \
+	  src/update.c src/move_event.c
+
 OBJ = $(patsubst src%, obj%, $(SRC:.c=.o))
 
 obj/%.o : src/%.c
-	$(CC) $(INC) -o $@ -c $<
+	@ $(CC) $(INC) -o $@ -c $<
 #	$(CC) $(FLAGS) $(INC) -o $@ -c $<
 
 all: $(LFT) $(GNL) $(MLX) obj $(NAME)
@@ -23,11 +30,12 @@ all: $(LFT) $(GNL) $(MLX) obj $(NAME)
 #	@$(MAKE) -s -C mlx
 
 $(NAME) : $(OBJ)
-	$(CC) -o $@ $^ $(LIB)
+	@$(CC) -g3 -fsanitize=address -o $@ $^ $(LIB)
+#	@$(CC) -o $@ $^ $(LIB)
 #	$(CC) $(FLAGS) -o $@ $^ $(LIB)
 
 $(LFT):
-	@$(MAKE) -s -C lib/libft
+	@$(MAKE) -s -C lib/libft bonus
 
 $(GNL):
 	@$(MAKE) -s -C lib/gnl
@@ -35,9 +43,7 @@ $(GNL):
 #$(MLX):
 #	@$(MAKE) -s -C lib/mlx
 
-#	@$(MAKE) -s -C lib/mlx $@
-
-clean: 
+clean:
 	@$(MAKE) -s -C lib/libft $@
 	@$(MAKE) -s -C lib/gnl $@
 	rm -rf obj
@@ -50,5 +56,17 @@ fclean: clean
 obj:
 	@mkdir -p obj
 
+re: fclean all
 
+norm:
+	@norminette src/ include/
 
+libftnorm:
+	@norminette lib/libft/*/**.c
+	@norminette lib/libft/*.h
+
+gnlnorm:
+	@norminette lib/gnl/*/**.c
+	@norminette lib/gnl/*.h
+
+.PHONY: all clean fclean re 

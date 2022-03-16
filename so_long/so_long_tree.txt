@@ -1,0 +1,67 @@
+so_long
+├── Makefile
+├── assets
+│   ├── character
+│   │   ├── back
+│   │   │   ├── back_3.xpm
+│   │   │   ├── back_4.xpm
+│   │   │   ├── back_5.xpm
+│   │   ├── front
+│   │   │   ├── front_3.xpm
+│   │   │   ├── front_4.xpm
+│   │   │   ├── front_5.xpm
+│   │   ├── left
+│   │   │   ├── left_3.xpm
+│   │   │   ├── left_4.xpm
+│   │   │   ├── left_5.xpm
+│   │   └── right
+│   │       ├── right_3.xpm
+│   │       ├── right_4.xpm
+│   │       ├── right_5.xpm
+│   ├── collect
+│   │   └── gem_small.xpm
+│   ├── door
+│   │   ├── door_closed.xpm
+│   │   └── door_opened.xpm
+│   ├── success.xpm
+│   └── tiles
+│       ├── grass_0.xpm
+│       └── water_0.xpm
+├── include
+│   ├── keycodes.h
+│   ├── so_long.h
+│   └── so_long_int.h
+├── lib
+│   ├── gnl
+│   │   ├── Makefile
+│   │   ├── get_next_line.h
+│   │   └── src
+│   ├── libft
+│   │   ├── Makefile
+│   │   ├── libft.h
+│   │   └── src
+│   └── mlx
+├── maps
+│   ├── my00.ber
+│   ├── my01.ber
+│   ├── my02.ber
+│   ├── simple00.ber
+│   └── simple01.ber
+└── src
+    ├── error.c
+    ├── event_exit.c
+    ├── game_init.c
+    ├── keypress.c
+    ├── main.c
+    ├── map_init.c
+    ├── map_parse.c
+    ├── map_set.c
+    ├── map_valid.c
+    ├── mmap_imgs.c
+    ├── move_event.c
+    ├── render_map.c
+    ├── replay.c
+    ├── set_player.c
+    ├── update.c
+    └── utils.c
+
