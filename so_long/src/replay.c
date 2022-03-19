@@ -6,7 +6,7 @@
 /*   By: chaejkim <chaejkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/15 01:50:34 by chaejkim          #+#    #+#             */
-/*   Updated: 2022/03/15 16:10:04 by chaejkim         ###   ########.fr       */
+/*   Updated: 2022/03/19 15:35:37 by chaejkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ void	replay(t_game *game, t_map *map, t_player *player)
 	player->pos_next.y = player->pos_init.y;
 	map->obj_c = map->obj_c_init;
 	game->play = 1;
+	game->move_count = 0;
 	collect_init(game->map);
 	render_map(game);
 }

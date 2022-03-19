@@ -6,7 +6,7 @@
 /*   By: chaejkim <chaejkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/15 01:50:06 by chaejkim          #+#    #+#             */
-/*   Updated: 2022/03/15 01:50:07 by chaejkim         ###   ########.fr       */
+/*   Updated: 2022/03/19 15:35:13 by chaejkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,4 +26,5 @@ void	game_init(t_game *game)
 	mmap_imgs(game);
 	render_map(game);
 	game->play = 1;
+	game->move_count = 0;
 }

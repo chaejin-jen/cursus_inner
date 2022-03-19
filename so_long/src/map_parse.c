@@ -6,7 +6,7 @@
 /*   By: chaejkim <chaejkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/15 01:50:15 by chaejkim          #+#    #+#             */
-/*   Updated: 2022/03/15 16:57:26 by chaejkim         ###   ########.fr       */
+/*   Updated: 2022/03/19 16:13:00 by chaejkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ static void	buf_to_map(t_map *map, char *buf, int buf_len)
 		map->rows++;
 		map_valid(map, buf, cols, buf_len);
 		map_lst_add(map, buf);
-		if (cols == -1 || buf[cols] == '\0')
+		if (cols == -1 || buf[cols + 1] == '\0')
 		{
 			if (buf_len != BUFFER_SIZE)
 				valid_obj_num(map);

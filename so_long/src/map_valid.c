@@ -6,7 +6,7 @@
 /*   By: chaejkim <chaejkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/15 01:50:18 by chaejkim          #+#    #+#             */
-/*   Updated: 2022/03/15 16:57:00 by chaejkim         ###   ########.fr       */
+/*   Updated: 2022/03/19 16:23:37 by chaejkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ static void	valid_object(t_map *map, char *buf)
 	while (++col < map->cols)
 	{
 		if (*buf != '0' && *buf != '1' && *buf != 'C'
-			&& *buf != 'E' && *buf != 'P')
+			&& *buf != 'E' && *buf != 'P' && *buf != '\n')
 			map_error(map, "unvalid charcters\
 					\nnote: '0(empty)', '1(wall)',\
 					\n\t'C(collection)', 'E(exit)', 'P(player)'\n");

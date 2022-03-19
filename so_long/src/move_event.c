@@ -6,7 +6,7 @@
 /*   By: chaejkim <chaejkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/15 01:50:24 by chaejkim          #+#    #+#             */
-/*   Updated: 2022/03/15 15:54:17 by chaejkim         ###   ########.fr       */
+/*   Updated: 2022/03/19 15:39:18 by chaejkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ void	move_event(t_game *game, t_map *map, t_vector pos)
 {
 	char	obj;
 
+	printf("move : %d\n", ++game->move_count);
 	obj = map->data[pos.y][pos.x];
 	if (obj == 'C' && map->obj_c)
 	{
