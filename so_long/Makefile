@@ -69,4 +69,15 @@ gnlnorm:
 	@norminette lib/gnl/*/**.c
 	@norminette lib/gnl/*.h
 
-.PHONY: all clean fclean re 
+play :
+	./$(NAME) maps/err_no_collect.ber
+	./$(NAME) maps/err_no_exit.ber
+	./$(NAME) maps/err_no_player.ber
+	./$(NAME) maps/err_players.ber
+	./$(NAME) maps/err_not_rectangle_map.ber
+	./$(NAME) maps/err_not_rectangle_wall.ber
+	./$(NAME) maps/simple00.ber
+	./$(NAME) maps/simple01.ber
+	./$(NAME) maps/my00.ber
+
+.PHONY: all clean fclean re obj norm libftnorm gnlnorm play

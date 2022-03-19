@@ -6,7 +6,7 @@
 /*   By: chaejkim <chaejkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/15 01:49:33 by chaejkim          #+#    #+#             */
-/*   Updated: 2022/03/15 16:57:20 by chaejkim         ###   ########.fr       */
+/*   Updated: 2022/03/19 15:34:47 by chaejkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,7 @@ typedef struct s_game
 	t_player_img	player_img;
 	t_map			*map;
 	int				play;
+	int				move_count;
 }				t_game;
 
 /* ========== common uses ========== */
