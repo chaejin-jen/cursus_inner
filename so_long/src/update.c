@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   update.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chaejkim <chaejkim@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: chaejkim <chaejkim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/15 01:51:40 by chaejkim          #+#    #+#             */
-/*   Updated: 2022/03/15 16:12:47 by chaejkim         ###   ########.fr       */
+/*   Updated: 2022/03/27 21:24:59 by chaejkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,13 +52,13 @@ static void	render(t_game *game, t_player *player)
 	t_vector	pos;
 	char		**map_data;
 
-	if (player->direction)
+	if (player->direction != -1)
 	{
 		pos = calc_vector(player->pos_next, player->pos);
 		if (pos.x | pos.y)
 			move_event(game, game->map, player->pos_next);
 		player_walk(game, game->map, player);
-		player->direction = 0;
+		player->direction = -1;
 	}
 }
 

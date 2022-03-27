@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   move_event.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chaejkim <chaejkim@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: chaejkim <chaejkim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/15 01:50:24 by chaejkim          #+#    #+#             */
-/*   Updated: 2022/03/19 15:39:18 by chaejkim         ###   ########.fr       */
+/*   Updated: 2022/03/27 21:30:12 by chaejkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ static void	door_open(t_game *game)
 		mlx_put_image_to_window(game->mlx, game->win,
 			game->tile_img.grass, pos->x * TILE_SIZE, pos->y * TILE_SIZE);
 		mlx_put_image_to_window(game->mlx, game->win, game->obj_img.door_o,
-			pos->x * TILE_SIZE - TILE_SIZE / 8,
+			pos->x * TILE_SIZE,
 			pos->y * TILE_SIZE - TILE_SIZE / 8);
 		lst = lst->next;
 	}
@@ -41,7 +41,7 @@ static void	success(t_game *game, t_map *map, t_player *player)
 		player->pos_next.y * TILE_SIZE + TILE_SIZE / 8);
 	mlx_put_image_to_window(game->mlx, game->win, game->tile_img.success, 0, 0);
 	game->play = 0;
-	player->direction = 0;
+	player->direction = -1;
 }
 
 void	move_event(t_game *game, t_map *map, t_vector pos)

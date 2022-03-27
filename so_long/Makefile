@@ -7,10 +7,10 @@ MLX = lib/mlx/libmlx.a
 LFT = lib/libft/libft.a
 GNL = lib/gnl/libgnl.a
 
-INC = -Iinclude -Ilib/mlx -Ilib/libft -Ilib/gnl
-#INC = -Iinclude -Ilib/libft -Ilib/gnl
-#LIB = -Llib/libft -lft -Llib/gnl -lgnl -lmlx -framework OpenGL -framework AppKit
-LIB = -Llib/libft -lft -Llib/gnl -lgnl -Llib/mlx -lmlx -framework OpenGL -framework AppKit
+# INC = -Iinclude -Ilib/mlx -Ilib/libft -Ilib/gnl
+INC = -Iinclude -Ilib/libft -Ilib/gnl
+LIB = -Llib/libft -lft -Llib/gnl -lgnl -lmlx -framework OpenGL -framework AppKit
+# LIB = -Llib/libft -lft -Llib/gnl -lgnl -Llib/mlx -lmlx -framework OpenGL -framework AppKit
 
 SRC = src/main.c src/error.c src/event_exit.c src/utils.c\
 	  src/map_parse.c src/map_init.c src/map_set.c src/map_valid.c \
