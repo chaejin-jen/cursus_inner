@@ -6,7 +6,7 @@
 /*   By: chaejkim <chaejkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/15 01:50:21 by chaejkim          #+#    #+#             */
-/*   Updated: 2022/03/15 01:50:22 by chaejkim         ###   ########.fr       */
+/*   Updated: 2022/03/30 16:53:08 by chaejkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,9 +27,6 @@ static void	mmap_tile_imgs(t_game *game)
 
 static void	mmap_obj_imgs(t_game *game)
 {
-	game->obj_img.coin = mlx_xpm_file_to_image(game->mlx,
-			"assets/collect/coin_small",
-			&game->img_size.x, &game->img_size.y);
 	game->obj_img.gem = mlx_xpm_file_to_image(game->mlx,
 			"assets/collect/gem_small.xpm",
 			&game->img_size.x, &game->img_size.y);

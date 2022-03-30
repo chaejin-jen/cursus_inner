@@ -6,7 +6,7 @@
 /*   By: chaejkim <chaejkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/15 01:50:04 by chaejkim          #+#    #+#             */
-/*   Updated: 2022/03/19 00:03:07 by chaejkim         ###   ########.fr       */
+/*   Updated: 2022/03/30 17:02:08 by chaejkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,24 +15,6 @@
 void	read_error(char *message)
 {
 	write(1, "Error\n", 6);
-	write(1, "\033[0;31m", 8);
-	write(1, message, ft_strlen(message));
-	write(1, "\033[0m", 5);
-	exit(0);
-}
-
-void	null_error(t_game *game, char *message)
-{
-	write(1, "Error\n", 6);
-	write(1, "\033[0;31m", 8);
-	write(1, message, ft_strlen(message));
-	write(1, "\033[0m", 5);
-	exit(0);
-}
-
-void	molloc_error(t_game *game, int error_code, char *message)
-{
-	write(1, "Error\n", 7);
 	write(1, "\033[0;31m", 8);
 	write(1, message, ft_strlen(message));
 	write(1, "\033[0m", 5);
