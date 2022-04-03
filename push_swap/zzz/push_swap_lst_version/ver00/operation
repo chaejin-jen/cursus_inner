@@ -1,0 +1,29 @@
+/* pa */
+push(&a, &b, TRUE);
+print_two_lst(a.data, b.data);
+
+/* pb */
+push(&b, &a, FALSE);
+print_two_lst(a.data, b.data);
+
+/* sa */
+swap(&a, TRUE, FALSE);
+print_two_lst(a.data, b.data);
+/* sb */
+swap(&b, FALSE, FALSE);
+/* ss */
+swap_all(&a, &b);
+
+/* ra */
+rotate(&a, TRUE, FALSE, FALSE);
+/* rb */
+rotate(&b, FALSE, FALSE, FALSE);
+/* rr */
+rotate_all(&a, &b, TRUE);
+
+/* rra */
+rotate(&a, TRUE, TRUE, FALSE);
+/* rrb */
+rotate(&b, FALSE, TRUE, FALSE);
+/* rrr */
+rotate_all(&a, &b, TRUE);
