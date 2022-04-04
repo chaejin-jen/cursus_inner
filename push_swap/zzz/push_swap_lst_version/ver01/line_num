@@ -1,0 +1,19 @@
+	long	n[2];
+	t_sort	merge_loc;
+
+	n[0] = (long)(a->info.tail->content);
+	if (op.merge_dst == A)
+		n[1] = (long)(b->info.head->content);
+	else
+		n[1] = (long)(a->info.head->content);
+	if (op.order == ASCENDING)
+	{
+		if (n[0] > n[1])
+			merge_loc = MID;
+		else
+			merge_loc = BOT;
+	}
+	if (n[0] < n[1])
+		merge_loc = MID;
+	else
+		merge_loc = BOT;
