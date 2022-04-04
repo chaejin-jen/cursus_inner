@@ -6,7 +6,7 @@
 /*   By: chaejkim <chaejkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/15 01:49:33 by chaejkim          #+#    #+#             */
-/*   Updated: 2022/03/19 15:34:47 by chaejkim         ###   ########.fr       */
+/*   Updated: 2022/03/30 17:14:16 by chaejkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 # include <stdio.h>
 # include <stdlib.h>
 # include <string.h>
-//# include <mlx.h>
+/* # include <mlx.h> */
 # include "mlx.h"
 # include "so_long_int.h"
 # include "libft.h"

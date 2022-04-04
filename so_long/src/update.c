@@ -6,7 +6,7 @@
 /*   By: chaejkim <chaejkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/15 01:51:40 by chaejkim          #+#    #+#             */
-/*   Updated: 2022/03/15 16:12:47 by chaejkim         ###   ########.fr       */
+/*   Updated: 2022/03/30 17:03:23 by chaejkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ static void	set_img_i(t_player *player)
 		player->img_i--;
 }
 
-static void	player_walk(t_game *game, t_map *map, t_player *player)
+static void	player_walk(t_game *game, t_player *player)
 {
 	t_vector	pos;
 
@@ -50,15 +50,14 @@ static void	player_walk(t_game *game, t_map *map, t_player *player)
 static void	render(t_game *game, t_player *player)
 {
 	t_vector	pos;
-	char		**map_data;
 
-	if (player->direction)
+	if (player->direction != -1)
 	{
 		pos = calc_vector(player->pos_next, player->pos);
 		if (pos.x | pos.y)
 			move_event(game, game->map, player->pos_next);
-		player_walk(game, game->map, player);
-		player->direction = 0;
+		player_walk(game, player);
+		player->direction = -1;
 	}
 }
 

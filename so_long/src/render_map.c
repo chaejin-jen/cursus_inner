@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render_map.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chaejkim <chaejkim@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: chaejkim <chaejkim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/15 01:50:31 by chaejkim          #+#    #+#             */
-/*   Updated: 2022/03/15 14:41:30 by chaejkim         ###   ########.fr       */
+/*   Updated: 2022/03/27 21:29:15 by chaejkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ static void	put_obj(t_game *game, t_player *p, char c, t_vector pos)
 	{
 		mlx_put_image_to_window(game->mlx, game->win,
 			game->obj_img.door_c,
-			pos.x - TILE_SIZE / 8, pos.y - TILE_SIZE / 8);
+			pos.x, pos.y - TILE_SIZE / 8);
 	}
 	else if (c == 'P')
 	{

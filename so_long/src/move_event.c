@@ -6,7 +6,7 @@
 /*   By: chaejkim <chaejkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/15 01:50:24 by chaejkim          #+#    #+#             */
-/*   Updated: 2022/03/19 15:39:18 by chaejkim         ###   ########.fr       */
+/*   Updated: 2022/03/30 17:04:01 by chaejkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,13 +25,13 @@ static void	door_open(t_game *game)
 		mlx_put_image_to_window(game->mlx, game->win,
 			game->tile_img.grass, pos->x * TILE_SIZE, pos->y * TILE_SIZE);
 		mlx_put_image_to_window(game->mlx, game->win, game->obj_img.door_o,
-			pos->x * TILE_SIZE - TILE_SIZE / 8,
+			pos->x * TILE_SIZE,
 			pos->y * TILE_SIZE - TILE_SIZE / 8);
 		lst = lst->next;
 	}
 }
 
-static void	success(t_game *game, t_map *map, t_player *player)
+static void	success(t_game *game, t_player *player)
 {
 	mlx_put_image_to_window(game->mlx, game->win, game->tile_img.grass,
 		player->pos.x * TILE_SIZE, player->pos.y * TILE_SIZE);
@@ -41,7 +41,7 @@ static void	success(t_game *game, t_map *map, t_player *player)
 		player->pos_next.y * TILE_SIZE + TILE_SIZE / 8);
 	mlx_put_image_to_window(game->mlx, game->win, game->tile_img.success, 0, 0);
 	game->play = 0;
-	player->direction = 0;
+	player->direction = -1;
 }
 
 void	move_event(t_game *game, t_map *map, t_vector pos)
@@ -60,5 +60,5 @@ void	move_event(t_game *game, t_map *map, t_vector pos)
 			door_open(game);
 	}
 	else if (obj == 'E')
-		success(game, map, &map->player);
+		success(game, &map->player);
 }

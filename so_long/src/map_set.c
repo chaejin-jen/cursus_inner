@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_set.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chaejkim <chaejkim@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: chaejkim <chaejkim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/15 01:50:16 by chaejkim          #+#    #+#             */
-/*   Updated: 2022/03/15 15:51:51 by chaejkim         ###   ########.fr       */
+/*   Updated: 2022/03/27 21:24:38 by chaejkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ static void	player_init(t_player *player, int row, int col)
 	player->pos_next.y = row;
 	player->img_i = 1;
 	player->img_pre_i = 0;
-	player->direction = 0;
+	player->direction = -1;
 }
 
 void	map_obj_set(t_map *map, char c, int col)

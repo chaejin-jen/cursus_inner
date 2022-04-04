@@ -6,7 +6,7 @@
 /*   By: chaejkim <chaejkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/15 01:50:15 by chaejkim          #+#    #+#             */
-/*   Updated: 2022/03/19 16:13:00 by chaejkim         ###   ########.fr       */
+/*   Updated: 2022/03/30 17:02:27 by chaejkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,6 @@ static int	read_file(int fd, char *read_buf)
 static void	buf_to_map(t_map *map, char *buf, int buf_len)
 {
 	int		cols;
-	t_list	*new_lst;
 
 	if (map->cols == 0)
 	{
