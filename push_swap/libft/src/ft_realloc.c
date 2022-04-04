@@ -6,14 +6,14 @@
 /*   By: chaejkim <chaejkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/28 02:55:10 by chaejkim          #+#    #+#             */
-/*   Updated: 2022/03/28 02:55:12 by chaejkim         ###   ########.fr       */
+/*   Updated: 2022/04/05 05:04:42 by chaejkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <libft.h>
 #include <stdlib.h>
 
-void		*ft_realloc(void *ptr, size_t size)
+void	*ft_realloc(void *ptr, size_t size)
 {
 	void	*new_ptr;
 

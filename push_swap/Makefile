@@ -1,7 +1,7 @@
 NAME = push_swap
 
 CC = gcc
-CFLAGS = -Wall -Wextra -Werror -c
+CFLAGS = -Wall -Wextra -Werror
 SAN_FLAG = -g3 -fsanitize=address
 
 INC = -Iinclude -Ilibft
@@ -14,9 +14,9 @@ SRC = $(addprefix $(SRC_DIR), main.c utils.c \
 	  stack.c make_stack.c operate.c print_error.c \
 	  sort.c sort_op.c sort_complex.c \
 	  push_sort.c rotate_sort.c swap_sort.c \
-	  merge.c merge_util.c test_print.c \
+	  merge.c merge_util.c \
 	  )
-#push.c
+
 OBJ = $(patsubst src%, obj%, $(SRC:.c=.o))
 
 all : $(LFT) obj $(NAME)
@@ -25,7 +25,7 @@ obj/%.o : src/%.c
 	@ $(CC) $(CFLAGS) $(INC) -o $@ -c $<
 
 $(NAME) : $(OBJ)
-	@$(CC) $(SAN_FLAG) -o $@ $^ $(LIB)
+	@$(CC) $(CFLAGS) $(LIB) $^ -o $@
 
 clean:
 	@$(MAKE) -s -C libft $@
