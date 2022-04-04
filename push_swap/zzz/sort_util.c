@@ -1,32 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   rotate_util.c                                      :+:      :+:    :+:   */
+/*   sort_util.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: chaejkim <chaejkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/03/28 18:05:12 by chaejkim          #+#    #+#             */
-/*   Updated: 2022/04/02 19:11:25 by chaejkim         ###   ########.fr       */
+/*   Created: 2022/04/04 21:17:57 by chaejkim          #+#    #+#             */
+/*   Updated: 2022/04/05 00:48:33 by chaejkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void	rotate_all_size(t_stack *src1, t_stack *src2, int size)
+long	max_in_three(long n[3])
 {
-	while (size--)
-		rotate_all(src1, src2, ALL);
+	if (n[0] > n[1] && n[0] > n[2])
+		return (n[0]);
+	else if (n[1] > n[0] && n[1] > n[2])
+		return (n[1]);
+	else if (n[2] > n[0] && n[2] > n[1])
+		return (n[2]);
 }
 
-void	rotate_next(t_stack *src1, t_stack *src2, t_flag flag)
+long	min_in_three(long n[3])
 {
-	swap(src1, flag);
-	rotate_all(src1, src2, ALL_REV);
-}
-
-void	rotate_next_next(t_stack *src1, t_stack *src2, t_flag flag)
-{
-	push(src2, src1, !flag);
-	swap(src2, !flag);
-	rotate_all(src1, src2, ALL_REV);
+	if (n[0] < n[1] && n[0] < n[2])
+		return (n[0]);
+	else if (n[1] < n[0] && n[1] < n[2])
+		return (n[1]);
+	else if (n[2] < n[0] && n[2] < n[1])
+		return (n[2]);
 }

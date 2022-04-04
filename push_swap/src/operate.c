@@ -6,7 +6,7 @@
 /*   By: chaejkim <chaejkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/18 15:51:05 by chaejkim          #+#    #+#             */
-/*   Updated: 2022/04/03 17:51:03 by chaejkim         ###   ########.fr       */
+/*   Updated: 2022/04/05 04:10:54 by chaejkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,12 +45,17 @@ void	swap(t_stack *src, t_flag flag)
 
 	if (src->info.size < 2)
 		return ;
-	next_lst = src->data->next->next;
+	next_lst = 0;
+	if (src->info.size > 2)
+	{
+		next_lst = src->data->next->next;
+		next_lst->prev = src->data;
+	}
 	ft_lstadd_front(&src->data, src->data->next);
 	src->data->next->next = next_lst;
+	src->info.head = src->data;
 	if (src->info.size == 2)
 		src->info.tail = src->data->next;
-	src->info.head = src->data;
 	if (flag == ALL)
 		return ;
 	if (flag == A)
@@ -61,8 +66,16 @@ void	swap(t_stack *src, t_flag flag)
 
 void	swap_all(t_stack *src1, t_stack *src2)
 {
-	if (src1->info.size < 2 || src2->info.size < 2)
+	if (src1->info.size < 2)
+	{
+		swap(src2, B);
 		return ;
+	}
+	if (src2->info.size < 2)
+	{
+		swap(src1, A);
+		return ;
+	}
 	swap(src1, ALL);
 	swap(src2, ALL);
 	ft_putstr_fd("ss\n", 1);

@@ -1,40 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   sort.c                                             :+:      :+:    :+:   */
+/*   sort_simple.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: chaejkim <chaejkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/03/24 05:53:41 by chaejkim          #+#    #+#             */
-/*   Updated: 2022/04/05 04:25:20 by chaejkim         ###   ########.fr       */
+/*   Created: 2022/04/05 03:37:53 by chaejkim          #+#    #+#             */
+/*   Updated: 2022/04/05 03:43:17 by chaejkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
-
-static int	is_sorted(t_stack *a)
-{
-	t_list	*data;
-
-	data = a->data;
-	while (data->next)
-	{
-		if ((long)(data->content) > (long)(data->next->content))
-			return (0);
-		data = data->next;
-	}
-	return (1);
-}
 
 static void	swap_sort_three(t_stack *a)
 {
 	long	n[3];
 
 	num_init(n, a->info.head);
-	if (n[0] < n[1] && n[0] < n[2] && n[1] > n[2])
+	if (n[0] < n[1] && n[0] < n[2])
 	{
-		rotate(a, A_REV);
-		swap(a, A);
+		if (n[1] > n[2])
+		{
+			rotate(a, A_REV);
+			swap(a, A);
+		}
 	}
 	else if (n[1] < n[0] && n[1] < n[2])
 	{
@@ -45,7 +34,7 @@ static void	swap_sort_three(t_stack *a)
 		}
 		swap(a, A);
 	}
-	else if (n[2] < n[0] && n[2] < n[1])
+	else
 	{
 		if (n[0] > n[1])
 			swap(a, A);
@@ -53,12 +42,22 @@ static void	swap_sort_three(t_stack *a)
 	}
 }
 
-static void	sort_four_five(t_stack *a, int size)
+void	sort_simple(t_stack *a, int size)
 {
 	int			len[3];
 	t_stack		b;
 	t_sort_op	op;
 
+	if (size <= 2)
+	{
+		swap_sort(a, size, ASC);
+		return ;
+	}
+	else if (size == 3)
+	{
+		swap_sort_three(a);
+		return ;
+	}
 	stack_init(&b);
 	sort_op_init(&op);
 	len[TOP] = size / 3;
@@ -71,34 +70,5 @@ static void	sort_four_five(t_stack *a, int size)
 	if (size == 5)
 		swap_sort_three(a);
 	merge(a, &b, len, &op);
-	free(b.data);
-}
-
-void	rotate_all_size(t_stack *src1, t_stack *src2, int size)
-{
-	while (size--)
-		rotate_all(src1, src2, ALL);
-}
-
-void	sort(t_stack *a, int size)
-{
-	t_stack		b;
-	t_sort_op	op;
-
-	if (is_sorted(a))
-		return ;
-	if (size <= 5)
-	{
-		if (size <= 2)
-			swap_sort(a, size, ASC);
-		else if (size == 3)
-			swap_sort_three(a);
-		else
-			sort_four_five(a, size);
-		return ;
-	}
-	stack_init(&b);
-	sort_op_init(&op);
-	sort_complex(a, &b, size, op);
 	free(b.data);
 }

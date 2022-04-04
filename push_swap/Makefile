@@ -10,12 +10,11 @@ LIB = -Llibft -lft
 LFT = libft/libft.a
 SRC_DIR = src/
 
-SRC = $(addprefix $(SRC_DIR), main.c utils.c\
-	  make_stack.c stack.c sort_set.c \
-	  print_error.c test_print.c operate.c \
-	  push_util.c rotate_util.c swap_util.c \
-	  sort.c push_sort.c  rotate_sort.c swap_sort.c \
-	  merge.c merge_util.c \
+SRC = $(addprefix $(SRC_DIR), main.c utils.c \
+	  stack.c make_stack.c operate.c print_error.c \
+	  sort.c sort_op.c sort_complex.c \
+	  push_sort.c rotate_sort.c swap_sort.c \
+	  merge.c merge_util.c test_print.c \
 	  )
 #push.c
 OBJ = $(patsubst src%, obj%, $(SRC:.c=.o))

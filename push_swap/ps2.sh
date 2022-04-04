@@ -1,6 +1,7 @@
-# 9, 10, 11, OK, 23, 25~32
+# 2-1, 3-2, 5-12, 100-700, 500-5500
+# KO : 5(1,3,1)
 CNT=1000
-LIMIT=5500
+LIMIT=700
 INDEX=0
 ITER=10000
 NUM_OVER=0
@@ -10,9 +11,7 @@ NUM=`./push_swap $ARG | wc -l`
 
 while [ $INDEX -lt $ITER ]
 do
-#echo $ARG
 echo "$INDEX    :   $NUM `./push_swap $ARG | ./checker_Mac $ARG`"
-# | grep KO
 if [ $NUM -ge $LIMIT ]; then
 NUM_OVER=`expr $NUM_OVER + 1`
 fi

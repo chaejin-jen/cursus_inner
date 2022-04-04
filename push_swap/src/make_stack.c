@@ -6,7 +6,7 @@
 /*   By: chaejkim <chaejkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/18 17:10:08 by chaejkim          #+#    #+#             */
-/*   Updated: 2022/04/03 18:32:53 by chaejkim         ###   ########.fr       */
+/*   Updated: 2022/04/03 19:59:26 by chaejkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ static void	lstadd_new(t_list **lst, void *n)
 static void	put_argv_to_stack(t_list **data, char *arg, int *size)
 {
 	char			**array;
-	int				n;
+	long			n;
 	unsigned int	j;
 
 	j = 0;
