@@ -3,21 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chaejkim <chaejkim@student.42.fr>          +#+  +:+       +#+        */
+/*   By: chaejkim <chaejkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/28 04:57:34 by chaejkim          #+#    #+#             */
-/*   Updated: 2022/04/28 14:35:53 by chaejkim         ###   ########.fr       */
+/*   Updated: 2022/04/03 18:27:28 by chaejkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
-
-void	atoi_init(int *sign, int *tmp, int *sum)
-{
-	*sign = 1;
-	*tmp = 0;
-	*sum = 0;
-}
 
 void	free_pptr(void **pptr)
 {

@@ -1,25 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_strncmp.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chaejkim <chaejkim@student.42.fr>          +#+  +:+       +#+        */
+/*   By: chaejkim <chaejkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/03/15 18:35:14 by chaejkim          #+#    #+#             */
-/*   Updated: 2022/04/28 14:15:52 by chaejkim         ###   ########.fr       */
+/*   Created: 2021/11/17 17:35:54 by chaejkim          #+#    #+#             */
+/*   Updated: 2022/01/07 11:45:10 by chaejkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push_swap.h"
+#include "libft.h"
 
-int	main(int argc, char *argv[])
+int	ft_strncmp(const char *s1, const char *s2, size_t n)
 {
-	t_stack		stack;
+	unsigned char	c1;
+	unsigned char	c2;
 
-	if (argc < 2)
-		return (0);
-	stack = make_stack(argc, argv);
-	sort(&stack, stack.info.size);
-	ft_lstclear(&stack.data, ft_del);
+	while (n-- > 0)
+	{
+		c1 = *(unsigned char *)s1++;
+		c2 = *(unsigned char *)s2++;
+		if (c1 != c2)
+			return (c1 - c2);
+		if (!c1)
+			return (0);
+	}
 	return (0);
 }

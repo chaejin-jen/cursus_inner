@@ -46,8 +46,8 @@ re: fclean all
 norm:
 	@norminette src/ include/
 
-normlibft:
+libftnorm:
 	@norminette libft/*/**.c
 	@norminette libft/*.h
 
-.PHONY: all clean fclean re norm normlibft
+.PHONY: all clean fclean re

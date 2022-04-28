@@ -1,21 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   print_error.c                                      :+:      :+:    :+:   */
+/*   ft_calloc.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chaejkim <chaejkim@student.42.fr>          +#+  +:+       +#+        */
+/*   By: chaejkim <chaejkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/03/18 16:47:58 by chaejkim          #+#    #+#             */
-/*   Updated: 2022/04/28 14:15:47 by chaejkim         ###   ########.fr       */
+/*   Created: 2022/01/07 12:59:06 by chaejkim          #+#    #+#             */
+/*   Updated: 2022/01/09 15:42:19 by chaejkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push_swap.h"
+#include "libft.h"
 
-void	print_error(t_list *lst)
+void	*ft_calloc(size_t count, size_t size)
 {
-	if (lst != NULL)
-		ft_lstclear(&lst, ft_del);
-	ft_putstr_fd("Error\n", 2);
-	exit(1);
+	void	*ptr;
+
+	if (count == 0 || size == 0)
+	{
+		count = 1;
+		size = 1;
+	}
+	ptr = malloc(count * size);
+	if (!ptr)
+		return (NULL);
+	ft_bzero (ptr, count * size);
+	return (ptr);
 }
