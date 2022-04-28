@@ -1,21 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   print_error.c                                      :+:      :+:    :+:   */
+/*   ft_isprint.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chaejkim <chaejkim@student.42.fr>          +#+  +:+       +#+        */
+/*   By: chaejkim <chaejkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/03/18 16:47:58 by chaejkim          #+#    #+#             */
-/*   Updated: 2022/04/28 14:15:47 by chaejkim         ###   ########.fr       */
+/*   Created: 2021/11/17 15:47:58 by chaejkim          #+#    #+#             */
+/*   Updated: 2022/01/05 20:05:37 by chaejkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push_swap.h"
+#include "libft.h"
 
-void	print_error(t_list *lst)
+int	ft_isprint(int c)
 {
-	if (lst != NULL)
-		ft_lstclear(&lst, ft_del);
-	ft_putstr_fd("Error\n", 2);
-	exit(1);
+	if (c > 31 && c < 127)
+		return (1);
+	return (0);
 }

@@ -3,39 +3,39 @@
 /*                                                        :::      ::::::::   */
 /*   make_stack.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chaejkim <chaejkim@student.42.fr>          +#+  +:+       +#+        */
+/*   By: chaejkim <chaejkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/18 17:10:08 by chaejkim          #+#    #+#             */
-/*   Updated: 2022/04/28 14:41:55 by chaejkim         ###   ########.fr       */
+/*   Updated: 2022/04/03 19:59:26 by chaejkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 #include <limits.h>
 
-static int	ft_swap_atoi(const char *str, t_list *lst)
+static int	ft_swap_atoi(const char *str)
 {
 	int	sign;
 	int	tmp;
 	int	sum;
 
-	atoi_init(&sign, &tmp, &sum);
 	while ((*str >= '\t' && *str <= '\r') || *str == ' ')
 		str++;
+	sign = 1;
 	if (*str == '-' || *str == '+')
 	{
-		if (*(str + 1) == '\0')
-			print_error(lst);
 		if (*str++ == '-')
 			sign = -1;
 	}
-	while (*str)
+	sum = 0;
+	tmp = 0;
+	while (*str >= '0' && *str <= '9')
 	{
-		if (*str < '0' || *str > '9')
-			print_error(lst);
 		tmp = (sum * 10) + sign * (*str - '0');
-		if ((sum > 0 && tmp < 0) || (sum < 0 && tmp > 0))
-			print_error(lst);
+		if (sum > 0 && tmp < 0)
+			return (0);
+		if (sum < 0 && tmp > 0)
+			return (0);
 		sum = tmp;
 		str++;
 	}
@@ -46,6 +46,8 @@ static void	valid_content(t_list *lst, void *n)
 {
 	t_list	*cur_lst;
 
+	if (n == 0)
+		print_error(lst);
 	cur_lst = lst;
 	while (cur_lst)
 	{
@@ -59,7 +61,7 @@ static void	lstadd_new(t_list **lst, void *n)
 {
 	t_list	*new_lst;
 
-	if ((*lst)->content == (void *)2147483648)
+	if ((*lst)->content == 0)
 		(*lst)->content = n;
 	else
 	{
@@ -82,7 +84,7 @@ static void	put_argv_to_stack(t_list **data, char *arg, int *size)
 		j++;
 	while (j--)
 	{
-		n = ft_swap_atoi(array[j], *data);
+		n = ft_swap_atoi(array[j]);
 		valid_content(*data, (void *)n);
 		(*size)++;
 		lstadd_new(data, (void *)n);
@@ -96,7 +98,7 @@ t_stack	make_stack(int argc, char **argv)
 	int		size;
 
 	size = 0;
-	stack_init(&stack, NULL);
+	stack_init(&stack);
 	while (--argc)
 		put_argv_to_stack(&stack.data, argv[argc], &stack.info.size);
 	stack.info.head = stack.data;

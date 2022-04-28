@@ -1,21 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   print_error.c                                      :+:      :+:    :+:   */
+/*   ft_lstadd_front.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chaejkim <chaejkim@student.42.fr>          +#+  +:+       +#+        */
+/*   By: chaejkim <chaejkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/03/18 16:47:58 by chaejkim          #+#    #+#             */
-/*   Updated: 2022/04/28 14:15:47 by chaejkim         ###   ########.fr       */
+/*   Created: 2022/01/08 20:19:32 by chaejkim          #+#    #+#             */
+/*   Updated: 2022/04/01 21:33:41 by chaejkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push_swap.h"
+#include "libft.h"
 
-void	print_error(t_list *lst)
+void	ft_lstadd_front(t_list **lst, t_list *new)
 {
-	if (lst != NULL)
-		ft_lstclear(&lst, ft_del);
-	ft_putstr_fd("Error\n", 2);
-	exit(1);
+	if (lst == NULL || new == NULL)
+		return ;
+	if (*lst == NULL)
+	{
+		*lst = new;
+		return ;
+	}
+	new->next = *lst;
+	(*lst)->prev = new;
+	new->prev = 0;
+	*lst = new;
 }

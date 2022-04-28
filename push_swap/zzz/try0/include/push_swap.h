@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   push_swap.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chaejkim <chaejkim@student.42.fr>          +#+  +:+       +#+        */
+/*   By: chaejkim <chaejkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/16 09:35:53 by chaejkim          #+#    #+#             */
-/*   Updated: 2022/04/28 14:24:26 by chaejkim         ###   ########.fr       */
+/*   Updated: 2022/04/05 04:56:10 by chaejkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,6 @@ typedef struct s_stack
 }				t_stack;
 
 /* utils.c */
-void	atoi_init(int *sign, int *tmp, int *sum);
 void	free_pptr(void **pptr);
 void	num_init(long *num, t_list *lst);
 
@@ -72,7 +71,7 @@ void	print_error(t_list *lst);
 t_stack	make_stack(int argc, char **argv);
 
 /* stack.c */
-void	stack_init(t_stack *stack, t_list *pre);
+void	stack_init(t_stack *stack);
 void	stack_empty(t_stack *stack);
 void	stack_add(t_stack *stack, t_list *data);
 
@@ -95,7 +94,11 @@ void	sort_bot_op_set(t_sort_op *new_op, t_sort_op *op);
 void	rotate_all_size(t_stack *src1, t_stack *src2, int size);
 void	sort(t_stack *stack, int size);
 
-/* sort_complex.c */
+/*
+** sort_complex.c
+** recursive fuction
+** sector
+*/
 void	sort_complex(t_stack *a, t_stack *b, int size, t_sort_op op);
 
 /* push_sort.c */

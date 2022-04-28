@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sort.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chaejkim <chaejkim@student.42.fr>          +#+  +:+       +#+        */
+/*   By: chaejkim <chaejkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/24 05:53:41 by chaejkim          #+#    #+#             */
-/*   Updated: 2022/04/16 20:24:46 by chaejkim         ###   ########.fr       */
+/*   Updated: 2022/04/05 04:25:20 by chaejkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ static void	sort_four_five(t_stack *a, int size)
 	t_stack		b;
 	t_sort_op	op;
 
-	stack_init(&b, a->data);
+	stack_init(&b);
 	sort_op_init(&op);
 	len[TOP] = size / 3;
 	len[MID] = size / 3 + size % 3;
@@ -71,7 +71,7 @@ static void	sort_four_five(t_stack *a, int size)
 	if (size == 5)
 		swap_sort_three(a);
 	merge(a, &b, len, &op);
-	ft_lstclear(&b.data, ft_del);
+	free(b.data);
 }
 
 void	rotate_all_size(t_stack *src1, t_stack *src2, int size)
@@ -97,8 +97,8 @@ void	sort(t_stack *a, int size)
 			sort_four_five(a, size);
 		return ;
 	}
-	stack_init(&b, a->data);
+	stack_init(&b);
 	sort_op_init(&op);
 	sort_complex(a, &b, size, op);
-	ft_lstclear(&b.data, ft_del);
+	free(b.data);
 }

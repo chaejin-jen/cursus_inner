@@ -1,21 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   print_error.c                                      :+:      :+:    :+:   */
+/*   ft_strlen.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chaejkim <chaejkim@student.42.fr>          +#+  +:+       +#+        */
+/*   By: chaejkim <chaejkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/03/18 16:47:58 by chaejkim          #+#    #+#             */
-/*   Updated: 2022/04/28 14:15:47 by chaejkim         ###   ########.fr       */
+/*   Created: 2021/11/17 16:11:03 by chaejkim          #+#    #+#             */
+/*   Updated: 2022/01/05 20:34:06 by chaejkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push_swap.h"
+#include "libft.h"
 
-void	print_error(t_list *lst)
+size_t	ft_strlen(const char *s)
 {
-	if (lst != NULL)
-		ft_lstclear(&lst, ft_del);
-	ft_putstr_fd("Error\n", 2);
-	exit(1);
+	size_t	len;
+
+	len = 0;
+	while (*s++)
+		len++;
+	return (len);
 }

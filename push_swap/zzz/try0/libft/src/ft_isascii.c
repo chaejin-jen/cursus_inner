@@ -1,21 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   print_error.c                                      :+:      :+:    :+:   */
+/*   ft_isascii.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chaejkim <chaejkim@student.42.fr>          +#+  +:+       +#+        */
+/*   By: chaejkim <chaejkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/03/18 16:47:58 by chaejkim          #+#    #+#             */
-/*   Updated: 2022/04/28 14:15:47 by chaejkim         ###   ########.fr       */
+/*   Created: 2021/11/17 15:43:06 by chaejkim          #+#    #+#             */
+/*   Updated: 2021/11/17 15:43:07 by chaejkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push_swap.h"
+#include "libft.h"
 
-void	print_error(t_list *lst)
+int	ft_isascii(int c)
 {
-	if (lst != NULL)
-		ft_lstclear(&lst, ft_del);
-	ft_putstr_fd("Error\n", 2);
-	exit(1);
+	if (c >= 0 && c < 128)
+		return (1);
+	else
+		return (0);
 }
