@@ -3,15 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   update.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chaejkim <chaejkim@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: chaejkim <chaejkim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/15 01:51:40 by chaejkim          #+#    #+#             */
-/*   Updated: 2022/03/30 17:03:23 by chaejkim         ###   ########.fr       */
+/*   Updated: 2022/04/30 18:08:23 by chaejkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
-#include "so_long_int.h"
 
 static void	set_img_i(t_player *player)
 {

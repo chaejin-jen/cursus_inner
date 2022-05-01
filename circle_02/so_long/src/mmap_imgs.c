@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mmap_imgs.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chaejkim <chaejkim@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: chaejkim <chaejkim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/15 01:50:21 by chaejkim          #+#    #+#             */
-/*   Updated: 2022/03/30 16:53:08 by chaejkim         ###   ########.fr       */
+/*   Updated: 2022/04/30 17:17:24 by chaejkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,6 @@ static void	mmap_tile_imgs(t_game *game)
 			&game->img_size.x, &game->img_size.y);
 	game->tile_img.water = mlx_xpm_file_to_image(game->mlx,
 			"assets/tiles/water_0.xpm",
-			&game->img_size.x, &game->img_size.y);
-	game->tile_img.success = mlx_xpm_file_to_image(game->mlx,
-			"assets/success.xpm",
 			&game->img_size.x, &game->img_size.y);
 }
 

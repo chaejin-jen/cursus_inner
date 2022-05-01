@@ -2,33 +2,32 @@ NAME = so_long
 
 CC = gcc
 FLAGS = -Wall -Werror -Wextra
+SAN_FLAG = -g3 -fsanitize=address
 
 MLX = lib/mlx/libmlx.a
 LFT = lib/libft/libft.a
 GNL = lib/gnl/libgnl.a
 
-
-#INC = -Iinclude -Ilib/libft -Ilib/gnl
-#LIB = -Llib/libft -lft -Llib/gnl -lgnl -lmlx -framework OpenGL -framework AppKit
 INC = -Iinclude -Ilib/mlx -Ilib/libft -Ilib/gnl
 LIB = -Llib/libft -lft -Llib/gnl -lgnl -Llib/mlx -lmlx -framework OpenGL -framework AppKit
 
-SRC = src/main.c src/error.c src/event_exit.c src/utils.c\
-	  src/map_parse.c src/map_init.c src/map_set.c src/map_valid.c \
-	  src/game_init.c src/mmap_imgs.c src/render_map.c \
-	  src/keypress.c src/set_player.c src/replay.c \
-	  src/update.c src/move_event.c
+MAPS = maps/err_no_collect.ber maps/err_no_exit.ber maps/err_no_player.ber \
+	   maps/err_not_rectangle_map.ber maps/err_not_rectangle_wall.ber \
+	   maps/players.ber maps/simple00.ber maps/simple01.ber maps/my00.ber
+
+SRC = src/main.c src/error.c src/event_exit.c src/utile.c \
+	  src/map_parse.c src/map_valid.c src/mmap_imgs.c \
+	  src/game_init.c src/keypress.c src/update.c src/move_event.c
 
 OBJ = $(patsubst src%, obj%, $(SRC:.c=.o))
 
 obj/%.o : src/%.c
-	@ $(CC) $(FLAGS) $(INC) -o $@ -c $<
+	@$(CC) $(FLAGS) $(INC) -o $@ -c $<
 
 all: $(LFT) $(GNL) $(MLX) obj $(NAME)
 
 $(NAME) : $(OBJ)
 	@$(CC) $(FLAGS) -o $@ $^ $(LIB)
-#	-g3 -fsanitize=address
 
 $(LFT):
 	@$(MAKE) -s -C lib/libft bonus
@@ -36,12 +35,13 @@ $(LFT):
 $(GNL):
 	@$(MAKE) -s -C lib/gnl
 
-#$(MLX):
-#	@$(MAKE) -s -C lib/mlx
+$(MLX):
+	@$(MAKE) -s -C lib/mlx
 
 clean:
 	@$(MAKE) -s -C lib/libft $@
 	@$(MAKE) -s -C lib/gnl $@
+	@$(MAKE) -s -C lib/mlx $@
 	rm -rf obj
 
 fclean: clean
@@ -55,25 +55,14 @@ obj:
 re: fclean all
 
 norm:
-	@norminette src/ include/
+	@norminette $(SRC) include/so_long.h
+	@$(MAKE) -s -C lib/libft $@
+	@$(MAKE) -s -C lib/gnl $@
 
-normlibft:
-	@norminette lib/libft/*/**.c
-	@norminette lib/libft/*.h
+play: all
+	@for map in $(MAPS) ; do \
+		echo "======= $$map =============" ; \
+		./$(NAME) $$map ; \
+	done
 
-normgnl:
-	@norminette lib/gnl/*/**.c
-	@norminette lib/gnl/*.h
-
-play :
-	./$(NAME) maps/err_no_collect.ber
-	./$(NAME) maps/err_no_exit.ber
-	./$(NAME) maps/err_no_player.ber
-	./$(NAME) maps/err_players.ber
-	./$(NAME) maps/err_not_rectangle_map.ber
-	./$(NAME) maps/err_not_rectangle_wall.ber
-	./$(NAME) maps/simple00.ber
-	./$(NAME) maps/simple01.ber
-	./$(NAME) maps/my00.ber
-
-.PHONY: all clean fclean re obj norm libftnorm gnlnorm play
+.PHONY: all clean fclean re norm libftnorm gnlnorm

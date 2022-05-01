@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_lstclear.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chaejkim <chaejkim@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: chaejkim <chaejkim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/08 20:34:47 by chaejkim          #+#    #+#             */
-/*   Updated: 2022/01/09 16:08:31 by chaejkim         ###   ########.fr       */
+/*   Updated: 2022/04/30 18:07:28 by chaejkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,13 @@ void	ft_lstclear(t_list **lst, void (*del)(void *))
 	{
 		cur = tmp;
 		tmp = tmp->next;
+		if (del == 0)
+		{
+			if (cur->content)
+				ft_lstdelone(cur, ft_del_ptr);
+			else
+				ft_lstdelone(cur, free);
+		}
 		ft_lstdelone(cur, del);
 	}
 	*lst = NULL;
