@@ -3,33 +3,42 @@
 /*                                                        :::      ::::::::   */
 /*   error.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chaejkim <chaejkim@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: chaejkim <chaejkim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/15 01:50:04 by chaejkim          #+#    #+#             */
-/*   Updated: 2022/03/30 17:02:08 by chaejkim         ###   ########.fr       */
+/*   Updated: 2022/05/02 01:47:55 by chaejkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-void	read_error(char *message)
+int	error_message(char *message)
 {
 	write(1, "Error\n", 6);
 	write(1, "\033[0;31m", 8);
 	write(1, message, ft_strlen(message));
 	write(1, "\033[0m", 5);
-	exit(0);
+	return (-1);
 }
 
-void	map_error(t_map *map, char *message)
+void	error_exit(char *message)
 {
-	write(1, "Error\n", 7);
-	write(1, "\033[0;31m", 8);
-	write(1, message, ft_strlen(message));
-	write(1, "\033[0m", 5);
-	ft_lstclear(&map->tmp_lst, del_ptr);
-	ft_lstclear(&map->exit_lst, free);
-	ft_lstclear(&map->collect_lst, free);
+	error_message(message);
+	exit(1);
+}
+
+void	read_error_exit(t_list **buf_lst, char *line, char *message)
+{
+	error_message(message);
+	ft_lstclear(buf_lst, 0);
+	free(line);
+	exit(1);
+}
+
+void	map_error_exit(t_map *map, t_list *buf_lst)
+{
+	free(map->data);
 	free(map);
-	exit(0);
+	ft_lstclear(&buf_lst, free);
+	exit(1);
 }

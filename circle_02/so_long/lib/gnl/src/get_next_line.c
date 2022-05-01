@@ -3,14 +3,28 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chaejkim <chaejkim@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: chaejkim <chaejkim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/19 08:51:46 by chaejkim          #+#    #+#             */
-/*   Updated: 2022/03/15 16:59:45 by chaejkim         ###   ########.fr       */
+/*   Updated: 2022/05/02 01:32:49 by chaejkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
+
+static int	index_nl(char *s)
+{
+	int	i;
+
+	i = 0;
+	while (s[i] != '\n')
+	{
+		if (s[i] == '\0')
+			return (-1);
+		i++;
+	}
+	return (i);
+}
 
 static int	split_prestr(char **result, char *prestr)
 {

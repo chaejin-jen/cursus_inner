@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   event_exit.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chaejkim <chaejkim@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: chaejkim <chaejkim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/15 01:49:49 by chaejkim          #+#    #+#             */
-/*   Updated: 2022/03/30 16:58:16 by chaejkim         ###   ########.fr       */
+/*   Updated: 2022/05/02 01:48:02 by chaejkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@ static void	destroy_img(t_game *game)
 
 	mlx_destroy_image(game->mlx, game->tile_img.grass);
 	mlx_destroy_image(game->mlx, game->tile_img.water);
-	mlx_destroy_image(game->mlx, game->tile_img.success);
 	mlx_destroy_image(game->mlx, game->obj_img.gem);
 	mlx_destroy_image(game->mlx, game->obj_img.door_o);
 	mlx_destroy_image(game->mlx, game->obj_img.door_c);
@@ -35,9 +34,8 @@ static void	destroy_img(t_game *game)
 int	close_window(t_game *game)
 {
 	write(1, "you closed window\n", 19);
+	ft_free_pptr((void ***)(&game->map->data));
 	ft_lstclear(&game->map->exit_lst, free);
-	ft_lstclear(&game->map->collect_lst, free);
-	free_pptr(game->map->data);
 	free(game->map);
 	destroy_img(game);
 	mlx_destroy_window(game->mlx, game->win);
@@ -47,9 +45,8 @@ int	close_window(t_game *game)
 void	game_exit(t_game *game)
 {
 	write(1, "program exit\n", 14);
+	ft_free_pptr((void ***)&(game->map->data));
 	ft_lstclear(&game->map->exit_lst, free);
-	ft_lstclear(&game->map->collect_lst, free);
-	free_pptr(game->map->data);
 	free(game->map);
 	destroy_img(game);
 	mlx_destroy_window(game->mlx, game->win);
