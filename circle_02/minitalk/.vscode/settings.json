@@ -6,6 +6,7 @@
 		"bitset": "cpp",
 		"limits.h": "c",
 		"__config": "c",
-		"climits": "c"
+		"climits": "c",
+		"unistd.h": "c"
 	}
 }
