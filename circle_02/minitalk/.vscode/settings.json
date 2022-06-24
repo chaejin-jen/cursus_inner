@@ -3,6 +3,9 @@
 		"libft.h": "c",
 		"ft_printf.h": "c",
 		"ostream": "c",
-		"bitset": "cpp"
+		"bitset": "cpp",
+		"limits.h": "c",
+		"__config": "c",
+		"climits": "c"
 	}
 }

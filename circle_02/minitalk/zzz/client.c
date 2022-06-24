@@ -6,45 +6,42 @@
 /*   By: chaejkim <chaejkim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/02 02:34:19 by chaejkim          #+#    #+#             */
-/*   Updated: 2022/06/24 13:46:20 by chaejkim         ###   ########.fr       */
+/*   Updated: 2022/06/24 13:45:05 by chaejkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <limits.h>
 #include <unistd.h>
 #include <signal.h>
-#include "../lib/libft/libft.h"
-// #include "libft.h"
+#include "libft.h"
 
-static void kill_error(void)
+static void	send_signal(pid_t pid, int cnt)
 {
-	write(1, "check pid or signo!\n", 21);
-	exit(1);
-}
-
-static void	send_signal(pid_t pid, unsigned char c)
-{
-	int	bit_num;
-	int	kill_check;
-
-	bit_num = 1;
-	while (bit_num < UCHAR_MAX)
+	while (--cnt != -1)
 	{
-		usleep(1);
-		if (c && bit_num)
-			kill_check = kill(pid, SIGUSR2);
-		else
-			kill_check = kill(pid, SIGUSR1);
-		if (kill_check == -1)
-			kill_error();
-		bit_num *= 2;
+		if (kill(pid, SIGUSR1) == -1)
+		{	
+			/* Handle error */;
+		}
+		
+		// usleep(1);
 	}
+	if (kill(pid, SIGUSR2) == -1)
+	{
+		/* Handle error */;
+	}
+	
+	// if (kill(pid, SIGUSR2) == -1)
+	// 	kill_error();
+	// if (kill(pid, SIGUSR1) == -1)
+	// 	kill_error();
 }
 
 int	main(int argc, char *argv[])
 {
 	pid_t	pid;
+	int		s_i;
 	char	*s;
+	int		sig_cnt;
 
 	if (argc != 3 || !ft_strlen(argv[2]))
 		return (1);
@@ -52,11 +49,15 @@ int	main(int argc, char *argv[])
 	write(1, "Client started... Sent pid : ", 30);
 	ft_putnbr_fd(pid, 1);
 	write(1, "\n", 1);
-	s = argv[2];
+	s = *(argv + 2);
+	s_i = 0;
 	while (*s)
 	{
-		send_signal(pid, (unsigned char)*s);
+		sig_cnt = (int)*s;
+		send_signal(pid, sig_cnt);
 		s++;
 	}
+	while (1)
+		pause();
 	return (0);
 }
