@@ -11,8 +11,8 @@ LFT = lib/libft/libft.a
 INC = -Iinclude -Ilib/libft
 LIB = -Llib/libft -lft
 
-SERVER_SRC = src/server.c src/exception.c
-CLIENT_SRC = src/client.c src/exception.c
+SERVER_SRC = src/server.c src/exception.c src/set_sigaction.c src/server_sigaction.c
+CLIENT_SRC = src/client.c src/exception.c src/set_sigaction.c src/client_sigaction.c
 
 
 SERVER_OBJ = $(patsubst src%, obj%, $(SERVER_SRC:.c=.o))
@@ -40,7 +40,7 @@ clean:
 
 fclean: clean
 	@make -s -C lib/libft $@
-	@rm $(SERVER_EXE) $(CLIENT_EXE)
+	@rm -rf $(SERVER_EXE) $(CLIENT_EXE)
 
 obj:
 	@mkdir -p obj

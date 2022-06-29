@@ -6,16 +6,58 @@
 /*   By: chaejkim <chaejkim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/02 02:34:19 by chaejkim          #+#    #+#             */
-/*   Updated: 2022/06/29 17:36:44 by chaejkim         ###   ########.fr       */
+/*   Updated: 2022/06/29 21:47:12 by chaejkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minitalk.h"
 
-static void	set_sigaction(struct sigaction *sa_ptr);
-static void	check_connection(pid_t server_pid, int signo);
-static void	send_string(pid_t server_pid, char *s);
-static void	signal_client(int signo, siginfo_t *info, void *context);
+pid_t	set_server_pid(char *s)
+{
+	int		pid_len;
+	int		exception_flag;
+
+	exception_flag = 0;
+	while (*s == '0')
+		s++;
+	pid_len = (int)ft_strlen(s);
+	if (pid_len > 5 || pid_len < 3)
+		exception_flag = 1;
+	while (exception_flag == 0 && --pid_len > -1)
+	{
+		if (ft_isdigit(*(s + pid_len)) != 1)
+			exception_flag = 1;
+	}
+	if (exception_flag == 1)
+		exception("INVALID ARGUMENTS (100 < PID < 99999)");
+	return ((pid_t)ft_atoi(s));
+}
+
+static void	connect_server(pid_t server_pid)
+{
+	write(1, "Client PID : ", 14);
+	ft_putnbr_fd((int)getpid(), 1);
+	write(1, "\nServer PID : ", 15);
+	ft_putnbr_fd(server_pid, 1);
+	write(1, "\n", 1);
+	if (kill(server_pid, SIGUSR2) == -1)
+		exception("INVALID PID");
+	usleep(100);
+}
+
+static void	disconnect_server(pid_t server_pid)
+{
+	int	i;
+
+	i = 0;
+	while (i++ < 8)
+	{
+		if (kill(server_pid, SIGUSR1) == -1)
+			exception("INVALID PID");
+		usleep(100);
+	}
+	write(1, "Disconnect\n", 11);
+}
 
 int	main(int argc, char *argv[])
 {
@@ -23,96 +65,15 @@ int	main(int argc, char *argv[])
 	int					arg_i;
 	struct sigaction	sa_req;
 
-	if (argc < 3 || (ft_strlen(argv[1]) > PID_MAX) || (ft_strlen(argv[1]) > PID_MIN))
-		exception("INVALID ARGUMENTS");
-	server_pid = ft_atoi(argv[1]);
-	set_sigaction(&sa_req);
-	check_connection(server_pid, SIGUSR2);
+	if (argc < 3)
+		exception("INVALID ARGUMENTS (./client <SERVER_PID> <string>)");
+	server_pid = set_server_pid(argv[1]);
+	set_sigaction(&sa_req, client_sigaction);
+	connect_server(server_pid);
 	write(1, "connection_started\n", 20);
 	arg_i = 1;
 	while (++arg_i < argc)
 		send_string(server_pid, argv[arg_i]);
-	check_connection(server_pid, SIGUSR1);
+	disconnect_server(server_pid);
 	return (0);
-}
-
-static void	set_sigaction(struct sigaction *sa_ptr)
-{
-	(*sa_ptr).sa_flags = SA_SIGINFO;
-	(*sa_ptr).sa_sigaction = signal_client;
-	sigemptyset(&(*sa_ptr).sa_mask);
-	if (sigaction(SIGUSR1, sa_ptr, 0) == -1)
-		exception("signal(SIGUSR1) error");
-	if (sigaction(SIGUSR2, sa_ptr, 0) == -1)
-		exception("signal(SIGUSR2) error");
-}
-
-static void	check_connection(pid_t server_pid, int signo)
-{
-	int	i;
-
-	if (signo == SIGUSR2)
-	{
-		write(1, "Client PID : ", 14);
-		ft_putnbr_fd((int)getpid(), 1);
-		write(1, "\nServer PID : ", 15);
-		ft_putnbr_fd(server_pid, 1);
-		write(1, "\n", 1);
-		i = 7;
-	}
-	else
-	{
-		write(1, "Disconnect\n", 11);
-		i = 0;
-	}
-	while (i++ < 8)
-	{
-		if (kill(server_pid, signo) == -1)
-			exception("INVALID PID");
-		usleep(100);
-	}
-}
-
-static void	send_string(pid_t server_pid, char *s)
-{
-	int	bit_mask;
-	int	signo;
-
-	while (*s)
-	{
-		bit_mask = 1;
-		while (bit_mask < UCHAR_MAX)
-		{
-			usleep(100);
-			signo = SIGUSR1;
-			if (*s & bit_mask)
-				signo = SIGUSR2;
-			if (kill(server_pid, signo) == -1)
-				exception("INVALID PID");
-			bit_mask = bit_mask << 1;
-		}
-		pause();
-		s++;
-	}
-}
-
-static void	signal_client(int signo, siginfo_t *info, void *context)
-{
-	static pid_t	server_pid = 0;
-
-	(void)context;
-	if (signo == SIGUSR2 && info->si_pid != 0)
-	{
-		if (server_pid == 0)
-		{
-			server_pid = info->si_pid;
-			write(1, "Connect to Server [SUCCESS]\n", 29);
-			return ;
-		}
-	}
-	if (signo == SIGUSR1 && server_pid != 0 && server_pid == info->si_pid)
-	{
-		write(1, "Send String to Server [SUCCESS]\n", 33);
-		exit(0);
-	}
 }

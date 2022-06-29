@@ -6,7 +6,7 @@
 /*   By: chaejkim <chaejkim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/27 19:56:39 by chaejkim          #+#    #+#             */
-/*   Updated: 2022/06/29 17:36:30 by chaejkim         ###   ########.fr       */
+/*   Updated: 2022/06/29 21:50:30 by chaejkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,16 +18,16 @@
 # include <limits.h>
 # include "libft.h"
 
-# define PID_MIN 100;
-# define PID_MAX 99999;
-
-typedef struct s_sa_data
+typedef struct s_pid_list
 {
-	pid_t			pid;
-	int				bit_mask;
-	unsigned char	c;
-}				t_sa_data;
+	pid_t					pid;
+	struct s_pid_list	*next;
+}				t_pid_list;
 
 void	exception(char *msg);
+void	set_sigaction(struct sigaction *sa_ptr,
+			void (*handler)(int, siginfo_t *, void *));
+void	server_sigaction(int signo, siginfo_t *info, void *context);
+void	client_sigaction(int signo, siginfo_t *info, void *context);
 
 #endif
