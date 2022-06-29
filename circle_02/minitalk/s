@@ -1,3 +1,7 @@
+#define	PID_MAX		30000
+					91628
+#define	PID_MAX		99999
+
 	static pid_t			client_pid = 0;
 	static int				bit_mask = 1;
 	static unsigned char	res = 0;

@@ -6,7 +6,7 @@
 /*   By: chaejkim <chaejkim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/02 02:34:19 by chaejkim          #+#    #+#             */
-/*   Updated: 2022/06/29 15:18:56 by chaejkim         ###   ########.fr       */
+/*   Updated: 2022/06/29 17:36:44 by chaejkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	main(int argc, char *argv[])
 	int					arg_i;
 	struct sigaction	sa_req;
 
-	if (argc < 3)
+	if (argc < 3 || (ft_strlen(argv[1]) > PID_MAX) || (ft_strlen(argv[1]) > PID_MIN))
 		exception("INVALID ARGUMENTS");
 	server_pid = ft_atoi(argv[1]);
 	set_sigaction(&sa_req);
@@ -67,13 +67,10 @@ static void	check_connection(pid_t server_pid, int signo)
 	}
 	while (i++ < 8)
 	{
-		ft_putnbr_fd(signo, 1);
-		write(1, "\n", 1);
 		if (kill(server_pid, signo) == -1)
 			exception("INVALID PID");
 		usleep(100);
 	}
-	pause();
 }
 
 static void	send_string(pid_t server_pid, char *s)
@@ -81,19 +78,17 @@ static void	send_string(pid_t server_pid, char *s)
 	int	bit_mask;
 	int	signo;
 
-	ft_putstr_fd(s, 1);
 	while (*s)
 	{
 		bit_mask = 1;
 		while (bit_mask < UCHAR_MAX)
 		{
-			usleep(10);
+			usleep(100);
 			signo = SIGUSR1;
 			if (*s & bit_mask)
 				signo = SIGUSR2;
 			if (kill(server_pid, signo) == -1)
 				exception("INVALID PID");
-			//bit_mask <<= 1;
 			bit_mask = bit_mask << 1;
 		}
 		pause();
@@ -112,11 +107,10 @@ static void	signal_client(int signo, siginfo_t *info, void *context)
 		{
 			server_pid = info->si_pid;
 			write(1, "Connect to Server [SUCCESS]\n", 29);
+			return ;
 		}
-		else
-			write(1, "*\n", 2);
 	}
-	if (server_pid != 0 && server_pid == info->si_pid && signo == SIGUSR1)
+	if (signo == SIGUSR1 && server_pid != 0 && server_pid == info->si_pid)
 	{
 		write(1, "Send String to Server [SUCCESS]\n", 33);
 		exit(0);

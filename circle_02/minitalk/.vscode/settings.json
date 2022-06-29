@@ -11,6 +11,9 @@
 		"minitalk.h": "c",
 		"*.a": "c",
 		"_sigaltstack.h": "c",
-		"exception": "c"
+		"exception": "c",
+		"signal.h": "c",
+		"proc_info.h": "c",
+		"proc.h": "c"
 	}
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minitalk.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chaejkim <chaejkim@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: chaejkim <chaejkim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/27 19:56:39 by chaejkim          #+#    #+#             */
-/*   Updated: 2022/06/29 09:13:45 by chaejkim         ###   ########.fr       */
+/*   Updated: 2022/06/29 17:36:30 by chaejkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,9 @@
 # include <signal.h>
 # include <limits.h>
 # include "libft.h"
+
+# define PID_MIN 100;
+# define PID_MAX 99999;
 
 typedef struct s_sa_data
 {
