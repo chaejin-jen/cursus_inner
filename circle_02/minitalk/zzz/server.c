@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   server.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chaejkim <chaejkim@student.42.fr>          +#+  +:+       +#+        */
+/*   By: chaejkim <chaejkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/02 02:34:21 by chaejkim          #+#    #+#             */
-/*   Updated: 2022/05/02 06:28:32 by chaejkim         ###   ########.fr       */
+/*   Updated: 2022/06/29 06:34:35 by chaejkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,39 @@ static void	handler(int signo)
 	}
 }
 
+static void	signal_catcher(int signo, siginfo_t *info, void *context)
+{
+	static t_sa_data	client = {0, 1, 0};
+	ucontext_t			*uct;
+
+	if (info->si_pid != 0 && (signo == SIGUSR1 || signo == SIGUSR2))
+	{
+		if (client.pid == 0)
+			client.pid = info->si_pid;
+		if (client.pid == info->si_pid)
+		{
+			uct = (ucontext_t *)context;
+			if (signo == SIGUSR2)
+				client.c += client.bit_mask;
+			client.bit_mask = client.bit_mask << 1;
+		}
+	}
+	if (client.bit_mask > UCHAR_MAX)
+	{
+		if (client.pid == 0 && client.c == UCHAR_MAX)
+		{
+			write(1, &client.c, 1);
+			write(1, " : 11111111\n", 12);
+		}	//send_client();
+		if (client.pid == 0 && client.c == 0)
+			write(1, "00000000\n", 9);
+		if (client.c > 31 || client.c == '\n' || client.c == '\t')
+			write(1, &client.c, 1);
+		client.bit_mask = 1;
+		client.c = 0;
+	}
+}
+
 int	main(void)
 {
 	pid_t				pid;
@@ -68,7 +101,7 @@ int	main(void)
 	// 	write(1, "catch_sigusr error\n", 20);
 	// }
 	// if (kill(pid, SIGUSR1) == -1)
-	// {	
+	// {
 	// 	/* Handle error */;
 	// }
 	// sleep(1);

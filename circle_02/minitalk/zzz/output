@@ -1,0 +1,27 @@
+
+
+client_pid 29750  si_addr -1523624644  si_band 0  si_code 0  si_errno 0  si_signo 30  si_status 30  si_value 5010, 0
+	  ss_flags 0  ss_size 0  ss_sp 1804528256client_pid 29750  si_addr -1523462520  si_band 0  si_code 0  si_errno 0  si_signo 31  si_status 31  si_value 5010, 0
+	  ss_flags 0  ss_size 0  ss_sp 1804529552
+client_pid 29750  si_addr -1523462520  si_band 0  si_code 0  si_errno 0  si_signo 31  si_status 31  si_value 5010, 0
+	  ss_flags 0
+client_pid 29750  si_addr -1523624644  si_band 0  si_code 0  si_errno 0  si_signo 30  si_status 30  si_value 5010, 0
+	  ss_flags 0  ss_size 0  ss_sp 1804528208  ss_size 0  ss_sp 1804529552
+client_pid 29750  si_addr -1523462520  si_band 0  si_code 0  si_errno 0  si_signo 30
+client_pid 29750  si_addr -1523624644  si_band 0  si_code 0  si_errno 0  si_signo 31  si_status 31  si_value 5010, 0
+	  ss_flags 0  ss_size 0  ss_sp 1804528208  si_status 30  si_value 5010, 0
+	  ss_flags 0  ss_size 0  ss_sp 1804529552
+client_pid 29750  si_addr -1523462520  si_band 0  si_code 0  si_errno 0  si_signo 30  si_status 30  si_value 501
+client_pid 29750  si_addr -1523624644  si_band 0  si_code 0  si_errno 0  si_signo 31  si_status 31  si_value 5010, 0
+	  ss_flags 0  ss_size 0  ss_sp 18045282080, 0
+	  ss_flags 0  ss_size 0  ss_sp 1804529552
+client_pid 29750  si_addr -1523462520  si_band 0  si_code 0  si_errno 0  si_signo 30  si_status 30  si_value 5010, 0
+	  ss_flags 0  ss_size 0  ss_sp 1804529552
+client_pid 29750  si_addr -1523462520  si_band 0  si_code 0  si_errno 0  si_signo 31  si_status 31  si_value 5010, 0
+	  ss_flags 0  ss_size 0  ss_sp 1804529552
+client_pid 29750  si_addr -1523462520  si_band 0  si_code 0  si_errno 0  si_signo 30  si_status 30  si_value 5010, 0
+	  ss_flags 0  ss_size 0  ss_sp 1804529552
+client_pid 29750  si_addr -1523462520  si_band 0  si_code 0  si_errno 0  si_signo 31  si_status 31  si_value 5010, 0
+	  ss_flags 0  ss_size 0  ss_sp 1804529552
+client_pid 29750  si_addr -1523462520  si_band 0  si_code 0  si_errno 0  si_signo 30  si_status 30  si_value 5010, 0
+	  ss_flags 0  ss_size 0  ss_sp 1804529552
