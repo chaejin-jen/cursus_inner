@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   client.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chaejkim <chaejkim@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: chaejkim <chaejkim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/02 02:34:19 by chaejkim          #+#    #+#             */
-/*   Updated: 2022/06/29 10:38:24 by chaejkim         ###   ########.fr       */
+/*   Updated: 2022/06/29 15:18:56 by chaejkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ int	main(int argc, char *argv[])
 	server_pid = ft_atoi(argv[1]);
 	set_sigaction(&sa_req);
 	check_connection(server_pid, SIGUSR2);
+	write(1, "connection_started\n", 20);
 	arg_i = 1;
 	while (++arg_i < argc)
 		send_string(server_pid, argv[arg_i]);
@@ -56,16 +57,23 @@ static void	check_connection(pid_t server_pid, int signo)
 		ft_putnbr_fd((int)getpid(), 1);
 		write(1, "\nServer PID : ", 15);
 		ft_putnbr_fd(server_pid, 1);
+		write(1, "\n", 1);
+		i = 7;
 	}
-	write(1, "\n", 1);
-	i = 0;
+	else
+	{
+		write(1, "Disconnect\n", 11);
+		i = 0;
+	}
 	while (i++ < 8)
 	{
+		ft_putnbr_fd(signo, 1);
+		write(1, "\n", 1);
 		if (kill(server_pid, signo) == -1)
 			exception("INVALID PID");
+		usleep(100);
 	}
 	pause();
-	write(1, "cococococo\n", 12);
 }
 
 static void	send_string(pid_t server_pid, char *s)
@@ -79,6 +87,7 @@ static void	send_string(pid_t server_pid, char *s)
 		bit_mask = 1;
 		while (bit_mask < UCHAR_MAX)
 		{
+			usleep(10);
 			signo = SIGUSR1;
 			if (*s & bit_mask)
 				signo = SIGUSR2;
@@ -86,10 +95,8 @@ static void	send_string(pid_t server_pid, char *s)
 				exception("INVALID PID");
 			//bit_mask <<= 1;
 			bit_mask = bit_mask << 1;
-			usleep(500);
 		}
 		pause();
-		usleep(100);
 		s++;
 	}
 }
