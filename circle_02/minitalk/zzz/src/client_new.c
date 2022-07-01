@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   client.c                                           :+:      :+:    :+:   */
+/*   client_new.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: chaejkim <chaejkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/02 02:34:19 by chaejkim          #+#    #+#             */
-/*   Updated: 2022/07/01 09:49:48 by chaejkim         ###   ########.fr       */
+/*   Updated: 2022/06/30 18:34:15 by chaejkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 pid_t	set_server_pid(char *s)
 {
-	int	pid_len;
-	int	exception_flag;
+	int		pid_len;
+	int		exception_flag;
 
 	exception_flag = 0;
 	while (*s == '0')
@@ -42,30 +42,7 @@ static void	connect_server(pid_t server_pid)
 	write(1, "\n", 1);
 	if (kill(server_pid, SIGUSR2) == -1)
 		exception("INVALID PID");
-	pause();
-}
-
-static void	send_string(pid_t server_pid, char *s)
-{
-	int	bit_mask;
-	int	signo;
-
-	while (*s)
-	{
-		bit_mask = 1;
-		while (bit_mask < UCHAR_MAX)
-		{
-			usleep(800);
-			signo = SIGUSR1;
-			if (*s & bit_mask)
-				signo = SIGUSR2;
-			if (kill(server_pid, signo) == -1)
-				exception("INVALID PID");
-			bit_mask = bit_mask << 1;
-		}
-		pause();
-		s++;
-	}
+	usleep(100);
 }
 
 static void	disconnect_server(pid_t server_pid)
@@ -75,12 +52,11 @@ static void	disconnect_server(pid_t server_pid)
 	i = 0;
 	while (i++ < 8)
 	{
-		usleep(800);
 		if (kill(server_pid, SIGUSR1) == -1)
 			exception("INVALID PID");
+		usleep(100);
 	}
-	pause();
-	write(1, "Disconnect to Server\n", 22);
+	write(1, "Disconnect\n", 11);
 }
 
 int	main(int argc, char *argv[])
@@ -94,6 +70,7 @@ int	main(int argc, char *argv[])
 	server_pid = set_server_pid(argv[1]);
 	set_sigaction(&sa_req, client_sigaction);
 	connect_server(server_pid);
+	write(1, "waiting...\n", 12);
 	arg_i = 1;
 	while (++arg_i < argc)
 		send_string(server_pid, argv[arg_i]);

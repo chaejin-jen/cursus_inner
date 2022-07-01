@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minitalk.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chaejkim <chaejkim@student.42.fr>          +#+  +:+       +#+        */
+/*   By: chaejkim <chaejkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/27 19:56:39 by chaejkim          #+#    #+#             */
-/*   Updated: 2022/06/29 21:50:30 by chaejkim         ###   ########.fr       */
+/*   Updated: 2022/06/30 18:27:34 by chaejkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,12 +17,6 @@
 # include <signal.h>
 # include <limits.h>
 # include "libft.h"
-
-typedef struct s_pid_list
-{
-	pid_t					pid;
-	struct s_pid_list	*next;
-}				t_pid_list;
 
 void	exception(char *msg);
 void	set_sigaction(struct sigaction *sa_ptr,

@@ -1,66 +1,7 @@
+
 aaasdfksdlajfklwdasldfkl.asdjkfl;sdal;fj;alsjf;dsjf;lj;sdfjakdsjoojiwefjiofjawjiofewjiiowertyuioplkjhgfdsxcdvbhnjmk,l.,mnbhgvfdsdfghujikollkijuhygtfrdxcvbnmk,mnbvcfdxsfrtghyujkiijuhyysdfuiasghofjsdkjFK:JSDKLfjldfjskhfjksdhajkhweiuhfiuhawiughfiuawheuihweiauhfuiwehuifeahuiahfweigfiuaaasdfksdlajfklwdasldfkl.asdjkfl;sdal;fj;alsjf;dsjf;lj;sdfjakdsjoojiwefjiofjawjiofewjiiowertyuioplkjhgfdsxcdvbhnjmk,l.,mnbhgvfdsdfghujikollkijuhygtfrdxcvbnmk,mnbvcfdxsfrtghyujkiijuhyysdfuiasghofjsdkjFK:JSDKLfjldfjskhfjksdhajkhweiuhfiuhawiughfiuawheuihweiauhfuiwehuifeahuiahfweigfiaaasdfksdlajfklwdasldfkl.asdjkfl;sdal;fj;alsjf;dsjf;lj;sdfjakdsjoojiwefjiofjawjiofewjiiowertyuioplkjhgfdsxcdvbhnjmk,l.,mnbhgvfdsdfghujikollkijuhygtfrdxcvbnmk,mnbvcfdxsfrtghyujkiijuhyysdfuiasghofjsdkjFK:JSDKLfjldfjskhfjksdhajkhweiuhfiuhawiughfiuawheuihweiauhfuiwehuifeahuiahfweigfiaaasdfksdlajfklwdasldfkl.asdjkfl;sdal;fj;alsjf;dsjf;lj;sdfjakdsjoojiwefjiofjawjiofewjiiowertyuioplkjhgfdsxcdvbhnjmk,l.,mnbhgvfdsdfghujikollkijuhygtfrdxcvbnmk,mnbvcfdxsfrtghyujkiijuhyysdfuiasghofjsdkjFK:JSDKLfjldfjskhfjksdhajkhweiuhfiuhawiughfiuawheuihweiauhfuiwehuifeahuiahfweigfi
 
-#define	PID_MAX		30000
-					91628
-#define	PID_MAX		99999
-
-	static pid_t			client_pid = 0;
-	static int				bit_mask = 1;
-	static unsigned char	res = 0;
-
-	context = (void *)context;
-	if (info->si_pid != 0 && (signo == SIGUSR1 || signo == SIGUSR2))
-	{
-		if (client_pid == 0)
-			client_pid = start_to_catch(info->si_pid);
-		if (client_pid == info->si_pid)
-		{
-			if (signo == SIGUSR2)
-				res += bit_mask;
-			bit_mask = bit_mask << 1;
-		}
-	}
-	if (bit_mask > UCHAR_MAX)
-	{
-		if (res == 0)
-			client_pid = 0;
-		else if (res > 31 || res == '\n' || res == '\t')
-			write(1, &res, 1);
-		bit_mask = 1;
-		res = 0;
-	}
-
-	static pid_t			client_pid = 0;
-	static int				bit_mask = 1;
-	static unsigned char	res = 0;
-	ucontext_t				*uct;
-
-	if (info->si_pid != 0 && (signo == SIGUSR1 || signo == SIGUSR2))
-	{
-		if (client_pid == 0)
-			client_pid = info->si_pid;
-		if (client_pid == info->si_pid)
-		{
-			uct = (ucontext_t *)context;
-			if (signo == SIGUSR2)
-				res += bit_mask;
-			bit_mask = bit_mask << 1;
-		}
-	}
-	if (bit_mask > UCHAR_MAX)
-	{
-		if (client_pid == 0 && res == UCHAR_MAX)
-		{
-			write(1, &res, 1);
-			write(1, " : 11111111\n", 12);
-		}
-		if (client_pid == 0 && res == 0)
-			write(1, "00000000\n", 9);
-		if (res > 31 || res == '\n' || res == '\t')
-			write(1, &res, 1);
-		bit_mask = 1;
-		res = 0;
-	}
+aaasdfksdlajfklwdasldfkl.asdjkfl;sdal;fj;alsjf;dsjf;lj;sdfjakdsjoojiwefjiofjawjiofewjiiowertyuioplkj
 
 	00	01	02	03	04	05	06	07	08	09	0A	0B	0C	0D	0E	0F	10	11	12	13	14	15	16	17	18	19	1A	1B	1C	1D	1E	1F
 0000	�																															
@@ -336,7 +277,7 @@ aaasdfksdlajfklwdasldfkl.asdjkfl;sdal;fj;alsjf;dsjf;lj;sdfjakdsjoojiwefjiofjawji
 
 00	01	02	03	04	05	06	07	08	09	0A	0B	0C	0D	0E	0F	10	11	12	13	14	15	16	17	18	19	1A	1B	1C	1D	1E	1F
 2000	 	 	 	 	 	 	 	 	 	 	 	​	‌	‍	‎	‏	‐	‑	‒	–	—	―	‖	‗	‘	’	‚	‛	“	”	„	‟
-2020	†	‡	•	‣	․	‥	…	‧	 	 	‪	‫	‬	‭	‮	 	‰	‱	′	″	‴	‵	‶	‷	‸	‹	›	※	‼	‽	‾	‿
+2020	†	‡	•	‣	․	‥	…	‧			‪	‫	‬	‭	‮	 	‰	‱	′	″	‴	‵	‶	‷	‸	‹	›	※	‼	‽	‾	‿
 2040	⁀	⁁	⁂	⁃	⁄	⁅	⁆	⁇	⁈	⁉	⁊	⁋	⁌	⁍	⁎	⁏	⁐	⁑	⁒	⁓	⁔	⁕	⁖	⁗	⁘	⁙	⁚	⁛	⁜	⁝	⁞	 
 2060	⁠	⁡	⁢	⁣	⁤	⁥	⁦	⁧	⁨	⁩	⁪	⁫	⁬	⁭	⁮	⁯	⁰	ⁱ	⁲	⁳	⁴	⁵	⁶	⁷	⁸	⁹	⁺	⁻	⁼	⁽	⁾	ⁿ
 2080	₀	₁	₂	₃	₄	₅	₆	₇	₈	₉	₊	₋	₌	₍	₎	₏	ₐ	ₑ	ₒ	ₓ	ₔ	ₕ	ₖ	ₗ	ₘ	ₙ	ₚ	ₛ	ₜ	₝	₞	₟
