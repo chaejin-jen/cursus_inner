@@ -1,0 +1,20 @@
+{
+	"files.associations": {
+		"libft.h": "c",
+		"ft_printf.h": "c",
+		"ostream": "c",
+		"bitset": "cpp",
+		"limits.h": "c",
+		"__config": "c",
+		"climits": "c",
+		"unistd.h": "c",
+		"minitalk.h": "c",
+		"*.a": "c",
+		"_sigaltstack.h": "c",
+		"exception": "c",
+		"signal.h": "c",
+		"proc_info.h": "c",
+		"proc.h": "c",
+		"minitalk_bonus.h": "c"
+	}
+}
