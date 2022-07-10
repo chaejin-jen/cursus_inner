@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   set_philo_info.c                                   :+:      :+:    :+:   */
+/*   set_simulation_info.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: chaejkim <chaejkim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/08 14:13:33 by chaejkim          #+#    #+#             */
-/*   Updated: 2022/07/09 15:37:06 by chaejkim         ###   ########.fr       */
+/*   Updated: 2022/07/10 13:55:52 by chaejkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,10 @@ static unsigned int	ft_strtoui(const char *str)
 	return ((unsigned int)sum);
 }
 
-int	set_philo_info(int argc, char **argv, t_philo_info *pinfo)
+int	set_simulation(int argc, char **argv, t_simulation_info *sinfo)
 {
+	t_cond_info		a;
+	t_philo_info	b;
 	int				i;
 	unsigned int	num;
 
@@ -51,17 +53,18 @@ int	set_philo_info(int argc, char **argv, t_philo_info *pinfo)
 		if (num == 0)
 			return (error_message("argument value"));
 		if (i == 1)
-		pinfo->number_of_philo = num;
+		sinfo->number = num;
 		else if (i == 2)
-			pinfo->time_to_die = num;
+			sinfo->time_to_die = num;
 		else if (i == 3)
-			pinfo->time_to_eat = num;
+			sinfo->time_to_eat = num;
 		else if (i == 4)
-			pinfo->time_to_eat = num;
+			sinfo->time_to_eat = num;
 		else if (i == 5)
-			pinfo->least_eat = num;
+			sinfo->least_eat = num;
 	}
 	if (argc == 5)
-		pinfo->least_eat = -1;
+		sinfo->least_eat = -1;
+	
 	return (0);
 }

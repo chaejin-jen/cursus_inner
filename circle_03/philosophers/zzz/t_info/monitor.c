@@ -1,25 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   philo_routine.c                                    :+:      :+:    :+:   */
+/*   monitor.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: chaejkim <chaejkim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/07/09 12:17:42 by chaejkim          #+#    #+#             */
-/*   Updated: 2022/07/09 16:02:50 by chaejkim         ###   ########.fr       */
+/*   Created: 2022/07/09 16:22:48 by chaejkim          #+#    #+#             */
+/*   Updated: 2022/07/10 14:33:15 by chaejkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philo.h"
-
-void	*philo_routine(void *arg)
+int	monitor()
 {
-	t_thread_info		*tinfo;
-
-	tinfo = arg;
-	while (tinfo->least_eat !=0)
-	{
-		usleep(30);
-	}
-	return (0);
+	"timestamp_in_ms X died"
 }
