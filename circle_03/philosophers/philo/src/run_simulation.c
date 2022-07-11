@@ -3,38 +3,54 @@
 /*                                                        :::      ::::::::   */
 /*   run_simulation.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chaejkim <chaejkim@student.42.fr>          +#+  +:+       +#+        */
+/*   By: chaejkim <chaejkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/09 16:11:51 by chaejkim          #+#    #+#             */
-/*   Updated: 2022/07/10 18:29:41 by chaejkim         ###   ########.fr       */
+/*   Updated: 2022/07/12 03:57:10 by chaejkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-int	run_simulation(const t_simulation_info *sinfo)
+static int	set_tinfo(t_philo_info *philos, unsigned int	number)
 {
-	t_thread_info	*philos;
-	t_mutex_info	*forks;
-	t_time_info		tinfo;
-	int				cnt;
-	int				tnum;
+	int			cnt;
+	int			pnum;
+	t_time_info	*tinfo;
 
 	cnt = 0;
-	if (set_table(&table, &sinfo) != 0)
-		return (1);
-	// philo_num = sinfo->number;
-	gettimeofday(&tinfo.start, NULL);
 	while (cnt < 2)
 	{
-		tnum = cnt++ % 2 - 1;
-		while (tnum < sinfo->number - 1)
-			set_philos_time(philos);
+		pnum = cnt++ % 2 - 1;
+		while (pnum < number - 1)
+		{
+			pnum += 2;
+			tinfo = &philos[pnum].tinfo
+
+			gettimeofday(&(tinfo->last_eat), NULL);
+			tinfo->last_act.tv_sec = tinfo->last_eat.tv_sec;
+			tinfo->last_act.tv_usec = tinfo->last_eat.tv_usec;
+		}
+		usleep(100);
 	}
-	while (/* condition */)
+}
+
+int	run_simulation(const t_simulation_info *sinfo)
+{
+	t_table_info	table;
+	int				s;
+
+	if (set_table(&table, sinfo) != 0)
+		return (1);
+	gettimeofday(&sinfo->current, NULL);
+	set_tinfo(table.philos, table.sinfo->number);
+	while (monitor(&table, sinfo->number) != 0)
 	{
-		gettimeofday(&tinfo.end, NULL);
-		if (monitor() != 0)
-			break ;
+		pthread_mutex_lock(&sinfo->timer);
+		gettimeofday(&sinfo->current, NULL);
+		pthread_mutex_unlock(&sinfo->timer);
+		usleep(100);
 	}
+	if (clear_table(&table,) != 0)
+		return (1);
 }
