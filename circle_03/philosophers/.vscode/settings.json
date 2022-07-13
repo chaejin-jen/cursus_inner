@@ -11,6 +11,9 @@
 		"string_view": "c",
 		"unordered_map": "c",
 		"vector": "c",
-		"__mutex_base": "c"
+		"__mutex_base": "c",
+		"pthread.h": "c",
+		"__locale": "c",
+		"philo.h": "c"
 	}
 }

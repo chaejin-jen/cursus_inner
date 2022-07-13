@@ -6,7 +6,7 @@
 /*   By: chaejkim <chaejkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/09 12:17:42 by chaejkim          #+#    #+#             */
-/*   Updated: 2022/07/13 12:59:50 by chaejkim         ###   ########.fr       */
+/*   Updated: 2022/07/13 14:44:34 by chaejkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,24 +21,12 @@ void *routine(void *arg)
 	table = (t_table_info *)arg;
 	philo = &(table->philos[table->seat_num]);
 	sinfo = table->sinfo;
-	if (philo->philo_num % 2)
-		usleep(50);
-	usleep(100);
-	// pthread_mutex_lock(&sinfo->timer);
-	// while (sinfo->current.tv_sec == 0 && sinfo->current.tv_usec == 0)
-	//{
-	//	pthread_mutex_unlock(&sinfo->timer);
-	//	usleep(50);
-	// }
-	// pthread_mutex_unlock(&sinfo->timer);
+	wait_philos(&sinfo->timer, sinfo, philo);
 	set_elasped_time(&sinfo->timer, &philo->tinfo, &sinfo->current);
 	while (philo->rest_eat != 0)
 	{
-		if (philo->tinfo.elasped_time > sinfo->time_to_die)
-		{
-			dying(philo->philo_num, sinfo);
-			break;
-		}
+		if (check_die(&sinfo->monitor, sinfo, philo) != 0)
+			break ;
 		start_eating(philo, philo->finfo, sinfo);
 		end_eating(philo, philo->finfo, sinfo);
 		usleep(30);

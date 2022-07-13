@@ -6,7 +6,7 @@
 /*   By: chaejkim <chaejkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/08 13:44:09 by chaejkim          #+#    #+#             */
-/*   Updated: 2022/07/13 12:59:50 by chaejkim         ###   ########.fr       */
+/*   Updated: 2022/07/13 14:34:45 by chaejkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,7 @@ typedef struct s_table_info
 	int seat_num;
 } t_table_info;
 
+void timestamp(t_simulation_info *sinfo, int philo_num, int state);
 int error_message(char *msg);
 
 /* time_info.c */
@@ -104,5 +105,7 @@ void *routine(void *arg);
 void start_eating(t_philo_info *philo, t_fork_info *forks, t_simulation_info *sinfo);
 void end_eating(t_philo_info *philo, t_fork_info *forks, t_simulation_info *sinfo);
 void dying(int philo_num, t_simulation_info *sinfo);
+void wait_philos(pthread_mutex_t *timer, t_simulation_info *sinfo, t_philo_info *philo);
+int check_die(pthread_mutex_t *monitor, t_simulation_info *sinfo, t_philo_info *philo);
 
 #endif
