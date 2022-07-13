@@ -6,7 +6,7 @@
 #    By: chaejkim <chaejkim@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/07/08 13:41:40 by chaejkim          #+#    #+#              #
-#    Updated: 2022/07/08 13:42:17 by chaejkim         ###   ########.fr        #
+#    Updated: 2022/07/12 22:51:08 by chaejkim         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,16 +18,23 @@ SAN_FLAG = -g3 -fsanitize=address
 
 INC = -Iinclude
 
-SRC = src/
+SRC = src/main.c \
+	  src/message.c \
+	  src/run_simulation.c \
+	  src/routine.c \
+	  src/routine_util.c \
+	  src/monitor.c \
+	  src/table_info.c \
+	  src/time_info.c
 OBJ = $(patsubst src%, obj%, $(SRC:.c=.o))
 
-$(NAME) : $(OBJ)
-	@$(CC) $(CFLAGS) -o $@ $^
-
 obj/%.o : src/%.c
-	@$(CC) $(CFLAGS) $(INC) -o $@ -c $<
+	@$(CC) $(CFLAGS) $(SAN_FLAG) $(INC) -o $@ -c $<
 
 all: obj $(NAME)
+
+$(NAME) : $(OBJ)
+	@$(CC) $(CFLAGS) $(SAN_FLAG) -o $@ $^
 
 clean:
 	rm -rf obj
