@@ -10,14 +10,14 @@ make all --print-data-base --no-builtin-variables --no-builtin-rules --question
 make: *** No rule to make target `all'.  Stop.
 
 
-# Make data base, printed on Wed Jul 13 14:42:08 2022
+# Make data base, printed on Thu Jul 14 20:05:24 2022
 
 # Variables
 
 # automatic
+ 
 <D = $(patsubst %/,%,$(dir $<))
 # automatic
- 
 ?F = $(notdir $?)
 # environment
 ELECTRON_NO_ATTACH_CONSOLE = 1
@@ -130,6 +130,7 @@ TERM_PROGRAM = iTerm.app
 # default
 .VARIABLES := 
 # environment
+ 
 TMPDIR = /var/folders/pw/zs_s4_b51d70wgw74tx4w76h0000gn/T/
 # automatic
 *F = $(notdir $*)
@@ -172,7 +173,6 @@ ITERM_PROFILE = Default
 # environment
 PAGER = less
 # environment
- 
 LC_ALL = C
 # environment
 SECURITYSESSIONID = 186b1
@@ -257,6 +257,7 @@ GNUmakefile:
 #  Failed to be updated.
 # variable set hash-table stats:
 # Load=0/32=0%, Rehash=0, Collisions=0/0=0%
+ 
 
 # files hash-table stats:
 # Load=6/1024=1%, Rehash=0, Collisions=0/17=0%
@@ -271,6 +272,6 @@ GNUmakefile:
 # strcache size: total = 0 / max = 0 / min = 4096 / avg = 0
 # strcache free: total = 0 / max = 0 / min = 4096 / avg = 0
 
-# Finished Make data base on Wed Jul 13 14:42:08 2022
+# Finished Make data base on Thu Jul 14 20:05:24 2022
 
  

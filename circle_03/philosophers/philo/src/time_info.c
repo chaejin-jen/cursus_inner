@@ -6,31 +6,36 @@
 /*   By: chaejkim <chaejkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/10 12:33:55 by chaejkim          #+#    #+#             */
-/*   Updated: 2022/07/13 13:04:12 by chaejkim         ###   ########.fr       */
+/*   Updated: 2022/07/14 22:32:13 by chaejkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-void msleep(float wait_time)
+void	msleep(float wait_time)
 {
-	usleep((int)(wait_time * 1000));
+	int	microsec;
+
+	microsec = wait_time * 1000;
+	if (microsec > 0)
+		usleep(microsec);
 }
 
-void get_timer_time(pthread_mutex_t *timer, struct timeval *tv)
+void	get_timer_time(pthread_mutex_t *timer, t_tv *tv)
 {
 	pthread_mutex_lock(timer);
 	gettimeofday(tv, NULL);
 	pthread_mutex_unlock(timer);
 }
 
-float time_diff(struct timeval *start, struct timeval *end)
+float	time_diff(t_tv *start, t_tv *end)
 {
 	return (((float)(end->tv_sec - start->tv_sec)) * 1000 \
-		+ ((float)(end->tv_usec - start->tv_usec)) / 1000);
+			+ ((float)(end->tv_usec - start->tv_usec)) / 1000);
 }
 
-void set_elasped_time(pthread_mutex_t *timer, t_time_info *tinfo, struct timeval *current)
+void	set_elasped_time(pthread_mutex_t *timer,
+		t_time_info *tinfo, t_tv *current)
 {
 	pthread_mutex_lock(timer);
 	tinfo->elasped_time = 0;
@@ -39,7 +44,8 @@ void set_elasped_time(pthread_mutex_t *timer, t_time_info *tinfo, struct timeval
 	pthread_mutex_unlock(timer);
 }
 
-void update_elasped_time(pthread_mutex_t *timer, t_time_info *tinfo, struct timeval *current)
+void	update_elasped_time(pthread_mutex_t *timer,
+		t_time_info *tinfo, t_tv *current)
 {
 	pthread_mutex_lock(timer);
 	tinfo->elasped_time = time_diff(&tinfo->last_eat, current);

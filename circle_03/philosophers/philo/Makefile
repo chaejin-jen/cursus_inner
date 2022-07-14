@@ -6,7 +6,7 @@
 #    By: chaejkim <chaejkim@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/07/08 13:41:40 by chaejkim          #+#    #+#              #
-#    Updated: 2022/07/13 14:41:59 by chaejkim         ###   ########.fr        #
+#    Updated: 2022/07/14 20:05:23 by chaejkim         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,6 +24,7 @@ SRC = src/main.c \
 	  src/routine.c \
 	  src/routine_util.c \
 	  src/monitor.c \
+	  src/simulation_info.c \
 	  src/table_info.c \
 	  src/time_info.c
 
