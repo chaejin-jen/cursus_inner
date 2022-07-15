@@ -6,7 +6,7 @@
 /*   By: chaejkim <chaejkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/10 16:53:21 by chaejkim          #+#    #+#             */
-/*   Updated: 2022/07/13 13:01:46 by chaejkim         ###   ########.fr       */
+/*   Updated: 2022/07/15 16:15:55 by chaejkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,11 +50,10 @@ static int	set_philo(t_table_info *table, t_philo_info **philos, int n_philo)
 		pinfo->philo_num = pnum + 1;
 		pinfo->rest_eat = table->sinfo->least_eat;
 		pinfo->finfo = &table->forks[pnum];
-		pinfo->tinfo.elasped_time = 0;
 		s = pthread_create(&pinfo->thread_id, NULL, &routine, (void *)table);
 		if (s != 0)
 			return (error_message("pthread_create"));
-		usleep(10);
+		usleep(30);
 	}
 	return (0);
 }

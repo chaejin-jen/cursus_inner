@@ -6,7 +6,7 @@
 /*   By: chaejkim <chaejkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/14 20:04:25 by chaejkim          #+#    #+#             */
-/*   Updated: 2022/07/14 22:11:18 by chaejkim         ###   ########.fr       */
+/*   Updated: 2022/07/15 12:17:20 by chaejkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ int	set_simulation_info(int argc, char **argv, t_simulation_info *sinfo)
 	if (pthread_mutex_init(&sinfo->monitor, NULL)
 		|| pthread_mutex_init(&sinfo->printer, NULL)
 		|| pthread_mutex_init(&sinfo->timer, NULL))
-		error_message("pthread_mutex_init (monitor/printer/timer)");
+		error_message("pthread_mutex_init (monitor/printer)");
 	i = 0;
 	while (++i < argc)
 	{
@@ -72,7 +72,7 @@ int	set_simulation_info(int argc, char **argv, t_simulation_info *sinfo)
 	if (argc == 5)
 		sinfo->least_eat = -1;
 	sinfo->need_end = FALSE;
-	memset(&sinfo->current, 0, sizeof(t_tv));
+	memset(&sinfo->start, 0, sizeof(t_tv));
 	return (0);
 }
 
