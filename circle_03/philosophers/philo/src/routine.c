@@ -6,7 +6,7 @@
 /*   By: chaejkim <chaejkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/09 12:17:42 by chaejkim          #+#    #+#             */
-/*   Updated: 2022/07/15 14:08:48 by chaejkim         ###   ########.fr       */
+/*   Updated: 2022/07/22 17:39:04 by chaejkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,10 @@ void	*routine(void *arg)
 	table = (t_table_info *)arg;
 	philo = &(table->philos[table->seat_num]);
 	sinfo = table->sinfo;
-	wait_philos(&sinfo->timer, sinfo, philo);
-	philo->last_eat = get_nticks();
-	while (check_end(&sinfo->monitor, sinfo, philo) == 0)
+	wait_philos(&sinfo->timer, sinfo);
+	philo->start = get_nticks();
+	sync_philos(sinfo, philo);
+	while (check_end(sinfo, philo) == 0)
 	{
 		if (take_fork(philo, philo->finfo, sinfo)
 			|| eat(philo, philo->finfo, sinfo)

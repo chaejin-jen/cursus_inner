@@ -6,7 +6,7 @@
 /*   By: chaejkim <chaejkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/09 16:22:48 by chaejkim          #+#    #+#             */
-/*   Updated: 2022/07/14 20:06:03 by chaejkim         ###   ########.fr       */
+/*   Updated: 2022/07/22 15:01:23 by chaejkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,8 @@
 
 int	monitor(t_simulation_info *sinfo)
 {
-	static int	philo_done = 0;
-
 	pthread_mutex_lock(&sinfo->monitor);
-	if (philo_done == sinfo->number)
+	if (sinfo->number == 0)
 	{
 		pthread_mutex_unlock(&sinfo->monitor);
 		return (0);

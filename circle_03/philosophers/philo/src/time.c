@@ -6,7 +6,7 @@
 /*   By: chaejkim <chaejkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/10 12:33:55 by chaejkim          #+#    #+#             */
-/*   Updated: 2022/07/15 16:27:39 by chaejkim         ###   ########.fr       */
+/*   Updated: 2022/07/22 16:16:32 by chaejkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,31 +18,31 @@ float	time_diff(t_tv *start, t_tv *end)
 			+ ((float)(end->tv_usec - start->tv_usec)) / 1000);
 }
 
-long long	nticks(t_tv *t)
-{
-	return (((long long)(t->tv_sec)) * 1000000 + ((long long)(t->tv_usec)));
-}
-
 long long	get_nticks(void)
 {
 	t_tv	t_val;
 
 	gettimeofday(&t_val, NULL);
-	return (nticks(&t_val));
+	return (((long long)(t_val.tv_sec)) * 1000000
+			+ ((long long)(t_val.tv_usec)));
 }
 
-long long	get_elasped_time(long long start)
+void	msleep(long long end)
 {
-	return (get_nticks() - start);
+	while (get_nticks() < end)
+		usleep (750);
 }
 
-int	limit_msleep(long long end, int limit_time)
+int	limit_msleep(long long end, long long limit_end)
 {
 	int			is_over;
 
-	is_over = 1;
-	if (end < (get_nticks() + limit_time * 1000))
-		is_over = 0;
+	is_over = 0;
+	if (end > limit_end)
+	{
+		is_over = 1;
+		end = limit_end;
+	}
 	while (get_nticks() < end)
 		usleep (750);
 	return (is_over);

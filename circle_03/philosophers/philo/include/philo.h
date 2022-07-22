@@ -6,7 +6,7 @@
 /*   By: chaejkim <chaejkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/08 13:44:09 by chaejkim          #+#    #+#             */
-/*   Updated: 2022/07/15 13:53:31 by chaejkim         ###   ########.fr       */
+/*   Updated: 2022/07/22 16:16:35 by chaejkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,9 +44,9 @@ typedef struct s_simulation_info
 	t_tv			start;
 	t_bool			need_end;
 	int				number;
-	int				time_to_die;
-	int				time_to_eat;
-	int				time_to_sleep;
+	long long		time_to_die;
+	long long		time_to_eat;
+	long long		time_to_sleep;
 	int				least_eat;
 }				t_simulation_info;
 
@@ -62,7 +62,7 @@ typedef struct s_philo_info
 	int			philo_num;
 	int			rest_eat;
 	t_fork_info	*finfo;
-	long long	last_eat;
+	long long	start;
 }				t_philo_info;
 
 typedef struct s_table_info
@@ -78,10 +78,9 @@ int			error_message(char *msg);
 
 /* time.c */
 float		time_diff(t_tv *start, t_tv *end);
-long long	nticks(t_tv *t);
 long long	get_nticks(void);
-long long	get_elasped_time(long long start);
-int			limit_msleep(long long start, int limit_time);
+void		msleep(long long end);
+int			limit_msleep(long long end, long long limit_end);
 
 /* run.c */
 int			run_simulation(t_simulation_info *sinfo);
@@ -111,10 +110,9 @@ int			psleep(t_philo_info *philo, t_simulation_info *sinfo);
 void		dying(int philo_num, t_simulation_info *sinfo);
 
 /* routine_util.c */
-void		wait_philos(pthread_mutex_t *timer,
-				t_simulation_info *sinfo, t_philo_info *philo);
-int			check_end(pthread_mutex_t *monitor,
-				t_simulation_info *sinfo, t_philo_info *philo);
+void		wait_philos(pthread_mutex_t *timer, t_simulation_info *sinfo);
+void		sync_philos(t_simulation_info *sinfo, t_philo_info *philo);
+int			check_end(t_simulation_info *sinfo, t_philo_info *philo);
 void		note_end(pthread_mutex_t *monitor, t_simulation_info *sinfo);
 
 #endif

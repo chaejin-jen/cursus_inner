@@ -6,7 +6,7 @@
 /*   By: chaejkim <chaejkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/14 20:04:25 by chaejkim          #+#    #+#             */
-/*   Updated: 2022/07/15 12:17:20 by chaejkim         ###   ########.fr       */
+/*   Updated: 2022/07/22 14:55:39 by chaejkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,16 +36,16 @@ static int	ft_strtopi(const char *str)
 	return ((int)sum);
 }
 
-static void	set_num_in_info(t_simulation_info *sinfo, unsigned int num, int i)
+static void	set_num_in_info(t_simulation_info *sinfo, long long num, int i)
 {
 	if (i == 1)
 		sinfo->number = num;
 	else if (i == 2)
-		sinfo->time_to_die = num;
+		sinfo->time_to_die = num * 1000;
 	else if (i == 3)
-		sinfo->time_to_eat = num;
+		sinfo->time_to_eat = num * 1000;
 	else if (i == 4)
-		sinfo->time_to_sleep = num;
+		sinfo->time_to_sleep = num * 1000;
 	else if (i == 5)
 		sinfo->least_eat = num;
 }
@@ -60,7 +60,7 @@ int	set_simulation_info(int argc, char **argv, t_simulation_info *sinfo)
 	if (pthread_mutex_init(&sinfo->monitor, NULL)
 		|| pthread_mutex_init(&sinfo->printer, NULL)
 		|| pthread_mutex_init(&sinfo->timer, NULL))
-		error_message("pthread_mutex_init (monitor/printer)");
+		error_message("pthread_mutex_init (monitor/printer/timer)");
 	i = 0;
 	while (++i < argc)
 	{
