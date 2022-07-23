@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   print.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chaejkim <chaejkim@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: chaejkim <chaejkim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/08 13:54:57 by chaejkim          #+#    #+#             */
-/*   Updated: 2022/07/23 13:50:40 by chaejkim         ###   ########.fr       */
+/*   Updated: 2022/07/23 14:46:16 by chaejkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 int	timestamp(t_simulation_info *sinfo, int philo_num, int state)
 {
 	static int	need_end = FALSE;
-	float			mticks;
+	double		mticks;
 	t_tv		current;
 
 	pthread_mutex_lock(&sinfo->printer);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   routine_util.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chaejkim <chaejkim@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: chaejkim <chaejkim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/12 04:23:45 by chaejkim          #+#    #+#             */
-/*   Updated: 2022/07/22 18:34:05 by chaejkim         ###   ########.fr       */
+/*   Updated: 2022/07/23 16:23:13 by chaejkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,25 +32,19 @@ void	sync_philos(t_simulation_info *sinfo, t_philo_info *philo)
 	{
 		if (sinfo->time_to_die <= sinfo->time_to_eat)
 		{
-			msleep(philo->start + sinfo->time_to_die);
+			sleep_until(philo->start + sinfo->time_to_die);
 			dying(philo->philo_num, sinfo);
 		}
 		usleep(50);
 	}
 }
 
-int	check_end(t_simulation_info *sinfo, t_philo_info *philo)
+int	check_end(pthread_mutex_t *monitor, t_simulation_info *sinfo)
 {
-	pthread_mutex_lock(&sinfo->monitor);
+	pthread_mutex_lock(monitor);
 	if (sinfo->need_end == TRUE)
-	{
-		pthread_mutex_unlock(&sinfo->monitor);
-		return (1);
-	}
-	pthread_mutex_unlock(&sinfo->monitor);
-	if (philo->rest_eat == 0)
-		return (1);
-	return (0);
+		return (pthread_mutex_unlock(monitor) + 1);
+	return (pthread_mutex_unlock(monitor));
 }
 
 void	note_end(pthread_mutex_t *monitor, t_simulation_info *sinfo)

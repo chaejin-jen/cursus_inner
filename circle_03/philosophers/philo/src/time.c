@@ -3,19 +3,24 @@
 /*                                                        :::      ::::::::   */
 /*   time.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chaejkim <chaejkim@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: chaejkim <chaejkim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/10 12:33:55 by chaejkim          #+#    #+#             */
-/*   Updated: 2022/07/23 13:33:53 by chaejkim         ###   ########.fr       */
+/*   Updated: 2022/07/23 16:50:27 by chaejkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-float	time_diff(t_tv *start, t_tv *end)
+double	time_diff(t_tv *start, t_tv *end)
 {
-	return (((float)(end->tv_sec - start->tv_sec)) * 1000 \
-			+ ((float)(end->tv_usec - start->tv_usec)) / 1000);
+	if ((end->tv_usec - start->tv_usec) < 0)
+	{
+		end->tv_usec += 1000000;
+		end->tv_sec -= 1;
+	}
+	return ((end->tv_sec - start->tv_sec) * 1000.0
+		+ (end->tv_usec - start->tv_usec) / 1000.0);
 }
 
 long long	get_nticks(void)
@@ -26,23 +31,23 @@ long long	get_nticks(void)
 	return (t_val.tv_sec * 1000000.L + (long long)t_val.tv_usec);
 }
 
-void	msleep(long long end)
+void	sleep_until(long long end)
 {
 	while (get_nticks() < end)
 		usleep (750);
 }
 
-int	limit_msleep(long long end, long long limit_end)
+int	sleep_until_limit(long long end, long long limit_end)
 {
-	int			is_over;
+	int			is_limit;
 
-	is_over = 0;
+	is_limit = 0;
 	if (end > limit_end)
 	{
-		is_over = 1;
+		is_limit = 1;
 		end = limit_end;
 	}
 	while (get_nticks() < end)
 		usleep (750);
-	return (is_over);
+	return (is_limit);
 }

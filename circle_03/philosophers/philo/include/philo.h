@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chaejkim <chaejkim@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: chaejkim <chaejkim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/08 13:44:09 by chaejkim          #+#    #+#             */
-/*   Updated: 2022/07/23 13:44:22 by chaejkim         ###   ########.fr       */
+/*   Updated: 2022/07/23 16:17:13 by chaejkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,10 +77,10 @@ int			timestamp(t_simulation_info *sinfo, int philo_num, int state);
 int			error_message(char *msg);
 
 /* time.c */
-float		time_diff(t_tv *start, t_tv *end);
+double		time_diff(t_tv *start, t_tv *end);
 long long	get_nticks(void);
-void		msleep(long long end);
-int			limit_msleep(long long end, long long limit_end);
+void		sleep_until(long long end);
+int			sleep_until_limit(long long end, long long limit_end);
 
 /* run.c */
 int			run_simulation(t_simulation_info *sinfo);
@@ -112,7 +112,7 @@ void		dying(int philo_num, t_simulation_info *sinfo);
 /* routine_util.c */
 void		wait_philos(pthread_mutex_t *timer, t_simulation_info *sinfo);
 void		sync_philos(t_simulation_info *sinfo, t_philo_info *philo);
-int			check_end(t_simulation_info *sinfo, t_philo_info *philo);
+int			check_end(pthread_mutex_t *monitor, t_simulation_info *sinfo);
 void		note_end(pthread_mutex_t *monitor, t_simulation_info *sinfo);
 
 #endif

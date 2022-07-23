@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   routine.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chaejkim <chaejkim@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: chaejkim <chaejkim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/09 12:17:42 by chaejkim          #+#    #+#             */
-/*   Updated: 2022/07/22 17:39:04 by chaejkim         ###   ########.fr       */
+/*   Updated: 2022/07/23 16:18:06 by chaejkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	*routine(void *arg)
 	wait_philos(&sinfo->timer, sinfo);
 	philo->start = get_nticks();
 	sync_philos(sinfo, philo);
-	while (check_end(sinfo, philo) == 0)
+	while (philo->rest_eat != 0 && check_end(&sinfo->monitor, sinfo) == 0)
 	{
 		if (take_fork(philo, philo->finfo, sinfo)
 			|| eat(philo, philo->finfo, sinfo)
