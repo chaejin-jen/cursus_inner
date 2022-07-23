@@ -6,7 +6,7 @@
 /*   By: chaejkim <chaejkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/10 12:33:55 by chaejkim          #+#    #+#             */
-/*   Updated: 2022/07/22 16:16:32 by chaejkim         ###   ########.fr       */
+/*   Updated: 2022/07/23 13:33:53 by chaejkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,7 @@ long long	get_nticks(void)
 	t_tv	t_val;
 
 	gettimeofday(&t_val, NULL);
-	return (((long long)(t_val.tv_sec)) * 1000000
-			+ ((long long)(t_val.tv_usec)));
+	return (t_val.tv_sec * 1000000.L + (long long)t_val.tv_usec);
 }
 
 void	msleep(long long end)

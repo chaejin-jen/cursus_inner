@@ -6,7 +6,7 @@
 /*   By: chaejkim <chaejkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/15 10:59:44 by chaejkim          #+#    #+#             */
-/*   Updated: 2022/07/22 17:39:00 by chaejkim         ###   ########.fr       */
+/*   Updated: 2022/07/23 13:37:38 by chaejkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,9 +62,11 @@ int	psleep(t_philo_info *philo, t_simulation_info *sinfo)
 
 void	dying(int philo_num, t_simulation_info *sinfo)
 {
-	pthread_mutex_lock(&sinfo->monitor);
 	if (sinfo->need_end == FALSE)
+	{
+		pthread_mutex_lock(&sinfo->monitor);
 		timestamp(sinfo, philo_num, DEAD);
-	sinfo->need_end = TRUE;
-	pthread_mutex_unlock(&sinfo->monitor);
+		sinfo->need_end = TRUE;
+		pthread_mutex_unlock(&sinfo->monitor);
+	}
 }

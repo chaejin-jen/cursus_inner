@@ -6,7 +6,7 @@
 /*   By: chaejkim <chaejkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/12 04:23:45 by chaejkim          #+#    #+#             */
-/*   Updated: 2022/07/22 15:21:59 by chaejkim         ###   ########.fr       */
+/*   Updated: 2022/07/22 18:34:05 by chaejkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,8 +41,13 @@ void	sync_philos(t_simulation_info *sinfo, t_philo_info *philo)
 
 int	check_end(t_simulation_info *sinfo, t_philo_info *philo)
 {
+	pthread_mutex_lock(&sinfo->monitor);
 	if (sinfo->need_end == TRUE)
+	{
+		pthread_mutex_unlock(&sinfo->monitor);
 		return (1);
+	}
+	pthread_mutex_unlock(&sinfo->monitor);
 	if (philo->rest_eat == 0)
 		return (1);
 	return (0);
