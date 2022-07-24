@@ -6,7 +6,7 @@
 /*   By: chaejkim <chaejkim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/12 04:23:45 by chaejkim          #+#    #+#             */
-/*   Updated: 2022/07/24 19:42:04 by chaejkim         ###   ########.fr       */
+/*   Updated: 2022/07/24 21:21:50 by chaejkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,10 @@ void	wait_philos(pthread_mutex_t *timer, t_simulation_info *sinfo)
 
 void	sync_philos(t_simulation_info *sinfo, t_philo_info *philo)
 {
-	if (philo->philo_num % 2)
+	philo->start = get_mticks();
+	philo->recent_eat = philo->start;
+	philo->recent_act = philo->start;
+	if (philo->pnum % 2)
 	{
 		if (sinfo->time_to_die <= sinfo->time_to_eat)
 		{

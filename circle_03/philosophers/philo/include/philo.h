@@ -6,7 +6,7 @@
 /*   By: chaejkim <chaejkim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/08 13:44:09 by chaejkim          #+#    #+#             */
-/*   Updated: 2022/07/24 19:23:48 by chaejkim         ###   ########.fr       */
+/*   Updated: 2022/07/24 20:25:34 by chaejkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,10 +59,11 @@ typedef struct s_fork_info
 typedef struct s_philo_info
 {
 	pthread_t	thread_id;
-	int			philo_num;
+	int			pnum;
 	int			rest_eat;
 	t_fork_info	*finfo;
 	long long	start;
+	long long	recent_eat;
 	long long	recent_act;
 }				t_philo_info;
 
@@ -74,7 +75,7 @@ typedef struct s_table_info
 	int					seat_num;
 }				t_table_info;
 
-long long	timestamp(t_simulation_info *sinfo, int philo_num, int act);
+long long	timestamp(pthread_mutex_t *printer, t_philo_info *philo, int act);
 int			error_message(char *msg);
 
 /* time.c */

@@ -6,7 +6,7 @@
 /*   By: chaejkim <chaejkim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/09 16:22:48 by chaejkim          #+#    #+#             */
-/*   Updated: 2022/07/24 19:22:49 by chaejkim         ###   ########.fr       */
+/*   Updated: 2022/07/24 20:54:17 by chaejkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,16 +27,16 @@ static int	check_end(pthread_mutex_t *monitor, t_simulation_info *sinfo)
 static int	check_philos(pthread_mutex_t *timer,
 		t_philo_info *philos, t_simulation_info *sinfo)
 {
-	int				pnum;
+	int				tnum;
 
-	pnum = -1;
-	while (++pnum < sinfo->number)
+	tnum = -1;
+	while (++tnum < sinfo->number)
 	{
 		pthread_mutex_lock(timer);
-		if (philos[pnum].recent_act == 0
-			|| get_mticks() > philos[pnum].start + sinfo->time_to_eat)
+		if (philos[tnum].recent_act == 0
+			|| get_mticks() > philos[tnum].recent_eat + sinfo->time_to_die)
 		{
-			dying(&philos[pnum], sinfo);
+			dying(&philos[tnum], sinfo);
 			pthread_mutex_unlock(timer);
 			return (0);
 		}
