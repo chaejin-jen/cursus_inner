@@ -6,38 +6,40 @@
 /*   By: chaejkim <chaejkim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/08 13:54:57 by chaejkim          #+#    #+#             */
-/*   Updated: 2022/07/23 14:46:16 by chaejkim         ###   ########.fr       */
+/*   Updated: 2022/07/24 20:39:33 by chaejkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 #include <stdio.h>
 
-int	timestamp(t_simulation_info *sinfo, int philo_num, int state)
+long long	timestamp(pthread_mutex_t *printer, t_philo_info *philo, int act)
 {
-	static int	need_end = FALSE;
+	static int	any_dead = FALSE;
 	double		mticks;
-	t_tv		current;
+	long long	current;
 
-	pthread_mutex_lock(&sinfo->printer);
-	if (need_end == TRUE)
-		return (pthread_mutex_unlock(&sinfo->printer));
-	gettimeofday(&current, NULL);
-	mticks = time_diff(&sinfo->start, &current);
-	if (state == TAKE)
-		printf("%10.2f %d has taken a fork\n", mticks, philo_num);
-	else if (state == EAT)
-		printf("\033[0;33m%10.2f %d is eating\n\033[0m", mticks, philo_num);
-	else if (state == SLEEP)
-		printf("\033[0;35m%10.2f %d is sleeping\n\033[0m", mticks, philo_num);
-	else if (state == THINK)
-		printf("\033[0;32m%10.2f %d is thinking\n\033[0m", mticks, philo_num);
-	else if (state == DEAD)
+	pthread_mutex_lock(printer);
+	if (any_dead == TRUE)
+		return (pthread_mutex_unlock(printer));
+	current = get_mticks();
+	mticks = (current - philo->start) / 1000.;
+	if (act == TAKE)
+		printf("%10.2f %d has taken a fork\n", mticks, philo->pnum);
+	else if (act == EAT)
+		printf("\033[0;33m%10.2f %d is eating\n\033[0m", mticks, philo->pnum);
+	else if (act == SLEEP)
+		printf("\033[0;35m%10.2f %d is sleeping\n\033[0m", mticks, philo->pnum);
+	else if (act == THINK)
+		printf("\033[0;32m%10.2f %d is thinking\n\033[0m", mticks, philo->pnum);
+	else if (act == DEAD)
 	{
-		need_end = TRUE;
-		printf("\033[0;31m%10.2f %d died\n\033[0m", mticks, philo_num);
+		any_dead = TRUE;
+		printf("\033[0;31m%10.2f %d died\n\033[0m", mticks, philo->pnum);
+		return (pthread_mutex_unlock(printer));
 	}
-	return (pthread_mutex_unlock(&sinfo->printer));
+	pthread_mutex_unlock(printer);
+	return (current);
 }
 
 int	error_message(char *msg)

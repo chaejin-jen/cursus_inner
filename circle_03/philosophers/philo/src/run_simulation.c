@@ -6,7 +6,7 @@
 /*   By: chaejkim <chaejkim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/09 16:11:51 by chaejkim          #+#    #+#             */
-/*   Updated: 2022/07/23 17:19:02 by chaejkim         ###   ########.fr       */
+/*   Updated: 2022/07/24 19:44:23 by chaejkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,10 @@ int	run_simulation(t_simulation_info *sinfo)
 	pthread_mutex_lock(&sinfo->timer);
 	gettimeofday(&sinfo->start, NULL);
 	pthread_mutex_unlock(&sinfo->timer);
-	while (monitor(sinfo) != 0)
-		usleep(50);
+	pthread_mutex_lock(&table.sinfo->monitor);
+	pthread_mutex_unlock(&table.sinfo->monitor);
+	while (monitor(&table) != 0)
+		usleep(750);
 	if (clear_table(&table, sinfo->number) != 0)
 		return (1);
 	return (0);

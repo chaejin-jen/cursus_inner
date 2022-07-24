@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   simulation_info.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chaejkim <chaejkim@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: chaejkim <chaejkim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/14 20:04:25 by chaejkim          #+#    #+#             */
-/*   Updated: 2022/07/22 14:55:39 by chaejkim         ###   ########.fr       */
+/*   Updated: 2022/07/24 18:51:08 by chaejkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,6 @@ int	set_simulation_info(int argc, char **argv, t_simulation_info *sinfo)
 	}
 	if (argc == 5)
 		sinfo->least_eat = -1;
-	sinfo->need_end = FALSE;
 	memset(&sinfo->start, 0, sizeof(t_tv));
 	return (0);
 }
