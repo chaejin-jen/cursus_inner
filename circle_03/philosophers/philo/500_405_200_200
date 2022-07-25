@@ -1,0 +1,1385 @@
+      0.11 2 has taken a fork
+[0;33m      0.23 2 is eating
+[0m      0.24 6 has taken a fork
+      0.28 46 has taken a fork
+      0.32 10 has taken a fork
+      0.36 12 has taken a fork
+      0.40 14 has taken a fork
+      0.43 16 has taken a fork
+      0.46 18 has taken a fork
+      0.49 20 has taken a fork
+      0.53 22 has taken a fork
+      0.57 24 has taken a fork
+      0.60 26 has taken a fork
+      0.64 28 has taken a fork
+      0.67 30 has taken a fork
+      0.71 32 has taken a fork
+      0.73 34 has taken a fork
+      0.77 4 has taken a fork
+      0.80 36 has taken a fork
+      0.83 38 has taken a fork
+      0.87 40 has taken a fork
+      0.91 42 has taken a fork
+      0.94 44 has taken a fork
+[0;33m      0.97 6 is eating
+[0m      0.97 8 has taken a fork
+[0;33m      1.01 46 is eating
+[0m[0;33m      1.01 10 is eating
+[0m[0;33m      1.03 12 is eating
+[0m[0;33m      1.03 14 is eating
+[0m[0;33m      1.04 16 is eating
+[0m[0;33m      1.04 18 is eating
+[0m[0;33m      1.05 20 is eating
+[0m[0;33m      1.05 22 is eating
+[0m[0;33m      1.05 24 is eating
+[0m[0;33m      1.06 26 is eating
+[0m[0;33m      1.06 28 is eating
+[0m[0;33m      1.07 30 is eating
+[0m[0;33m      1.07 32 is eating
+[0m[0;33m      1.08 34 is eating
+[0m[0;33m      1.08 4 is eating
+[0m[0;33m      1.08 36 is eating
+[0m[0;33m      1.09 38 is eating
+[0m[0;33m      1.09 40 is eating
+[0m[0;33m      1.10 42 is eating
+[0m[0;33m      1.10 44 is eating
+[0m      1.11 48 has taken a fork
+[0;33m      1.14 8 is eating
+[0m[0;33m      1.15 48 is eating
+[0m      1.15 50 has taken a fork
+[0;33m      1.19 50 is eating
+[0m      1.19 54 has taken a fork
+[0;33m      1.22 54 is eating
+[0m      1.22 56 has taken a fork
+[0;33m      1.25 56 is eating
+[0m      1.25 78 has taken a fork
+[0;33m      1.29 78 is eating
+[0m      1.29 64 has taken a fork
+[0;33m      1.32 64 is eating
+[0m      1.33 96 has taken a fork
+[0;33m      1.36 96 is eating
+[0m      1.36 58 has taken a fork
+[0;33m      1.40 58 is eating
+[0m      1.40 72 has taken a fork
+[0;33m      1.45 72 is eating
+[0m      1.45 76 has taken a fork
+[0;33m      1.49 76 is eating
+[0m      1.49 60 has taken a fork
+      1.52 148 has taken a fork
+      1.55 84 has taken a fork
+      1.58 86 has taken a fork
+      1.62 62 has taken a fork
+      1.65 88 has taken a fork
+      1.68 90 has taken a fork
+      1.72 92 has taken a fork
+      1.75 94 has taken a fork
+      1.79 66 has taken a fork
+      1.82 68 has taken a fork
+      1.85 98 has taken a fork
+      1.88 100 has taken a fork
+      1.92 102 has taken a fork
+      1.95 104 has taken a fork
+      1.98 70 has taken a fork
+      2.01 106 has taken a fork
+      2.04 108 has taken a fork
+      2.08 110 has taken a fork
+      2.11 112 has taken a fork
+      2.15 114 has taken a fork
+      2.17 116 has taken a fork
+      2.21 74 has taken a fork
+      2.25 118 has taken a fork
+      2.28 120 has taken a fork
+      2.31 122 has taken a fork
+      2.34 124 has taken a fork
+      2.38 126 has taken a fork
+      2.42 128 has taken a fork
+      2.45 52 has taken a fork
+      2.48 130 has taken a fork
+      2.52 132 has taken a fork
+      2.56 134 has taken a fork
+      2.59 136 has taken a fork
+      2.62 138 has taken a fork
+      2.65 140 has taken a fork
+      2.68 80 has taken a fork
+      2.71 142 has taken a fork
+      2.74 144 has taken a fork
+      2.78 146 has taken a fork
+[0;33m      2.81 60 is eating
+[0m      2.81 82 has taken a fork
+      2.86 150 has taken a fork
+[0;33m      2.89 148 is eating
+[0m[0;33m      2.89 84 is eating
+[0m[0;33m      2.90 86 is eating
+[0m[0;33m      2.90 62 is eating
+[0m[0;33m      2.91 88 is eating
+[0m[0;33m      2.92 90 is eating
+[0m[0;33m      2.92 92 is eating
+[0m[0;33m      2.93 94 is eating
+[0m[0;33m      2.93 66 is eating
+[0m[0;33m      2.94 68 is eating
+[0m[0;33m      2.94 98 is eating
+[0m[0;33m      2.95 100 is eating
+[0m[0;33m      2.95 102 is eating
+[0m[0;33m      2.96 104 is eating
+[0m[0;33m      2.96 70 is eating
+[0m[0;33m      2.97 106 is eating
+[0m[0;33m      3.00 108 is eating
+[0m[0;33m      3.00 110 is eating
+[0m[0;33m      3.01 112 is eating
+[0m[0;33m      3.01 114 is eating
+[0m[0;33m      3.02 116 is eating
+[0m[0;33m      3.02 74 is eating
+[0m[0;33m      3.02 118 is eating
+[0m[0;33m      3.03 120 is eating
+[0m[0;33m      3.04 122 is eating
+[0m[0;33m      3.04 124 is eating
+[0m[0;33m      3.04 126 is eating
+[0m[0;33m      3.05 128 is eating
+[0m[0;33m      3.06 52 is eating
+[0m[0;33m      3.06 130 is eating
+[0m[0;33m      3.06 132 is eating
+[0m[0;33m      3.07 134 is eating
+[0m[0;33m      3.08 136 is eating
+[0m[0;33m      3.08 138 is eating
+[0m[0;33m      3.08 140 is eating
+[0m[0;33m      3.09 80 is eating
+[0m[0;33m      3.09 142 is eating
+[0m[0;33m      3.10 144 is eating
+[0m[0;33m      3.10 146 is eating
+[0m[0;33m      3.11 82 is eating
+[0m[0;33m      3.12 150 is eating
+[0m      3.13 152 has taken a fork
+[0;33m      3.16 152 is eating
+[0m      3.17 154 has taken a fork
+      3.20 168 has taken a fork
+      3.25 160 has taken a fork
+      3.28 156 has taken a fork
+      3.32 162 has taken a fork
+      3.36 164 has taken a fork
+      3.39 166 has taken a fork
+[0;33m      3.44 154 is eating
+[0m      3.44 158 has taken a fork
+[0;33m      3.48 168 is eating
+[0m[0;33m      3.48 160 is eating
+[0m[0;33m      3.49 156 is eating
+[0m[0;33m      3.49 162 is eating
+[0m[0;33m      3.49 164 is eating
+[0m[0;33m      3.50 166 is eating
+[0m      3.50 170 has taken a fork
+[0;33m      3.54 158 is eating
+[0m[0;33m      3.56 170 is eating
+[0m      3.56 172 has taken a fork
+      3.59 180 has taken a fork
+      3.64 176 has taken a fork
+      3.68 178 has taken a fork
+[0;33m      3.71 172 is eating
+[0m      3.72 174 has taken a fork
+[0;33m      3.75 180 is eating
+[0m[0;33m      3.75 176 is eating
+[0m[0;33m      3.76 178 is eating
+[0m[0;33m      3.77 174 is eating
+[0m      3.77 182 has taken a fork
+[0;33m      3.81 182 is eating
+[0m      3.81 184 has taken a fork
+[0;33m      3.85 184 is eating
+[0m      3.86 188 has taken a fork
+[0;33m      3.90 188 is eating
+[0m      3.90 190 has taken a fork
+[0;33m      3.94 190 is eating
+[0m      3.94 196 has taken a fork
+[0;33m      3.98 196 is eating
+[0m      3.98 198 has taken a fork
+[0;33m      4.02 198 is eating
+[0m      4.03 200 has taken a fork
+[0;33m      4.07 200 is eating
+[0m      4.08 204 has taken a fork
+[0;33m      4.11 204 is eating
+[0m      4.12 208 has taken a fork
+[0;33m      4.15 208 is eating
+[0m      4.15 210 has taken a fork
+[0;33m      4.18 210 is eating
+[0m      4.18 214 has taken a fork
+      4.23 276 has taken a fork
+      4.27 194 has taken a fork
+      4.31 220 has taken a fork
+      4.35 222 has taken a fork
+      4.38 224 has taken a fork
+      4.43 226 has taken a fork
+      4.47 228 has taken a fork
+      4.50 186 has taken a fork
+      4.54 230 has taken a fork
+      4.59 232 has taken a fork
+      4.62 234 has taken a fork
+      4.66 236 has taken a fork
+      4.69 238 has taken a fork
+      4.76 202 has taken a fork
+      4.80 240 has taken a fork
+      4.83 242 has taken a fork
+      4.87 206 has taken a fork
+      4.89 244 has taken a fork
+      4.93 246 has taken a fork
+      4.98 248 has taken a fork
+      5.01 192 has taken a fork
+      5.05 250 has taken a fork
+      5.08 252 has taken a fork
+      5.12 212 has taken a fork
+      5.16 254 has taken a fork
+      5.19 256 has taken a fork
+      5.23 258 has taken a fork
+      5.27 260 has taken a fork
+      5.31 262 has taken a fork
+      5.34 216 has taken a fork
+      5.37 264 has taken a fork
+      5.39 266 has taken a fork
+      5.43 268 has taken a fork
+      5.46 270 has taken a fork
+      5.49 272 has taken a fork
+      5.53 274 has taken a fork
+[0;33m      5.56 214 is eating
+[0m      5.57 218 has taken a fork
+[0;33m      5.61 276 is eating
+[0m[0;33m      5.62 194 is eating
+[0m[0;33m      5.62 220 is eating
+[0m[0;33m      5.63 222 is eating
+[0m[0;33m      5.63 224 is eating
+[0m[0;33m      5.64 226 is eating
+[0m[0;33m      5.64 228 is eating
+[0m[0;33m      5.66 186 is eating
+[0m[0;33m      5.67 230 is eating
+[0m[0;33m      5.67 232 is eating
+[0m[0;33m      5.68 234 is eating
+[0m[0;33m      5.68 236 is eating
+[0m[0;33m      5.69 238 is eating
+[0m[0;33m      5.69 202 is eating
+[0m[0;33m      5.69 240 is eating
+[0m[0;33m      5.70 242 is eating
+[0m[0;33m      5.70 206 is eating
+[0m[0;33m      5.71 244 is eating
+[0m[0;33m      5.71 246 is eating
+[0m[0;33m      5.71 248 is eating
+[0m[0;33m      5.72 192 is eating
+[0m[0;33m      5.72 250 is eating
+[0m[0;33m      5.73 252 is eating
+[0m[0;33m      5.73 212 is eating
+[0m[0;33m      5.74 254 is eating
+[0m[0;33m      5.74 256 is eating
+[0m[0;33m      5.74 258 is eating
+[0m[0;33m      5.75 260 is eating
+[0m[0;33m      5.75 262 is eating
+[0m[0;33m      5.75 216 is eating
+[0m[0;33m      5.76 264 is eating
+[0m[0;33m      5.76 266 is eating
+[0m[0;33m      5.77 268 is eating
+[0m[0;33m      5.77 270 is eating
+[0m[0;33m      5.78 272 is eating
+[0m[0;33m      5.78 274 is eating
+[0m[0;33m      5.79 218 is eating
+[0m      5.79 278 has taken a fork
+      5.82 288 has taken a fork
+      5.85 282 has taken a fork
+      5.89 284 has taken a fork
+      5.92 286 has taken a fork
+[0;33m      5.95 278 is eating
+[0m      5.96 280 has taken a fork
+[0;33m      5.99 288 is eating
+[0m[0;33m      6.00 282 is eating
+[0m[0;33m      6.00 284 is eating
+[0m[0;33m      6.01 286 is eating
+[0m[0;33m      6.01 280 is eating
+[0m      6.02 290 has taken a fork
+[0;33m      6.05 290 is eating
+[0m      6.05 292 has taken a fork
+[0;33m      6.08 292 is eating
+[0m      6.09 296 has taken a fork
+      6.15 326 has taken a fork
+      6.20 302 has taken a fork
+      6.23 300 has taken a fork
+      6.27 304 has taken a fork
+      6.31 306 has taken a fork
+      6.34 308 has taken a fork
+      6.37 298 has taken a fork
+      6.40 312 has taken a fork
+      6.43 310 has taken a fork
+      6.47 314 has taken a fork
+      6.50 316 has taken a fork
+      6.53 318 has taken a fork
+      6.56 320 has taken a fork
+      6.61 322 has taken a fork
+      6.64 324 has taken a fork
+[0;33m      6.67 296 is eating
+[0m      6.67 294 has taken a fork
+[0;33m      6.71 326 is eating
+[0m[0;33m      6.71 302 is eating
+[0m[0;33m      6.71 300 is eating
+[0m[0;33m      6.72 304 is eating
+[0m[0;33m      6.72 306 is eating
+[0m[0;33m      6.73 308 is eating
+[0m[0;33m      6.73 298 is eating
+[0m[0;33m      6.74 312 is eating
+[0m[0;33m      6.74 310 is eating
+[0m[0;33m      6.74 314 is eating
+[0m[0;33m      6.75 316 is eating
+[0m[0;33m      6.75 318 is eating
+[0m[0;33m      6.76 320 is eating
+[0m[0;33m      6.76 322 is eating
+[0m[0;33m      6.76 324 is eating
+[0m[0;33m      6.77 294 is eating
+[0m      6.78 328 has taken a fork
+[0;33m      6.81 328 is eating
+[0m      6.81 330 has taken a fork
+[0;33m      6.86 330 is eating
+[0m      6.86 334 has taken a fork
+[0;33m      6.89 334 is eating
+[0m      6.89 332 has taken a fork
+[0;33m      6.92 332 is eating
+[0m      6.92 368 has taken a fork
+      6.96 378 has taken a fork
+      7.00 346 has taken a fork
+      7.05 348 has taken a fork
+      7.08 350 has taken a fork
+      7.12 352 has taken a fork
+      7.15 354 has taken a fork
+      7.19 336 has taken a fork
+      7.21 356 has taken a fork
+      7.25 358 has taken a fork
+      7.28 338 has taken a fork
+      7.32 360 has taken a fork
+      7.35 362 has taken a fork
+      7.38 364 has taken a fork
+      7.42 366 has taken a fork
+      7.45 340 has taken a fork
+      7.49 370 has taken a fork
+      7.53 342 has taken a fork
+      7.56 372 has taken a fork
+      7.59 374 has taken a fork
+      7.62 376 has taken a fork
+[0;33m      7.66 368 is eating
+[0m      7.66 344 has taken a fork
+[0;33m      7.69 378 is eating
+[0m[0;33m      7.70 346 is eating
+[0m[0;33m      7.70 348 is eating
+[0m[0;33m      7.71 350 is eating
+[0m[0;33m      7.71 352 is eating
+[0m[0;33m      7.71 354 is eating
+[0m[0;33m      7.72 336 is eating
+[0m[0;33m      7.72 356 is eating
+[0m[0;33m      7.73 358 is eating
+[0m[0;33m      7.75 338 is eating
+[0m[0;33m      7.75 360 is eating
+[0m[0;33m      7.75 362 is eating
+[0m[0;33m      7.76 364 is eating
+[0m[0;33m      7.76 366 is eating
+[0m[0;33m      7.77 340 is eating
+[0m[0;33m      7.77 370 is eating
+[0m[0;33m      7.77 342 is eating
+[0m[0;33m      7.78 372 is eating
+[0m[0;33m      7.78 374 is eating
+[0m[0;33m      7.79 376 is eating
+[0m[0;33m      7.79 344 is eating
+[0m      7.80 380 has taken a fork
+      7.83 390 has taken a fork
+      7.86 384 has taken a fork
+      7.90 386 has taken a fork
+      7.94 388 has taken a fork
+[0;33m      7.97 380 is eating
+[0m      7.98 382 has taken a fork
+[0;33m      8.01 390 is eating
+[0m[0;33m      8.01 384 is eating
+[0m[0;33m      8.02 386 is eating
+[0m[0;33m      8.02 388 is eating
+[0m[0;33m      8.03 382 is eating
+[0m      8.04 392 has taken a fork
+      8.06 398 has taken a fork
+      8.11 396 has taken a fork
+[0;33m      8.14 392 is eating
+[0m      8.15 394 has taken a fork
+[0;33m      8.18 398 is eating
+[0m[0;33m      8.18 396 is eating
+[0m[0;33m      8.19 394 is eating
+[0m      8.20 400 has taken a fork
+[0;33m      8.23 400 is eating
+[0m      8.23 402 has taken a fork
+      8.27 418 has taken a fork
+      8.32 408 has taken a fork
+      8.35 410 has taken a fork
+      8.38 412 has taken a fork
+      8.42 404 has taken a fork
+      8.45 414 has taken a fork
+      8.48 416 has taken a fork
+[0;33m      8.52 402 is eating
+[0m      8.53 406 has taken a fork
+[0;33m      8.56 418 is eating
+[0m[0;33m      8.56 408 is eating
+[0m[0;33m      8.57 410 is eating
+[0m[0;33m      8.57 412 is eating
+[0m[0;33m      8.57 404 is eating
+[0m[0;33m      8.58 414 is eating
+[0m[0;33m      8.58 416 is eating
+[0m[0;33m      8.59 406 is eating
+[0m      8.61 420 has taken a fork
+[0;33m      8.64 420 is eating
+[0m      8.64 422 has taken a fork
+[0;33m      8.68 422 is eating
+[0m      8.68 440 has taken a fork
+[0;33m      8.72 440 is eating
+[0m      8.72 430 has taken a fork
+[0;33m      8.76 430 is eating
+[0m      8.76 434 has taken a fork
+[0;33m      8.79 434 is eating
+[0m      8.80 436 has taken a fork
+[0;33m      8.84 436 is eating
+[0m      8.84 426 has taken a fork
+[0;33m      8.88 426 is eating
+[0m      8.88 428 has taken a fork
+[0;33m      8.92 428 is eating
+[0m      8.92 448 has taken a fork
+[0;33m      8.95 448 is eating
+[0m      8.96 446 has taken a fork
+[0;33m      9.00 446 is eating
+[0m      9.01 484 has taken a fork
+[0;33m      9.04 484 is eating
+[0m      9.05 456 has taken a fork
+[0;33m      9.08 456 is eating
+[0m      9.09 450 has taken a fork
+      9.12 442 has taken a fork
+      9.16 462 has taken a fork
+      9.21 460 has taken a fork
+      9.24 464 has taken a fork
+      9.27 466 has taken a fork
+      9.30 468 has taken a fork
+      9.33 472 has taken a fork
+      9.37 444 has taken a fork
+      9.40 470 has taken a fork
+      9.43 474 has taken a fork
+      9.47 424 has taken a fork
+      9.50 480 has taken a fork
+      9.54 478 has taken a fork
+      9.57 476 has taken a fork
+      9.60 482 has taken a fork
+      9.63 432 has taken a fork
+      9.67 438 has taken a fork
+      9.70 454 has taken a fork
+      9.74 486 has taken a fork
+      9.77 488 has taken a fork
+      9.81 490 has taken a fork
+      9.85 452 has taken a fork
+      9.89 492 has taken a fork
+      9.93 494 has taken a fork
+      9.96 496 has taken a fork
+      9.99 498 has taken a fork
+     10.03 458 has taken a fork
+     10.06 500 has taken a fork
+[0;33m     10.09 450 is eating
+[0m[0;33m     10.10 442 is eating
+[0m[0;33m     10.10 462 is eating
+[0m[0;33m     10.11 460 is eating
+[0m[0;33m     10.11 464 is eating
+[0m[0;33m     10.12 466 is eating
+[0m[0;33m     10.12 468 is eating
+[0m[0;33m     10.12 472 is eating
+[0m[0;33m     10.13 444 is eating
+[0m[0;33m     10.13 470 is eating
+[0m[0;33m     10.14 474 is eating
+[0m[0;33m     10.14 424 is eating
+[0m[0;33m     10.15 480 is eating
+[0m[0;33m     10.15 478 is eating
+[0m[0;33m     10.15 476 is eating
+[0m[0;33m     10.17 482 is eating
+[0m[0;33m     10.18 432 is eating
+[0m[0;33m     10.18 438 is eating
+[0m[0;33m     10.19 454 is eating
+[0m[0;33m     10.19 486 is eating
+[0m[0;33m     10.19 488 is eating
+[0m[0;33m     10.20 490 is eating
+[0m[0;33m     10.20 452 is eating
+[0m[0;33m     10.21 492 is eating
+[0m[0;33m     10.21 494 is eating
+[0m[0;33m     10.21 496 is eating
+[0m[0;33m     10.22 498 is eating
+[0m[0;33m     10.22 458 is eating
+[0m[0;33m     10.22 500 is eating
+[0m[0;35m    201.14 30 is sleeping
+[0m[0;35m    201.16 16 is sleeping
+[0m[0;35m    201.25 24 is sleeping
+[0m[0;35m    201.26 20 is sleeping
+[0m[0;35m    201.28 42 is sleeping
+[0m[0;35m    201.29 6 is sleeping
+[0m[0;35m    201.31 46 is sleeping
+[0m[0;35m    201.32 28 is sleeping
+[0m[0;35m    201.33 8 is sleeping
+[0m[0;35m    201.34 22 is sleeping
+[0m[0;35m    201.35 10 is sleeping
+[0m[0;35m    201.36 26 is sleeping
+[0m[0;35m    201.37 18 is sleeping
+[0m[0;35m    201.37 36 is sleeping
+[0m[0;35m    201.38 32 is sleeping
+[0m[0;35m    201.39 34 is sleeping
+[0m[0;35m    201.41 12 is sleeping
+[0m[0;35m    201.41 56 is sleeping
+[0m[0;35m    201.42 4 is sleeping
+[0m[0;35m    201.43 44 is sleeping
+[0m    201.45 25 has taken a fork
+[0;33m    201.53 25 is eating
+[0m    201.54 41 has taken a fork
+[0;33m    201.61 41 is eating
+[0m    201.62 1 has taken a fork
+[0;33m    201.68 1 is eating
+[0m    201.69 43 has taken a fork
+[0;33m    201.76 43 is eating
+[0m[0;35m    201.76 40 is sleeping
+[0m    201.79 39 has taken a fork
+[0;33m    201.84 39 is eating
+[0m    201.85 7 has taken a fork
+[0;33m    201.93 7 is eating
+[0m    201.94 9 has taken a fork
+[0;35m    202.00 54 is sleeping
+[0m    202.01 23 has taken a fork
+[0;35m    202.06 96 is sleeping
+[0m[0;35m    202.14 58 is sleeping
+[0m[0;35m    202.17 72 is sleeping
+[0m    202.18 57 has taken a fork
+    202.39 31 has taken a fork
+    202.44 33 has taken a fork
+    202.51 35 has taken a fork
+    202.56 11 has taken a fork
+    202.61 13 has taken a fork
+    202.68 15 has taken a fork
+[0;35m    202.74 14 is sleeping
+[0m    202.75 5 has taken a fork
+    202.84 45 has taken a fork
+    202.96 85 has taken a fork
+[0;35m    203.04 104 is sleeping
+[0m[0;35m    203.04 50 is sleeping
+[0m    203.07 3 has taken a fork
+[0;35m    203.13 80 is sleeping
+[0m[0;35m    203.14 116 is sleeping
+[0m[0;35m    203.14 142 is sleeping
+[0m[0;35m    203.16 38 is sleeping
+[0m[0;35m    203.17 122 is sleeping
+[0m    203.18 29 has taken a fork
+[0;33m    203.24 9 is eating
+[0m    203.25 55 has taken a fork
+[0;35m    203.29 64 is sleeping
+[0m    203.31 27 has taken a fork
+    203.37 17 has taken a fork
+[0;35m    203.41 76 is sleeping
+[0m    203.42 77 has taken a fork
+    203.46 19 has taken a fork
+    203.52 37 has taken a fork
+[0;35m    203.56 60 is sleeping
+[0m    203.56 59 has taken a fork
+[0;35m    203.62 84 is sleeping
+[0m[0;35m    203.63 94 is sleeping
+[0m    203.64 81 has taken a fork
+[0;35m    203.71 156 is sleeping
+[0m[0;35m    203.73 92 is sleeping
+[0m[0;35m    203.74 52 is sleeping
+[0m    203.75 51 has taken a fork
+[0;35m    203.80 158 is sleeping
+[0m[0;35m    203.82 144 is sleeping
+[0m    203.82 139 has taken a fork
+    203.91 137 has taken a fork
+[0;35m    203.95 98 is sleeping
+[0m[0;35m    203.96 180 is sleeping
+[0m[0;35m    203.96 124 is sleeping
+[0m    203.97 97 has taken a fork
+    204.02 129 has taken a fork
+[0;35m    204.09 74 is sleeping
+[0m[0;35m    204.10 70 is sleeping
+[0m[0;35m    204.11 48 is sleeping
+[0m    204.11 47 has taken a fork
+    204.17 123 has taken a fork
+    204.21 49 has taken a fork
+[0;35m    204.25 2 is sleeping
+[0m    204.27 69 has taken a fork
+    204.31 73 has taken a fork
+[0;35m    204.39 198 is sleeping
+[0m[0;35m    204.40 128 is sleeping
+[0m[0;35m    204.41 138 is sleeping
+[0m[0;35m    204.42 190 is sleeping
+[0m    204.43 75 has taken a fork
+    204.50 87 has taken a fork
+[0;35m    204.54 88 is sleeping
+[0m    204.55 89 has taken a fork
+[0;35m    204.59 90 is sleeping
+[0m    204.63 91 has taken a fork
+    204.74 197 has taken a fork
+    204.81 111 has taken a fork
+[0;35m    204.85 86 is sleeping
+[0m    204.85 93 has taken a fork
+[0;35m    204.90 82 is sleeping
+[0m    204.92 95 has taken a fork
+[0;35m    204.96 62 is sleeping
+[0m[0;35m    204.97 146 is sleeping
+[0m[0;35m    204.98 108 is sleeping
+[0m[0;35m    204.98 78 is sleeping
+[0m[0;35m    204.99 150 is sleeping
+[0m    205.00 83 has taken a fork
+    205.05 61 has taken a fork
+[0;35m    205.12 168 is sleeping
+[0m    205.12 63 has taken a fork
+[0;35m    205.16 66 is sleeping
+[0m[0;35m    205.17 118 is sleeping
+[0m    205.18 107 has taken a fork
+    205.26 147 has taken a fork
+[0;35m    205.31 170 is sleeping
+[0m    205.32 65 has taken a fork
+    205.37 109 has taken a fork
+[0;35m    205.41 102 is sleeping
+[0m[0;35m    205.43 114 is sleeping
+[0m    205.44 149 has taken a fork
+    205.51 169 has taken a fork
+    205.58 113 has taken a fork
+    205.63 67 has taken a fork
+    205.69 103 has taken a fork
+[0;35m    205.76 148 is sleeping
+[0m    205.77 117 has taken a fork
+    205.83 115 has taken a fork
+[0;35m    205.86 172 is sleeping
+[0m    205.87 53 has taken a fork
+[0;35m    205.93 160 is sleeping
+[0m[0;35m    205.94 100 is sleeping
+[0m    205.94 171 has taken a fork
+[0;35m    205.99 266 is sleeping
+[0m[0;35m    206.02 106 is sleeping
+[0m[0;35m    206.03 202 is sleeping
+[0m[0;35m    206.03 214 is sleeping
+[0m[0;35m    206.04 262 is sleeping
+[0m    206.04 201 has taken a fork
+[0;35m    206.11 140 is sleeping
+[0m[0;35m    206.12 120 is sleeping
+[0m    206.12 125 has taken a fork
+[0;35m    206.16 164 is sleeping
+[0m    206.16 127 has taken a fork
+    206.20 119 has taken a fork
+[0;35m    206.24 242 is sleeping
+[0m    206.25 121 has taken a fork
+[0;35m    206.29 254 is sleeping
+[0m[0;35m    206.29 186 is sleeping
+[0m    206.30 237 has taken a fork
+    206.34 249 has taken a fork
+    206.38 159 has taken a fork
+    206.42 165 has taken a fork
+[0;35m    206.46 232 is sleeping
+[0m    206.47 233 has taken a fork
+[0;35m    206.50 176 is sleeping
+[0m[0;35m    206.51 162 is sleeping
+[0m[0;35m    206.51 110 is sleeping
+[0m    206.52 145 has taken a fork
+[0;35m    206.55 130 is sleeping
+[0m[0;35m    206.56 152 is sleeping
+[0m[0;35m    206.56 132 is sleeping
+[0m    206.57 155 has taken a fork
+    206.60 167 has taken a fork
+    206.64 161 has taken a fork
+[0;35m    206.67 174 is sleeping
+[0m    206.68 151 has taken a fork
+    206.71 163 has taken a fork
+    206.75 131 has taken a fork
+[0;35m    206.78 136 is sleeping
+[0m    206.79 153 has taken a fork
+    206.85 133 has taken a fork
+    206.88 173 has taken a fork
+    206.92 175 has taken a fork
+    206.95 135 has taken a fork
+[0;35m    207.00 300 is sleeping
+[0m[0;35m    207.00 294 is sleeping
+[0m    207.01 325 has taken a fork
+[0;35m    207.05 322 is sleeping
+[0m    207.05 321 has taken a fork
+[0;35m    207.10 178 is sleeping
+[0m    207.10 307 has taken a fork
+    207.14 179 has taken a fork
+[0;35m    207.17 188 is sleeping
+[0m    207.18 189 has taken a fork
+[0;35m    207.22 184 is sleeping
+[0m    207.22 183 has taken a fork
+[0;35m    207.26 200 is sleeping
+[0m[0;35m    207.26 210 is sleeping
+[0m    207.27 199 has taken a fork
+[0;35m    207.31 196 is sleeping
+[0m[0;35m    207.32 204 is sleeping
+[0m    207.32 209 has taken a fork
+[0;35m    207.36 208 is sleeping
+[0m[0;35m    207.36 112 is sleeping
+[0m[0;35m    207.37 250 is sleeping
+[0m[0;35m    207.37 228 is sleeping
+[0m[0;35m    207.38 238 is sleeping
+[0m[0;35m    207.38 246 is sleeping
+[0m    207.39 203 has taken a fork
+[0;35m    207.44 290 is sleeping
+[0m[0;35m    207.44 230 is sleeping
+[0m[0;35m    207.45 284 is sleeping
+[0m    207.46 105 has taken a fork
+    207.50 99 has taken a fork
+    207.53 101 has taken a fork
+[0;35m    207.56 126 is sleeping
+[0m[0;35m    207.57 134 is sleeping
+[0m    207.58 229 has taken a fork
+[0;35m    207.61 260 is sleeping
+[0m[0;35m    207.62 256 is sleeping
+[0m[0;35m    207.63 292 is sleeping
+[0m    207.65 261 has taken a fork
+    207.70 291 has taken a fork
+[0;35m    207.73 244 is sleeping
+[0m    207.74 245 has taken a fork
+    207.77 141 has taken a fork
+    207.82 243 has taken a fork
+[0;35m    207.88 194 is sleeping
+[0m[0;35m    207.88 252 is sleeping
+[0m    207.89 195 has taken a fork
+[0;35m    207.93 206 is sleeping
+[0m[0;35m    207.93 220 is sleeping
+[0m    207.94 251 has taken a fork
+[0;35m    207.97 212 is sleeping
+[0m    207.98 205 has taken a fork
+    208.01 207 has taken a fork
+[0;35m    208.04 236 is sleeping
+[0m    208.05 211 has taken a fork
+    208.09 213 has taken a fork
+[0;35m    208.12 216 is sleeping
+[0m[0;35m    208.12 280 is sleeping
+[0m[0;35m    208.13 264 is sleeping
+[0m    208.14 253 has taken a fork
+[0;35m    208.17 154 is sleeping
+[0m[0;35m    208.18 248 is sleeping
+[0m    208.19 255 has taken a fork
+[0;35m    208.24 234 is sleeping
+[0m[0;35m    208.24 270 is sleeping
+[0m[0;35m    208.25 276 is sleeping
+[0m[0;35m    208.25 288 is sleeping
+[0m    208.26 185 has taken a fork
+    208.30 247 has taken a fork
+    208.36 215 has taken a fork
+    208.39 187 has taken a fork
+[0;35m    208.43 182 is sleeping
+[0m[0;35m    208.44 218 is sleeping
+[0m[0;35m    208.44 226 is sleeping
+[0m    208.45 217 has taken a fork
+    208.48 263 has taken a fork
+    208.52 361 has taken a fork
+    208.57 395 has taken a fork
+    208.62 265 has taken a fork
+[0;35m    208.65 166 is sleeping
+[0m    208.65 235 has taken a fork
+    208.68 277 has taken a fork
+[0;35m    208.72 224 is sleeping
+[0m[0;35m    208.73 274 is sleeping
+[0m[0;35m    208.73 278 is sleeping
+[0m[0;35m    208.74 192 is sleeping
+[0m    208.74 219 has taken a fork
+[0;35m    208.77 222 is sleeping
+[0m[0;35m    208.78 272 is sleeping
+[0m    208.78 409 has taken a fork
+    208.82 227 has taken a fork
+    208.85 239 has taken a fork
+    208.89 241 has taken a fork
+    208.92 257 has taken a fork
+[0;35m    208.96 282 is sleeping
+[0m    208.96 157 has taken a fork
+    208.99 259 has taken a fork
+    209.03 279 has taken a fork
+    209.06 225 has taken a fork
+    209.10 275 has taken a fork
+    209.13 191 has taken a fork
+    209.16 193 has taken a fork
+    209.21 221 has taken a fork
+    209.24 271 has taken a fork
+    209.27 223 has taken a fork
+    209.30 273 has taken a fork
+    209.33 281 has taken a fork
+[0;35m    209.37 434 is sleeping
+[0m    209.38 143 has taken a fork
+[0;35m    209.41 286 is sleeping
+[0m    209.42 231 has taken a fork
+    209.46 285 has taken a fork
+    209.50 21 has taken a fork
+    209.53 287 has taken a fork
+[0;35m    209.57 268 is sleeping
+[0m    209.58 267 has taken a fork
+    209.61 269 has taken a fork
+[0;35m    209.64 318 is sleeping
+[0m[0;35m    209.64 320 is sleeping
+[0m    209.65 319 has taken a fork
+[0;35m    209.68 328 is sleeping
+[0m[0;35m    209.68 312 is sleeping
+[0m[0;35m    209.69 314 is sleeping
+[0m    209.69 313 has taken a fork
+[0;35m    209.73 298 is sleeping
+[0m[0;35m    209.74 296 is sleeping
+[0m[0;35m    209.75 326 is sleeping
+[0m    209.75 327 has taken a fork
+    209.78 297 has taken a fork
+[0;35m    209.82 68 is sleeping
+[0m    209.83 299 has taken a fork
+    209.86 181 has taken a fork
+    209.89 293 has taken a fork
+[0;35m    209.93 310 is sleeping
+[0m    209.94 79 has taken a fork
+[0;35m    209.97 324 is sleeping
+[0m    209.97 311 has taken a fork
+    210.01 295 has taken a fork
+[0;35m    210.04 308 is sleeping
+[0m    210.04 309 has taken a fork
+[0;35m    210.08 316 is sleeping
+[0m    210.09 71 has taken a fork
+    210.12 323 has taken a fork
+    210.16 315 has taken a fork
+[0;33m    210.19 23 is eating
+[0m    210.19 317 has taken a fork
+[0;35m    210.23 334 is sleeping
+[0m[0;35m    210.23 330 is sleeping
+[0m    210.24 329 has taken a fork
+[0;35m    210.28 304 is sleeping
+[0m[0;35m    210.28 306 is sleeping
+[0m[0;35m    210.29 460 is sleeping
+[0m    210.29 449 has taken a fork
+[0;35m    210.32 332 is sleeping
+[0m    210.33 331 has taken a fork
+    210.36 333 has taken a fork
+    210.39 301 has taken a fork
+[0;35m    210.44 302 is sleeping
+[0m    210.46 303 has taken a fork
+[0;35m    210.49 348 is sleeping
+[0m[0;35m    210.50 364 is sleeping
+[0m[0;35m    210.51 370 is sleeping
+[0m    210.51 365 has taken a fork
+[0;35m    210.54 366 is sleeping
+[0m[0;35m    210.55 374 is sleeping
+[0m[0;35m    210.55 372 is sleeping
+[0m    210.56 371 has taken a fork
+    210.59 373 has taken a fork
+[0;35m    210.62 474 is sleeping
+[0m[0;35m    210.63 352 is sleeping
+[0m[0;35m    210.63 376 is sleeping
+[0m[0;35m    210.63 358 is sleeping
+[0m[0;35m    210.64 378 is sleeping
+[0m[0;35m    210.64 336 is sleeping
+[0m    210.65 377 has taken a fork
+    210.70 335 has taken a fork
+    210.73 349 has taken a fork
+[0;35m    210.76 350 is sleeping
+[0m    210.77 351 has taken a fork
+[0;35m    210.80 354 is sleeping
+[0m    210.81 353 has taken a fork
+[0;35m    210.84 340 is sleeping
+[0m    210.84 341 has taken a fork
+[0;35m    210.89 342 is sleeping
+[0m    210.89 477 has taken a fork
+[0;35m    210.93 368 is sleeping
+[0m    210.93 367 has taken a fork
+    210.96 347 has taken a fork
+    210.99 369 has taken a fork
+    211.03 343 has taken a fork
+[0;35m    211.06 344 is sleeping
+[0m    211.07 345 has taken a fork
+[0;35m    211.11 388 is sleeping
+[0m[0;35m    211.11 398 is sleeping
+[0m[0;35m    211.12 356 is sleeping
+[0m    211.12 355 has taken a fork
+    211.15 357 has taken a fork
+[0;35m    211.18 338 is sleeping
+[0m    211.19 337 has taken a fork
+    211.22 339 has taken a fork
+[0;35m    211.25 362 is sleeping
+[0m[0;35m    211.26 382 is sleeping
+[0m    211.27 363 has taken a fork
+    211.30 359 has taken a fork
+[0;35m    211.33 360 is sleeping
+[0m[0;35m    211.34 240 is sleeping
+[0m[0;35m    211.34 396 is sleeping
+[0m    211.35 397 has taken a fork
+    211.39 389 has taken a fork
+[0;35m    211.42 394 is sleeping
+[0m[0;35m    211.43 390 is sleeping
+[0m    211.44 379 has taken a fork
+    211.48 381 has taken a fork
+[0;35m    211.52 380 is sleeping
+[0m[0;35m    211.53 416 is sleeping
+[0m[0;35m    211.53 392 is sleeping
+[0m    211.54 391 has taken a fork
+[0;35m    211.57 258 is sleeping
+[0m    211.57 393 has taken a fork
+[0;35m    211.62 400 is sleeping
+[0m    211.63 399 has taken a fork
+[0;35m    211.66 386 is sleeping
+[0m    211.67 387 has taken a fork
+[0;35m    211.70 408 is sleeping
+[0m[0;35m    211.70 384 is sleeping
+[0m    211.71 383 has taken a fork
+    211.75 385 has taken a fork
+[0;35m    211.80 410 is sleeping
+[0m    211.81 289 has taken a fork
+[0;35m    211.84 448 is sleeping
+[0m[0;35m    211.85 446 is sleeping
+[0m    211.86 447 has taken a fork
+[0;35m    211.88 430 is sleeping
+[0m[0;35m    211.89 418 is sleeping
+[0m    211.90 417 has taken a fork
+[0;35m    211.93 404 is sleeping
+[0m[0;35m    211.93 420 is sleeping
+[0m    211.94 419 has taken a fork
+[0;35m    211.97 440 is sleeping
+[0m[0;35m    211.97 402 is sleeping
+[0m    211.98 401 has taken a fork
+    212.02 403 has taken a fork
+[0;35m    212.05 414 is sleeping
+[0m    212.05 415 has taken a fork
+    212.09 405 has taken a fork
+[0;35m    212.12 406 is sleeping
+[0m    212.13 407 has taken a fork
+[0;35m    212.16 484 is sleeping
+[0m    212.17 421 has taken a fork
+[0;35m    212.21 422 is sleeping
+[0m[0;35m    212.22 412 is sleeping
+[0m    212.22 411 has taken a fork
+    212.26 413 has taken a fork
+[0;35m    212.29 436 is sleeping
+[0m[0;35m    212.30 426 is sleeping
+[0m[0;35m    212.31 428 is sleeping
+[0m    212.31 427 has taken a fork
+    212.34 429 has taken a fork
+    212.38 283 has taken a fork
+[0;35m    212.42 456 is sleeping
+[0m    212.42 435 has taken a fork
+    212.46 441 has taken a fork
+[0;35m    212.49 442 is sleeping
+[0m[0;35m    212.50 466 is sleeping
+[0m[0;35m    212.50 472 is sleeping
+[0m[0;33m    212.51 57 is eating
+[0m    212.51 305 has taken a fork
+[0;35m    212.54 450 is sleeping
+[0m    212.55 177 has taken a fork
+[0;35m    212.59 458 is sleeping
+[0m    212.59 457 has taken a fork
+    212.62 459 has taken a fork
+[0;35m    212.66 482 is sleeping
+[0m[0;35m    212.68 424 is sleeping
+[0m    212.68 423 has taken a fork
+    212.71 483 has taken a fork
+    212.75 425 has taken a fork
+    212.79 473 has taken a fork
+[0;35m    212.82 480 is sleeping
+[0m    212.82 481 has taken a fork
+    212.86 375 has taken a fork
+    212.89 471 has taken a fork
+[0;35m    212.93 470 is sleeping
+[0m[0;35m    212.93 496 is sleeping
+[0m[0;35m    212.94 462 is sleeping
+[0m    212.94 461 has taken a fork
+[0;35m    212.97 452 is sleeping
+[0m    212.98 451 has taken a fork
+[0;35m    213.01 438 is sleeping
+[0m    213.01 437 has taken a fork
+    213.04 439 has taken a fork
+    213.08 463 has taken a fork
+[0;35m    213.12 464 is sleeping
+[0m    213.13 465 has taken a fork
+[0;35m    213.16 490 is sleeping
+[0m[0;35m    213.16 492 is sleeping
+[0m[0;35m    213.17 488 is sleeping
+[0m[0;35m    213.17 498 is sleeping
+[0m    213.18 497 has taken a fork
+    213.21 491 has taken a fork
+[0;35m    213.24 454 is sleeping
+[0m[0;35m    213.25 444 is sleeping
+[0m[0;35m    213.25 486 is sleeping
+[0m[0;35m    213.26 478 is sleeping
+[0m    213.26 489 has taken a fork
+[0;35m    213.30 468 is sleeping
+[0m    213.31 453 has taken a fork
+    213.33 455 has taken a fork
+    213.37 485 has taken a fork
+    213.40 443 has taken a fork
+    213.44 445 has taken a fork
+    213.48 487 has taken a fork
+[0;35m    213.51 500 is sleeping
+[0m    213.51 479 has taken a fork
+    213.54 467 has taken a fork
+    213.58 469 has taken a fork
+    213.61 499 has taken a fork
+[0;35m    213.64 476 is sleeping
+[0m    213.65 475 has taken a fork
+[0;35m    213.69 346 is sleeping
+[0m[0;35m    213.69 432 is sleeping
+[0m    213.70 495 has taken a fork
+    213.73 431 has taken a fork
+    213.76 433 has taken a fork
+[0;35m    213.80 494 is sleeping
+[0m    213.80 493 has taken a fork
+[0;33m    213.85 31 is eating
+[0m[0;33m    213.85 33 is eating
+[0m[0;33m    213.86 35 is eating
+[0m[0;33m    213.86 11 is eating
+[0m[0;33m    213.87 13 is eating
+[0m[0;33m    213.88 15 is eating
+[0m[0;33m    213.88 5 is eating
+[0m[0;33m    213.89 45 is eating
+[0m[0;33m    213.89 85 is eating
+[0m[0;33m    213.90 3 is eating
+[0m[0;33m    213.91 29 is eating
+[0m[0;33m    213.91 55 is eating
+[0m[0;33m    213.92 27 is eating
+[0m[0;33m    213.93 17 is eating
+[0m[0;33m    213.94 77 is eating
+[0m[0;33m    213.95 19 is eating
+[0m[0;33m    213.95 37 is eating
+[0m[0;33m    213.96 59 is eating
+[0m[0;33m    213.97 81 is eating
+[0m[0;33m    213.97 51 is eating
+[0m[0;33m    213.98 139 is eating
+[0m[0;33m    213.98 137 is eating
+[0m[0;33m    213.99 97 is eating
+[0m[0;33m    213.99 129 is eating
+[0m[0;33m    214.00 47 is eating
+[0m[0;33m    214.00 123 is eating
+[0m[0;33m    214.01 49 is eating
+[0m[0;33m    214.02 69 is eating
+[0m[0;33m    214.02 73 is eating
+[0m[0;33m    214.03 75 is eating
+[0m[0;33m    214.03 87 is eating
+[0m[0;33m    214.04 89 is eating
+[0m[0;33m    214.04 91 is eating
+[0m[0;33m    214.05 197 is eating
+[0m[0;33m    214.06 111 is eating
+[0m[0;33m    214.06 93 is eating
+[0m[0;33m    214.07 95 is eating
+[0m[0;33m    214.07 83 is eating
+[0m[0;33m    214.08 61 is eating
+[0m[0;33m    214.08 63 is eating
+[0m[0;33m    214.09 107 is eating
+[0m[0;33m    214.09 147 is eating
+[0m[0;33m    214.10 65 is eating
+[0m[0;33m    214.10 109 is eating
+[0m[0;33m    214.11 149 is eating
+[0m[0;33m    214.11 169 is eating
+[0m[0;33m    214.12 113 is eating
+[0m[0;33m    214.12 67 is eating
+[0m[0;33m    214.13 103 is eating
+[0m[0;33m    214.13 117 is eating
+[0m[0;33m    214.14 115 is eating
+[0m[0;33m    214.15 53 is eating
+[0m[0;33m    214.15 171 is eating
+[0m[0;33m    214.16 201 is eating
+[0m[0;33m    214.16 125 is eating
+[0m[0;33m    214.17 127 is eating
+[0m[0;33m    214.17 119 is eating
+[0m[0;33m    214.18 121 is eating
+[0m[0;33m    214.19 237 is eating
+[0m[0;33m    214.19 249 is eating
+[0m[0;33m    214.20 159 is eating
+[0m[0;33m    214.20 165 is eating
+[0m[0;33m    214.21 233 is eating
+[0m[0;33m    214.22 145 is eating
+[0m[0;33m    214.22 155 is eating
+[0m[0;33m    214.24 167 is eating
+[0m[0;33m    214.24 161 is eating
+[0m[0;33m    214.25 151 is eating
+[0m[0;33m    214.25 163 is eating
+[0m[0;33m    214.26 131 is eating
+[0m[0;33m    214.26 153 is eating
+[0m[0;33m    214.27 133 is eating
+[0m[0;33m    214.27 173 is eating
+[0m[0;33m    214.28 175 is eating
+[0m[0;33m    214.28 135 is eating
+[0m[0;33m    214.29 325 is eating
+[0m[0;33m    214.29 321 is eating
+[0m[0;33m    214.29 307 is eating
+[0m[0;33m    214.30 179 is eating
+[0m[0;33m    214.31 189 is eating
+[0m[0;33m    214.31 183 is eating
+[0m[0;33m    214.32 199 is eating
+[0m[0;33m    214.32 209 is eating
+[0m[0;33m    214.33 203 is eating
+[0m[0;33m    214.34 105 is eating
+[0m[0;33m    214.35 99 is eating
+[0m[0;33m    214.35 101 is eating
+[0m[0;33m    214.36 229 is eating
+[0m[0;33m    214.36 261 is eating
+[0m[0;33m    214.37 291 is eating
+[0m[0;33m    214.37 245 is eating
+[0m[0;33m    214.38 141 is eating
+[0m[0;33m    214.38 243 is eating
+[0m[0;33m    214.39 195 is eating
+[0m[0;33m    214.39 251 is eating
+[0m[0;33m    214.40 205 is eating
+[0m[0;33m    214.41 207 is eating
+[0m[0;33m    214.41 211 is eating
+[0m[0;33m    214.42 213 is eating
+[0m[0;33m    214.43 253 is eating
+[0m[0;33m    214.44 255 is eating
+[0m[0;33m    214.44 185 is eating
+[0m[0;33m    214.46 247 is eating
+[0m[0;33m    214.46 215 is eating
+[0m[0;33m    214.47 187 is eating
+[0m[0;33m    214.47 217 is eating
+[0m[0;33m    214.48 263 is eating
+[0m[0;33m    214.49 361 is eating
+[0m[0;33m    214.50 395 is eating
+[0m[0;33m    214.50 265 is eating
+[0m[0;33m    214.51 235 is eating
+[0m[0;33m    214.51 277 is eating
+[0m[0;33m    214.52 219 is eating
+[0m[0;33m    214.52 409 is eating
+[0m[0;33m    214.53 227 is eating
+[0m[0;33m    214.53 239 is eating
+[0m[0;33m    214.54 241 is eating
+[0m[0;33m    214.54 257 is eating
+[0m[0;33m    214.55 157 is eating
+[0m[0;33m    214.55 259 is eating
+[0m[0;33m    214.56 279 is eating
+[0m[0;33m    214.56 225 is eating
+[0m[0;33m    214.56 275 is eating
+[0m[0;33m    214.57 191 is eating
+[0m[0;33m    214.58 193 is eating
+[0m[0;33m    214.58 221 is eating
+[0m[0;33m    214.59 271 is eating
+[0m[0;33m    214.59 223 is eating
+[0m[0;33m    214.59 273 is eating
+[0m[0;33m    214.60 281 is eating
+[0m[0;33m    214.61 143 is eating
+[0m[0;33m    214.61 231 is eating
+[0m[0;33m    214.62 285 is eating
+[0m[0;33m    214.63 21 is eating
+[0m[0;33m    214.63 287 is eating
+[0m[0;33m    214.64 267 is eating
+[0m[0;33m    214.64 269 is eating
+[0m[0;33m    214.65 319 is eating
+[0m[0;33m    214.65 313 is eating
+[0m[0;33m    214.66 327 is eating
+[0m[0;33m    214.66 297 is eating
+[0m[0;33m    214.67 299 is eating
+[0m[0;33m    214.67 181 is eating
+[0m[0;33m    214.68 293 is eating
+[0m[0;33m    214.69 79 is eating
+[0m[0;33m    214.69 311 is eating
+[0m[0;33m    214.70 295 is eating
+[0m[0;33m    214.71 309 is eating
+[0m[0;33m    214.72 71 is eating
+[0m[0;33m    214.72 323 is eating
+[0m[0;33m    214.73 315 is eating
+[0m[0;33m    214.74 317 is eating
+[0m[0;33m    214.74 329 is eating
+[0m[0;33m    214.75 449 is eating
+[0m[0;33m    214.75 331 is eating
+[0m[0;33m    214.76 333 is eating
+[0m[0;33m    214.77 301 is eating
+[0m[0;33m    214.77 303 is eating
+[0m[0;33m    214.78 365 is eating
+[0m[0;33m    214.78 371 is eating
+[0m[0;33m    214.79 373 is eating
+[0m[0;33m    214.79 377 is eating
+[0m[0;33m    214.80 335 is eating
+[0m[0;33m    214.80 349 is eating
+[0m[0;33m    214.81 351 is eating
+[0m[0;33m    214.81 353 is eating
+[0m[0;33m    214.82 341 is eating
+[0m[0;33m    214.82 477 is eating
+[0m[0;33m    214.83 367 is eating
+[0m[0;33m    214.83 347 is eating
+[0m[0;33m    214.84 369 is eating
+[0m[0;33m    214.84 343 is eating
+[0m[0;33m    214.85 345 is eating
+[0m[0;33m    214.85 355 is eating
+[0m[0;33m    214.86 357 is eating
+[0m[0;33m    214.86 337 is eating
+[0m[0;33m    214.87 339 is eating
+[0m[0;33m    214.87 363 is eating
+[0m[0;33m    214.88 359 is eating
+[0m[0;33m    214.89 397 is eating
+[0m[0;33m    214.89 389 is eating
+[0m[0;33m    214.90 379 is eating
+[0m[0;33m    214.90 381 is eating
+[0m[0;33m    214.91 391 is eating
+[0m[0;33m    214.92 393 is eating
+[0m[0;33m    214.92 399 is eating
+[0m[0;33m    214.93 387 is eating
+[0m[0;33m    214.93 383 is eating
+[0m[0;33m    214.94 385 is eating
+[0m[0;33m    214.94 289 is eating
+[0m[0;33m    214.94 447 is eating
+[0m[0;33m    214.95 417 is eating
+[0m[0;33m    214.96 419 is eating
+[0m[0;33m    214.96 401 is eating
+[0m[0;33m    214.97 403 is eating
+[0m[0;33m    214.97 415 is eating
+[0m[0;33m    214.98 405 is eating
+[0m[0;33m    214.98 407 is eating
+[0m[0;33m    214.99 421 is eating
+[0m[0;33m    214.99 411 is eating
+[0m[0;33m    215.00 413 is eating
+[0m[0;33m    215.00 427 is eating
+[0m[0;33m    215.01 429 is eating
+[0m[0;33m    215.01 283 is eating
+[0m[0;33m    215.01 435 is eating
+[0m[0;33m    215.02 441 is eating
+[0m[0;33m    215.03 305 is eating
+[0m[0;33m    215.03 177 is eating
+[0m[0;33m    215.03 457 is eating
+[0m[0;33m    215.04 459 is eating
+[0m[0;33m    215.04 423 is eating
+[0m[0;33m    215.05 483 is eating
+[0m[0;33m    215.06 425 is eating
+[0m[0;33m    215.06 473 is eating
+[0m[0;33m    215.07 481 is eating
+[0m[0;33m    215.07 375 is eating
+[0m[0;33m    215.08 471 is eating
+[0m[0;33m    215.09 461 is eating
+[0m[0;33m    215.10 451 is eating
+[0m[0;33m    215.10 437 is eating
+[0m[0;33m    215.12 439 is eating
+[0m[0;33m    215.12 463 is eating
+[0m[0;33m    215.13 465 is eating
+[0m[0;33m    215.13 497 is eating
+[0m[0;33m    215.14 491 is eating
+[0m[0;33m    215.14 489 is eating
+[0m[0;33m    215.15 453 is eating
+[0m[0;33m    215.15 455 is eating
+[0m[0;33m    215.16 485 is eating
+[0m[0;33m    215.16 443 is eating
+[0m[0;33m    215.16 445 is eating
+[0m[0;33m    215.17 487 is eating
+[0m[0;33m    215.18 479 is eating
+[0m[0;33m    215.18 467 is eating
+[0m[0;33m    215.19 469 is eating
+[0m[0;33m    215.19 499 is eating
+[0m[0;33m    215.19 475 is eating
+[0m[0;33m    215.20 495 is eating
+[0m[0;33m    215.21 431 is eating
+[0m[0;33m    215.22 433 is eating
+[0m[0;33m    215.22 493 is eating
+[0m[0;32m    401.35 20 is thinking
+[0m[0;32m    401.38 32 is thinking
+[0m[0;32m    401.39 30 is thinking
+[0m[0;32m    401.51 8 is thinking
+[0m[0;32m    401.52 42 is thinking
+[0m[0;32m    401.52 46 is thinking
+[0m[0;32m    401.52 56 is thinking
+[0m[0;32m    401.56 44 is thinking
+[0m[0;32m    401.58 22 is thinking
+[0m[0;32m    401.59 26 is thinking
+[0m[0;32m    401.78 28 is thinking
+[0m[0;35m    401.81 1 is sleeping
+[0m[0;32m    402.10 16 is thinking
+[0m[0;32m    402.11 12 is thinking
+[0m[0;32m    402.11 18 is thinking
+[0m[0;35m    402.12 43 is sleeping
+[0m[0;32m    402.13 40 is thinking
+[0m[0;32m    402.13 34 is thinking
+[0m[0;32m    402.15 24 is thinking
+[0m[0;32m    402.16 6 is thinking
+[0m[0;32m    402.17 54 is thinking
+[0m[0;32m    402.19 4 is thinking
+[0m[0;32m    402.24 10 is thinking
+[0m[0;32m    402.24 36 is thinking
+[0m[0;35m    402.33 41 is sleeping
+[0m    402.33 42 has taken a fork
+[0;33m    402.33 42 is eating
+[0m[0;32m    402.35 58 is thinking
+[0m[0;35m    402.38 25 is sleeping
+[0m[0;35m    402.38 39 is sleeping
+[0m    402.39 40 has taken a fork
+[0;33m    402.39 40 is eating
+[0m[0;35m    402.40 7 is sleeping
+[0m[0;32m    402.41 96 is thinking
+[0m[0;32m    403.10 72 is thinking
+[0m[0;35m    403.25 9 is sleeping
+[0m[0;32m    403.28 116 is thinking
+[0m[0;32m    403.30 64 is thinking
+[0m[0;32m    403.31 142 is thinking
+[0m    403.32 8 has taken a fork
+[0;33m    403.33 8 is eating
+[0m[0;32m    403.34 104 is thinking
+[0m[0;32m    403.40 14 is thinking
+[0m[0;32m    403.43 122 is thinking
+[0m[0;32m    403.97 50 is thinking
+[0m[0;32m    403.99 80 is thinking
+[0m[0;32m    404.00 52 is thinking
+[0m[0;32m    404.05 180 is thinking
+[0m[0;32m    404.08 38 is thinking
+[0m[0;32m    404.18 92 is thinking
+[0m[0;32m    404.19 76 is thinking
+[0m[0;32m    404.20 84 is thinking
+[0m[0;32m    404.21 124 is thinking
+[0m[0;32m    404.28 70 is thinking
+[0m[0;32m    404.31 60 is thinking
+[0m[0;32m    404.32 94 is thinking
+[0m[0;32m    404.35 158 is thinking
+[0m[0;32m    404.38 156 is thinking
+[0m[0;32m    404.41 144 is thinking
+[0m[0;32m    404.42 98 is thinking
+[0m[0;32m    404.91 198 is thinking
+[0m[0;32m    404.99 48 is thinking
+[0m[0;32m    405.00 108 is thinking
+[0m[0;32m    405.02 74 is thinking
+[0m[0;32m    405.09 2 is thinking
+[0m[0;32m    405.11 190 is thinking
+[0m[0;32m    405.12 88 is thinking
+[0m[0;32m    405.13 90 is thinking
+[0m[0;32m    405.13 150 is thinking
+[0m[0;32m    405.19 82 is thinking
+[0m[0;32m    405.23 168 is thinking
+[0m[0;32m    405.24 138 is thinking
+[0m[0;32m    405.26 66 is thinking
+[0m[0;32m    405.27 128 is thinking
+[0m[0;32m    405.27 86 is thinking
+[0m[0;32m    405.33 146 is thinking
+[0m[0;32m    405.38 62 is thinking
+[0m[0;32m    405.92 78 is thinking
+[0m[0;32m    405.93 172 is thinking
+[0m[0;32m    405.95 148 is thinking
+[0m[0;32m    406.03 160 is thinking
+[0m[0;32m    406.04 118 is thinking
+[0m[0;32m    406.05 202 is thinking
+[0m[0;32m    406.06 262 is thinking
+[0m[0;32m    406.09 170 is thinking
+[0m[0;32m    406.10 266 is thinking
+[0m[0;32m    406.12 140 is thinking
+[0m[0;32m    406.21 102 is thinking
+[0m[0;32m    406.22 100 is thinking
+[0m[0;32m    406.29 114 is thinking
+[0m[0;32m    406.29 214 is thinking
+[0m[0;32m    406.30 164 is thinking
+[0m[0;32m    406.83 162 is thinking
+[0m[0;32m    406.85 176 is thinking
+[0m[0;32m    406.86 136 is thinking
+[0m[0;32m    406.88 120 is thinking
+[0m[0;32m    406.88 254 is thinking
+[0m[0;32m    406.90 132 is thinking
+[0m[0;32m    406.90 106 is thinking
+[0m[0;32m    406.96 174 is thinking
+[0m[0;32m    406.97 110 is thinking
+[0m[0;32m    407.02 186 is thinking
+[0m[0;32m    407.16 300 is thinking
+[0m[0;32m    407.20 294 is thinking
+[0m[0;32m    407.20 130 is thinking
+[0m[0;32m    407.22 188 is thinking
+[0m[0;32m    407.23 322 is thinking
+[0m[0;32m    407.24 152 is thinking
+[0m[0;32m    407.25 232 is thinking
+[0m[0;32m    407.26 242 is thinking
+[0m[0;32m    407.75 246 is thinking
+[0m[0;32m    407.76 290 is thinking
+[0m[0;32m    407.77 126 is thinking
+[0m[0;32m    407.78 284 is thinking
+[0m[0;32m    407.79 238 is thinking
+[0m[0;32m    407.80 204 is thinking
+[0m[0;32m    407.82 112 is thinking
+[0m[0;32m    407.82 196 is thinking
+[0m[0;32m    407.83 178 is thinking
+[0m[0;32m    407.85 250 is thinking
+[0m[0;32m    407.86 200 is thinking
+[0m[0;32m    407.88 184 is thinking
+[0m[0;32m    407.89 228 is thinking
+[0m[0;32m    407.89 244 is thinking
+[0m[0;32m    407.92 292 is thinking
+[0m[0;32m    407.95 220 is thinking
+[0m[0;32m    408.02 208 is thinking
+[0m[0;32m    408.02 256 is thinking
+[0m[0;32m    408.05 236 is thinking
+[0m[0;32m    408.05 252 is thinking
+[0m[0;32m    408.06 230 is thinking
+[0m[0;32m    408.06 210 is thinking
+[0m[0;32m    408.08 134 is thinking
+[0m[0;31m    408.08 134 died
+[0m

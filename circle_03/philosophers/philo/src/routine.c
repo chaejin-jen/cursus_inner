@@ -6,7 +6,7 @@
 /*   By: chaejkim <chaejkim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/09 12:17:42 by chaejkim          #+#    #+#             */
-/*   Updated: 2022/07/24 20:57:14 by chaejkim         ###   ########.fr       */
+/*   Updated: 2022/07/25 18:36:39 by chaejkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,10 @@
 
 void	*routine(void *arg)
 {
-	t_table_info		*table;
 	t_philo_info		*philo;
 	t_simulation_info	*sinfo;
 
-	table = (t_table_info *)arg;
-	philo = &(table->philos[table->seat_num]);
-	sinfo = table->sinfo;
-	wait_philos(&sinfo->timer, sinfo);
+	wait_philos((t_table_info *)arg, &philo, &sinfo);
 	sync_philos(sinfo, philo);
 	while (philo->rest_eat != 0 && philo->recent_act != 0)
 	{

@@ -6,7 +6,7 @@
 /*   By: chaejkim <chaejkim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/14 20:04:25 by chaejkim          #+#    #+#             */
-/*   Updated: 2022/07/24 18:51:08 by chaejkim         ###   ########.fr       */
+/*   Updated: 2022/07/25 19:18:59 by chaejkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ int	set_simulation_info(int argc, char **argv, t_simulation_info *sinfo)
 	}
 	if (argc == 5)
 		sinfo->least_eat = -1;
-	memset(&sinfo->start, 0, sizeof(t_tv));
+	memset(&sinfo->start, 0, sizeof(long long));
 	return (0);
 }
 

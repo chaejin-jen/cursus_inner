@@ -6,7 +6,7 @@
 /*   By: chaejkim <chaejkim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/15 10:59:44 by chaejkim          #+#    #+#             */
-/*   Updated: 2022/07/24 21:15:39 by chaejkim         ###   ########.fr       */
+/*   Updated: 2022/07/25 19:16:32 by chaejkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	take_fork(t_philo_info *philo, t_fork_info *finfo,
 	}
 	pthread_mutex_lock(&finfo[0].mutex_id);
 	pthread_mutex_lock(&finfo[1].mutex_id);
-	philo->recent_act = timestamp(&sinfo->printer, philo, TAKE);
+	philo->recent_act = timestamp(sinfo, philo->pnum, TAKE);
 	finfo[0].thread_num = philo->pnum;
 	finfo[1].thread_num = philo->pnum;
 	return (0);
@@ -32,7 +32,7 @@ int	take_fork(t_philo_info *philo, t_fork_info *finfo,
 int	eat(t_philo_info *philo, t_fork_info *finfo, t_simulation_info *sinfo)
 {
 	pthread_mutex_lock(&sinfo->timer);
-	philo->recent_eat = timestamp(&sinfo->printer, philo, EAT);
+	philo->recent_eat = timestamp(sinfo, philo->pnum, EAT);
 	philo->recent_act = philo->recent_eat;
 	pthread_mutex_unlock(&sinfo->timer);
 	if (sleep_until_limit(philo->recent_eat + sinfo->time_to_eat,
@@ -54,15 +54,15 @@ int	psleep(t_philo_info *philo, t_simulation_info *sinfo)
 {
 	if (philo->rest_eat != -1)
 		philo->rest_eat--;
-	philo->recent_act = timestamp(&sinfo->printer, philo, SLEEP);
+	philo->recent_act = timestamp(sinfo, philo->pnum, SLEEP);
 	if (sleep_until_limit(philo->recent_act + sinfo->time_to_sleep,
 			philo->recent_eat + sinfo->time_to_die))
 		return (1);
-	philo->recent_act = timestamp(&sinfo->printer, philo, THINK);
+	philo->recent_act = timestamp(sinfo, philo->pnum, THINK);
 	return (0);
 }
 
 void	dying(t_philo_info *philo, t_simulation_info *sinfo)
 {
-	philo->recent_act = timestamp(&sinfo->printer, philo, DEAD);
+	philo->recent_act = timestamp(sinfo, philo->pnum, DEAD);
 }

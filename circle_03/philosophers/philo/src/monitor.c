@@ -6,7 +6,7 @@
 /*   By: chaejkim <chaejkim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/09 16:22:48 by chaejkim          #+#    #+#             */
-/*   Updated: 2022/07/24 20:54:17 by chaejkim         ###   ########.fr       */
+/*   Updated: 2022/07/25 17:34:12 by chaejkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,9 +48,9 @@ static int	check_philos(pthread_mutex_t *timer,
 int	monitor(t_table_info *table)
 {
 	if (table->sinfo->least_eat != -1
-		&& check_end(&table->sinfo->monitor, table->sinfo) != 0)
+		&& check_end(&table->sinfo->monitor, table->sinfo))
 		return (0);
-	if (check_philos(&table->sinfo->timer, table->philos, table->sinfo) != 0)
+	if (check_philos(&table->sinfo->timer, table->philos, table->sinfo))
 		return (0);
 	return (1);
 }

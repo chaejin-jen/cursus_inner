@@ -6,7 +6,7 @@
 /*   By: chaejkim <chaejkim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/08 13:44:09 by chaejkim          #+#    #+#             */
-/*   Updated: 2022/07/24 20:25:34 by chaejkim         ###   ########.fr       */
+/*   Updated: 2022/07/25 19:16:58 by chaejkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ typedef struct s_simulation_info
 	pthread_mutex_t	monitor;
 	pthread_mutex_t	printer;
 	pthread_mutex_t	timer;
-	t_tv			start;
+	long long		start;
 	int				number;
 	long long		time_to_die;
 	long long		time_to_eat;
@@ -62,7 +62,6 @@ typedef struct s_philo_info
 	int			pnum;
 	int			rest_eat;
 	t_fork_info	*finfo;
-	long long	start;
 	long long	recent_eat;
 	long long	recent_act;
 }				t_philo_info;
@@ -75,7 +74,7 @@ typedef struct s_table_info
 	int					seat_num;
 }				t_table_info;
 
-long long	timestamp(pthread_mutex_t *printer, t_philo_info *philo, int act);
+long long	timestamp(t_simulation_info *sinfo, int pnum, int act);
 int			error_message(char *msg);
 
 /* time.c */
@@ -112,7 +111,8 @@ int			psleep(t_philo_info *philo, t_simulation_info *sinfo);
 void		dying(t_philo_info *philo, t_simulation_info *sinfo);
 
 /* routine_util.c */
-void		wait_philos(pthread_mutex_t *timer, t_simulation_info *sinfo);
+void		wait_philos(t_table_info *table,
+				t_philo_info **philo, t_simulation_info **sinfo);
 void		sync_philos(t_simulation_info *sinfo, t_philo_info *philo);
 void		note_end(pthread_mutex_t *monitor, t_simulation_info *sinfo);
 
