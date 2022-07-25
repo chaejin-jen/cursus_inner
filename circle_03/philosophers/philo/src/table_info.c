@@ -6,11 +6,20 @@
 /*   By: chaejkim <chaejkim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/10 16:53:21 by chaejkim          #+#    #+#             */
-/*   Updated: 2022/07/25 19:45:06 by chaejkim         ###   ########.fr       */
+/*   Updated: 2022/07/25 21:17:22 by chaejkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
+
+static int	stop_philo(t_table_info *table, t_simulation_info *sinfo, int tnum)
+{
+	timestamp(sinfo, 0, DEAD);
+	sinfo->start = get_mticks();
+	usleep(1000);
+	clear_table(table, tnum);
+	return (error_message("pthread_create"));
+}
 
 static int	set_fork(t_fork_info **forks, int n_fork)
 {
@@ -45,21 +54,16 @@ static int	set_philo(t_table_info *table, t_philo_info **philos, int n_philo)
 	pthread_mutex_lock(&table->sinfo->timer);
 	while (++tnum < n_philo)
 	{
-		pthread_mutex_lock(&table->sinfo->monitor);
 		pinfo = &((*philos)[tnum]);
-		table->seat_num = tnum;
+		pinfo->sinfo = table->sinfo;
+		if (pthread_create(&pinfo->thread_id, NULL, &routine, (void *)pinfo))
+			return (stop_philo(table, table->sinfo, tnum - 1));
 		pinfo->pnum = tnum + 1;
 		pinfo->rest_eat = table->sinfo->least_eat;
 		pinfo->finfo = &table->forks[tnum];
 		memset((void *)&pinfo->recent_eat, 0x7f, sizeof(long long));
 		pinfo->recent_act = pinfo->recent_eat;
-		if (pthread_create(&pinfo->thread_id, NULL, &routine, (void *)table) != 0)
-		{
-			// stop_philo();
-			return (error_message("pthread_create"));
-		}
 		// usleep(30);
-		pthread_mutex_unlock(&table->sinfo->monitor);
 	}
 	pthread_mutex_unlock(&table->sinfo->timer);
 	return (0);

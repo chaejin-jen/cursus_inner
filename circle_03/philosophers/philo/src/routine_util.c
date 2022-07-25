@@ -6,24 +6,14 @@
 /*   By: chaejkim <chaejkim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/12 04:23:45 by chaejkim          #+#    #+#             */
-/*   Updated: 2022/07/25 19:18:41 by chaejkim         ###   ########.fr       */
+/*   Updated: 2022/07/25 21:15:18 by chaejkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-void	wait_philos(t_table_info *table,
-			t_philo_info **philo, t_simulation_info **sinfo)
+void	wait_philos(pthread_mutex_t *timer, long long *start)
 {
-	pthread_mutex_t	*timer;
-	long long		*start;
-
-	pthread_mutex_lock(&table->sinfo->monitor);
-	*philo = &(table->philos[table->seat_num]);
-	*sinfo = table->sinfo;
-	pthread_mutex_unlock(&table->sinfo->monitor);
-	timer = &table->sinfo->timer;
-	start = &(*sinfo)->start;
 	while (1)
 	{
 		pthread_mutex_lock(timer);

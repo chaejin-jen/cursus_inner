@@ -6,7 +6,7 @@
 /*   By: chaejkim <chaejkim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/08 13:54:57 by chaejkim          #+#    #+#             */
-/*   Updated: 2022/07/25 19:16:50 by chaejkim         ###   ########.fr       */
+/*   Updated: 2022/07/25 20:59:31 by chaejkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,11 +35,11 @@ long long	timestamp(t_simulation_info *sinfo, int pnum, int act)
 	else if (act == DEAD)
 	{
 		any_dead = TRUE;
-		printf("\033[0;31m%10.2f %d died\n\033[0m", mticks, pnum);
+		if (pnum != 0)
+			printf("\033[0;31m%10.2f %d died\n\033[0m", mticks, pnum);
 		return (pthread_mutex_unlock(&sinfo->printer));
 	}
-	pthread_mutex_unlock(&sinfo->printer);
-	return (current);
+	return (pthread_mutex_unlock(&sinfo->printer) + current);
 }
 
 int	error_message(char *msg)

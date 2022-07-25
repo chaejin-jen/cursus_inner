@@ -6,7 +6,7 @@
 /*   By: chaejkim <chaejkim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/09 12:17:42 by chaejkim          #+#    #+#             */
-/*   Updated: 2022/07/25 18:36:39 by chaejkim         ###   ########.fr       */
+/*   Updated: 2022/07/25 21:28:44 by chaejkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,9 @@ void	*routine(void *arg)
 	t_philo_info		*philo;
 	t_simulation_info	*sinfo;
 
-	wait_philos((t_table_info *)arg, &philo, &sinfo);
+	philo = (t_philo_info *)arg;
+	sinfo = philo->sinfo;
+	wait_philos(&sinfo->timer, &sinfo->start);
 	sync_philos(sinfo, philo);
 	while (philo->rest_eat != 0 && philo->recent_act != 0)
 	{
@@ -26,7 +28,8 @@ void	*routine(void *arg)
 			|| put_down_fork(philo->finfo)
 			|| psleep(philo, sinfo))
 		{
-			dying(philo, sinfo);
+			// dying(philo, sinfo);
+			philo->recent_act = 0;
 			break ;
 		}
 	}
