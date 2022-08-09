@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   routine.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chaejkim <chaejkim@student.42.fr>          +#+  +:+       +#+        */
+/*   By: chaejkim <chaejkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/09 12:17:42 by chaejkim          #+#    #+#             */
-/*   Updated: 2022/07/25 21:28:44 by chaejkim         ###   ########.fr       */
+/*   Updated: 2022/08/09 18:38:52 by chaejkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,13 +27,12 @@ void	*routine(void *arg)
 			|| eat(philo, philo->finfo, sinfo)
 			|| put_down_fork(philo->finfo)
 			|| psleep(philo, sinfo))
-		{
-			// dying(philo, sinfo);
-			philo->recent_act = 0;
 			break ;
+		if (philo->rest_eat == 0)
+		{
+			note_end(&sinfo->monitor, sinfo);
+			philo->rest_eat = -1;
 		}
 	}
-	if (philo->rest_eat != -1)
-		note_end(&sinfo->monitor, sinfo);
 	return (0);
 }

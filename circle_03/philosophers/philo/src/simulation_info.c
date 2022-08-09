@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   simulation_info.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chaejkim <chaejkim@student.42.fr>          +#+  +:+       +#+        */
+/*   By: chaejkim <chaejkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/14 20:04:25 by chaejkim          #+#    #+#             */
-/*   Updated: 2022/07/25 19:18:59 by chaejkim         ###   ########.fr       */
+/*   Updated: 2022/08/09 17:19:47 by chaejkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,11 +41,11 @@ static void	set_num_in_info(t_simulation_info *sinfo, long long num, int i)
 	if (i == 1)
 		sinfo->number = num;
 	else if (i == 2)
-		sinfo->time_to_die = num * 1000;
+		sinfo->time_to_die = num;
 	else if (i == 3)
-		sinfo->time_to_eat = num * 1000;
+		sinfo->time_to_eat = num;
 	else if (i == 4)
-		sinfo->time_to_sleep = num * 1000;
+		sinfo->time_to_sleep = num;
 	else if (i == 5)
 		sinfo->least_eat = num;
 }
@@ -72,6 +72,7 @@ int	set_simulation_info(int argc, char **argv, t_simulation_info *sinfo)
 	if (argc == 5)
 		sinfo->least_eat = -1;
 	memset(&sinfo->start, 0, sizeof(long long));
+	sinfo->end_number = 0;
 	return (0);
 }
 

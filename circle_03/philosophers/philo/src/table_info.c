@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   table_info.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chaejkim <chaejkim@student.42.fr>          +#+  +:+       +#+        */
+/*   By: chaejkim <chaejkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/10 16:53:21 by chaejkim          #+#    #+#             */
-/*   Updated: 2022/07/25 21:17:22 by chaejkim         ###   ########.fr       */
+/*   Updated: 2022/08/09 18:02:16 by chaejkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static int	stop_philo(t_table_info *table, t_simulation_info *sinfo, int tnum)
 {
-	timestamp(sinfo, 0, DEAD);
+	timestamp(sinfo, 0, DEAD, TRUE);
 	sinfo->start = get_mticks();
 	usleep(1000);
 	clear_table(table, tnum);
@@ -63,7 +63,6 @@ static int	set_philo(t_table_info *table, t_philo_info **philos, int n_philo)
 		pinfo->finfo = &table->forks[tnum];
 		memset((void *)&pinfo->recent_eat, 0x7f, sizeof(long long));
 		pinfo->recent_act = pinfo->recent_eat;
-		// usleep(30);
 	}
 	pthread_mutex_unlock(&table->sinfo->timer);
 	return (0);

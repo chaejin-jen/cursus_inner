@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chaejkim <chaejkim@student.42.fr>          +#+  +:+       +#+        */
+/*   By: chaejkim <chaejkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/08 13:44:09 by chaejkim          #+#    #+#             */
-/*   Updated: 2022/07/25 21:15:46 by chaejkim         ###   ########.fr       */
+/*   Updated: 2022/08/09 22:26:37 by chaejkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,14 +19,12 @@
 # include <sys/time.h>
 # include <pthread.h>
 
-typedef enum e_status
-{
-	THINK,
-	TAKE,
-	EAT,
-	SLEEP,
-	DEAD
-}			t_status;
+# define TAKE "%d %d has taken a fork\n"
+# define EAT "\033[0;33m%d %d is eating\n\033[0m"
+# define SLEEP "\033[0;35m%d %d is sleeping\n\033[0m"
+# define THINK "\033[0;32m%d %d is thinking\n\033[0m"
+# define DEAD "\033[0;31m%d %d died\n\033[0m"
+# define FINISH "========= simulation finished ==========\n"
 
 typedef enum e_bool
 {
@@ -74,7 +72,8 @@ typedef struct s_table_info
 	t_fork_info			*forks;
 }				t_table_info;
 
-long long	timestamp(t_simulation_info *sinfo, int pnum, int act);
+long long	timestamp(t_simulation_info *sinfo,
+				int pnum, char *act, t_bool is_end);
 int			error_message(char *msg);
 
 /* time.c */
