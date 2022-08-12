@@ -6,7 +6,7 @@
 #    By: chaejkim <chaejkim@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/07/08 13:41:40 by chaejkim          #+#    #+#              #
-#    Updated: 2022/07/15 12:14:04 by chaejkim         ###   ########.fr        #
+#    Updated: 2022/08/10 16:41:54 by chaejkim         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,6 +15,7 @@ NAME = philo
 CC = cc
 CFLAGS = -Wall -Werror -Wextra
 SAN_FLAG = -g3 -fsanitize=address
+RACE_FLAG = -g -fsanitize=thread
 
 INC = -Iinclude
 

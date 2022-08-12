@@ -6,7 +6,7 @@
 /*   By: chaejkim <chaejkim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/09 16:22:48 by chaejkim          #+#    #+#             */
-/*   Updated: 2022/08/09 16:58:49 by chaejkim         ###   ########.fr       */
+/*   Updated: 2022/08/10 17:34:30 by chaejkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,29 +29,29 @@ static int	check_philos(pthread_mutex_t *timer,
 		t_philo_info *philos, t_simulation_info *sinfo)
 {
 	int				tnum;
-	int				pnum;
+	static int		pnum = -1;
 	long long		recent_eat;
 
 	tnum = -1;
-	pnum = -1;
 	recent_eat = get_mticks();
 	while (++tnum < sinfo->number)
 	{
-		pthread_mutex_lock(timer);
-		if (philos[tnum].recent_act == 0
-			|| get_mticks() > philos[tnum].recent_eat + sinfo->time_to_die)
+		if (pnum == -1)
+			pthread_mutex_lock(timer);
+		if (get_mticks() > philos[tnum].recent_eat + sinfo->time_to_die
+			&& philos[tnum].recent_eat < recent_eat)
 		{
-			if (philos[tnum].recent_eat < recent_eat)
-			{
-				recent_eat = philos[tnum].recent_eat;
-				pnum = tnum;
-			}
-			pthread_mutex_unlock(timer);
+			recent_eat = philos[tnum].recent_eat;
+			pnum = tnum;
 		}
-		pthread_mutex_unlock(timer);
+		if (pnum == -1)
+			pthread_mutex_unlock(timer);
 	}
 	if (pnum != -1)
-		dying(&philos[pnum], sinfo);
+	{
+		timestamp(sinfo, pnum + 1, DEAD, TRUE);
+		pthread_mutex_unlock(timer);
+	}
 	return (pnum);
 }
 
