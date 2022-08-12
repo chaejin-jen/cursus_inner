@@ -3,27 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   monitor.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chaejkim <chaejkim@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: chaejkim <chaejkim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/09 16:22:48 by chaejkim          #+#    #+#             */
-/*   Updated: 2022/08/10 17:34:30 by chaejkim         ###   ########.fr       */
+/*   Updated: 2022/08/12 17:07:38 by chaejkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
-
-static int	check_end(pthread_mutex_t *monitor, t_simulation_info *sinfo)
-{
-	pthread_mutex_lock(monitor);
-	if (sinfo->number == sinfo->end_number)
-	{
-		timestamp(sinfo, 0, FINISH, TRUE);
-		pthread_mutex_unlock(monitor);
-		return (1);
-	}
-	pthread_mutex_unlock(monitor);
-	return (0);
-}
 
 static int	check_philos(pthread_mutex_t *timer,
 		t_philo_info *philos, t_simulation_info *sinfo)
@@ -57,9 +44,6 @@ static int	check_philos(pthread_mutex_t *timer,
 
 int	monitor(t_table_info *table)
 {
-	if (table->sinfo->least_eat != -1
-		&& check_end(&table->sinfo->monitor, table->sinfo))
-		return (0);
 	if (check_philos(&table->sinfo->timer, table->philos, table->sinfo) != -1)
 		return (0);
 	return (1);

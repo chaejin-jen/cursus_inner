@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   routine_act.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chaejkim <chaejkim@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: chaejkim <chaejkim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/15 10:59:44 by chaejkim          #+#    #+#             */
-/*   Updated: 2022/08/10 17:17:20 by chaejkim         ###   ########.fr       */
+/*   Updated: 2022/08/12 17:05:04 by chaejkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,11 @@ int	psleep(t_philo_info *philo, t_simulation_info *sinfo)
 	if (philo->rest_eat != -1)
 		philo->rest_eat--;
 	philo->recent_act = timestamp(sinfo, philo->pnum, SLEEP, FALSE);
+	if (philo->rest_eat == 0)
+	{
+		note_end(&sinfo->monitor, sinfo);
+		philo->rest_eat = -1;
+	}
 	if (sleep_until_limit(philo->recent_act + sinfo->time_to_sleep,
 			philo->recent_eat + sinfo->time_to_die))
 	{
