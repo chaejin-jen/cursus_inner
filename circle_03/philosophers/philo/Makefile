@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: chaejkim <chaejkim@student.42seoul.kr>     +#+  +:+       +#+         #
+#    By: chaejkim <chaejkim@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/07/08 13:41:40 by chaejkim          #+#    #+#              #
-#    Updated: 2022/08/10 16:41:54 by chaejkim         ###   ########.fr        #
+#    Updated: 2022/08/20 17:47:43 by chaejkim         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ NAME = philo
 
 CC = cc
 CFLAGS = -Wall -Werror -Wextra
-SAN_FLAG = -g3 -fsanitize=address
+RACE_FLAG = -g3 -fsanitize=address
 RACE_FLAG = -g -fsanitize=thread
 
 INC = -Iinclude
@@ -33,12 +33,12 @@ SRC = src/main.c \
 OBJ = $(patsubst src%, obj%, $(SRC:.c=.o))
 
 obj/%.o : src/%.c
-	@$(CC) $(CFLAGS) $(SAN_FLAG) $(INC) -o $@ -c $<
+	@$(CC) $(CFLAGS) $(INC) -o $@ -c $<
 
 all: obj $(NAME)
 
 $(NAME) : $(OBJ)
-	@$(CC) $(CFLAGS) $(SAN_FLAG) $(INC) -o $@ $^
+	@$(CC) $(CFLAGS) $(INC) -o $@ $^
 
 clean:
 	rm -rf obj

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chaejkim <chaejkim@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: chaejkim <chaejkim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/08 13:44:09 by chaejkim          #+#    #+#             */
-/*   Updated: 2022/08/09 22:26:37 by chaejkim         ###   ########.fr       */
+/*   Updated: 2022/08/20 17:33:12 by chaejkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,10 @@
 # include <pthread.h>
 
 # define TAKE "%d %d has taken a fork\n"
-# define EAT "\033[0;33m%d %d is eating\n\033[0m"
-# define SLEEP "\033[0;35m%d %d is sleeping\n\033[0m"
-# define THINK "\033[0;32m%d %d is thinking\n\033[0m"
-# define DEAD "\033[0;31m%d %d died\n\033[0m"
+# define EAT "%d %d is eating\n"
+# define SLEEP "%d %d is sleeping\n"
+# define THINK "%d %d is thinking\n"
+# define DEAD "%d %d died\n"
 # define FINISH "========= simulation finished ==========\n"
 
 typedef enum e_bool
@@ -50,7 +50,7 @@ typedef struct s_simulation_info
 
 typedef struct s_fork_info
 {
-	pthread_mutex_t	mutex_id;
+	pthread_mutex_t	*mutex_id;
 	int				thread_num;
 }				t_fork_info;
 

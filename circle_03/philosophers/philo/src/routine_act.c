@@ -6,7 +6,7 @@
 /*   By: chaejkim <chaejkim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/15 10:59:44 by chaejkim          #+#    #+#             */
-/*   Updated: 2022/08/12 17:05:04 by chaejkim         ###   ########.fr       */
+/*   Updated: 2022/08/20 16:45:22 by chaejkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,13 @@
 int	take_fork(t_philo_info *philo, t_fork_info *finfo,
 	t_simulation_info *sinfo)
 {
+	if (sinfo->number == 1)
+	{
+		philo->recent_act = timestamp(sinfo, philo->pnum, TAKE, FALSE);
+		sleep_until(philo->recent_eat + sinfo->time_to_die);
+		dying(philo, sinfo);
+		return (1);
+	}
 	if (philo->recent_act + sinfo->time_to_eat - sinfo->time_to_sleep
 		> philo->recent_eat + sinfo->time_to_die)
 	{
@@ -22,8 +29,8 @@ int	take_fork(t_philo_info *philo, t_fork_info *finfo,
 		dying(philo, sinfo);
 		return (1);
 	}
-	pthread_mutex_lock(&finfo[0].mutex_id);
-	pthread_mutex_lock(&finfo[1].mutex_id);
+	pthread_mutex_lock(finfo[0].mutex_id);
+	pthread_mutex_lock(finfo[1].mutex_id);
 	if (get_mticks() > philo->recent_eat + sinfo->time_to_die)
 	{
 		dying(philo, sinfo);
@@ -54,8 +61,8 @@ int	put_down_fork(t_fork_info *finfo)
 {
 	finfo[0].thread_num = 0;
 	finfo[1].thread_num = 0;
-	pthread_mutex_unlock(&finfo[0].mutex_id);
-	pthread_mutex_unlock(&finfo[1].mutex_id);
+	pthread_mutex_unlock(finfo[0].mutex_id);
+	pthread_mutex_unlock(finfo[1].mutex_id);
 	return (0);
 }
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   routine_util.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chaejkim <chaejkim@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: chaejkim <chaejkim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/12 04:23:45 by chaejkim          #+#    #+#             */
-/*   Updated: 2022/08/10 16:39:48 by chaejkim         ###   ########.fr       */
+/*   Updated: 2022/08/20 17:32:55 by chaejkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void	sync_philos(t_simulation_info *sinfo, t_philo_info *philo)
 	{
 		if (sinfo->time_to_die <= sinfo->time_to_eat)
 			sleep_until(philo->recent_eat + sinfo->time_to_die);
-		usleep(50);
+		usleep(750);
 	}
 }
 
