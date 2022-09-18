@@ -1,0 +1,6 @@
+make --dry-run --keep-going --print-directory
+make: Entering directory `/Users/chaejkim/workspace/cursus_inner/circle_03/philosophers'
+make: Leaving directory `/Users/chaejkim/workspace/cursus_inner/circle_03/philosophers'
+ 
+make: *** No targets specified and no makefile found.  Stop.
+

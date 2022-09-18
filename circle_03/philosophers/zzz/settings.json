@@ -1,0 +1,20 @@
+{
+	"files.associations": {
+		"time.h": "c",
+		"unistd.h": "c",
+		"limits.h": "c",
+		"conf.h": "c",
+		"cstdio": "c",
+		"stdint.h": "c",
+		"cdefs.h": "c",
+		"appleapiopts.h": "c",
+		"queue.h": "c",
+		"__config": "c",
+		"philo.h": "c",
+		"kern_control.h": "c",
+		"syslimits.h": "c",
+		"lock.h": "c",
+		"types.h": "c",
+		"__threading_support": "c"
+	}
+}
