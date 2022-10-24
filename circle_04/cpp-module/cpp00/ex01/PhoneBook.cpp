@@ -1,27 +1,25 @@
 #include "PhoneBook.hpp"
 #include <iomanip>
+#include <sstream>
 
-PhoneBook::PhoneBook(void) : _nb(0), _oldestIdx(0) {}
+PhoneBook::PhoneBook(void) : _nb(0), _oldestIdx(0) {
+	// setFncPtr[0] = &Contact::setFirstname;
+	// setFncPtr[1] = &Contact::setLastname;
+	// setFncPtr[2] = &Contact::setNickname;
+	// setFncPtr[3] = &Contact::setPhoneNb;
+	// setFncPtr[4] = &Contact::setSecret;
+}
 PhoneBook::~PhoneBook(void) {}
 
 int	PhoneBook::add(void)
 {
 	int			idx;
 	Contact 	*contact;
-	std::string str[5];
 
 	idx = this->_nb != 8 ? this->_nb : this->_oldestIdx;
 	contact = &this->_contacts[idx];
-	while (!std::cin.eof())
-	{
-		/* code */
-	}
-
-	while (!std::cin.eof() && contact->setFirstname(_getline())) {}
-	while (!std::cin.eof() && contact->setLastname(_getline())) {}
-	while (!std::cin.eof() && contact->setNickname(_getline())) {}
-	while (!std::cin.eof() && contact->setPhoneNb(_getline())) {}
-	while (!std::cin.eof() && contact->setSecret(_getline())) {}
+	if (contact->setAll() != 0)
+		return 1;
 	contact->setIdx(idx + 1);
 	if (this->_nb != 8)
 		_nb++;
@@ -32,24 +30,23 @@ int	PhoneBook::add(void)
 
 void	PhoneBook::search(void) const
 {
-	this->_display();
-}
+	int idx;
 
-std::string	PhoneBook::_getline(void) const
-{
-	std::string str;
-	std::getline(std::cin, str);
-	if (!std::cin){
-		std::cin.clear();
-		str = "";
+	this->_display();
+	idx = this->_getidx();
+	if (idx != -1)
+	{
+		std::cout << "first name : "<< this->_contacts[idx].getFirstname();
+		std::cout << "\nlast name : "<< this->_contacts[idx].getLastname();
+		std::cout << "\nnickname : "<< this->_contacts[idx].getNickname();
+		std::cout << "\nphone number : "<< this->_contacts[idx].getPhoneNb();
+		std::cout << "\ndarkest secret : "<< this->_contacts[idx].getSecret() << std::endl;
 	}
-	return str;
 }
 
 void	PhoneBook::_putf(std::string str) const
 {
 	//std::string outstr;
-	std::cout << '|';
 	std::cout << std::setw(10) << std::setfill(' ') << std::right;
 	std::cout << (str.length() > 10 ? str.substr(0, 9) + "." : str);
 	std::cout << '|';
@@ -58,7 +55,7 @@ void	PhoneBook::_putf(std::string str) const
 void	PhoneBook::_display(void) const
 {
 	std::cout << "+-------------------------------------------+\n";
-	std::cout << "|     Index|First name| Last name|  Nickname|\n";
+	std::cout << "|     index|first name| last name|  nickname|\n";
 	std::cout << "+-------------------------------------------+" << std::endl;
 	for (int i = 0; i < this->_nb; i++) {
 		std::cout << '|';
@@ -76,4 +73,35 @@ void	PhoneBook::_display(void) const
 		std::cout << "|                                           |\n";
 		std::cout << "+-------------------------------------------+" << std::endl;
 	}
+}
+
+int	PhoneBook::_getidx(void) const
+{
+	int idx;
+
+	std::string str;
+	std::cout << "index : ";
+	if (!std::getline(std::cin, str))
+	{
+		std::cin.clear();
+		return -1;
+	}
+	// if (!std::cin){
+	// // if (!std::cin.eof() && !std::cin){
+	// 	std::cin.clear();
+	// 	str = "";
+	// }
+	std::stringstream ssInt(str);
+	ssInt >> idx;
+	if (ssInt.fail())
+	{
+		std::cout << "index is wrong" << std::endl;
+		return -1;
+	}
+	if (idx < 1  || idx > this->_nb)
+	{
+		std::cout << "index is out of range" << std::endl;
+		return -1;
+	}
+	return idx - 1;
 }

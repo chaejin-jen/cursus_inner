@@ -21,22 +21,25 @@ public:
 	std::string getPhoneNb(void) const;
 	std::string getSecret(void) const;
 
+	int setAll(void);
 	int setIdx(int idx);
 	int setFirstname(std::string str);
 	int setLastname(std::string str);
 	int setNickname(std::string str);
 	int setPhoneNb(std::string str);
 	int setSecret(std::string str);
-	int (*setFncPtr[5])(std::string);
-	//int (Contact::*setFncPtr[5])(std::string) {setFirstname, setLastname, setNickname, setPhoneNb, setSecret};
 
 private:
-	int				_idx;
-	std::string		_firstName;
-	std::string		_lastName;
-	std::string		_nickname;
-	std::string		_phoneNb;
-	std::string		_secret;
+	int _idx;
+	std::string _firstName;
+	std::string _lastName;
+	std::string _nickname;
+	std::string _phoneNb;
+	std::string _secret;
+	std::string (Contact::*_getFncPtr[5])(void) const;
+	int (Contact::*_setFncPtr[5])(std::string);
+	
+	std::string _getline(void) const;
 };
 
 #endif /* __CONTACT_H__ */

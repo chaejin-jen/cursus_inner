@@ -15,18 +15,21 @@ public:
 	PhoneBook( void );
 	~PhoneBook( void );
 
-	int	add( void );
-	void	search( void ) const;
+	int add( void );
+	void search( void ) const;
+	// int (Contact::*setFncPtr[5])(std::string);
+	// int (Contact::*setFncPtr[5])(std::string) {Contact::setFirstname, Contact::setLastname, Contact::setNickname, Contact::setPhoneNb, Contact::setSecret};
 
 private:
-	int	_nb;
-	int	_oldestIdx;
+	int _nb;
+	int _oldestIdx;
 	Contact _contacts[8];
 
-	std::string	_getline(void) const;
-	void	_display(void) const;
-	void	_putf(std::string str) const;
-	//bool	_search( void );
+	// void _create(void);
+	int _getidx(void) const;
+	void _display(void) const;
+	void _putf(std::string str) const;
+	//bool _search( void );
 
 };
 
