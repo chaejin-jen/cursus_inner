@@ -1,8 +1,8 @@
-NAME = megaphone
+NAME = account
 CXX = c++
 CXXFLAGS = -Wall -Wextra -Werror -std=c++98
 
-SRC = megaphone.cpp
+SRC = test.cpp Account.cpp
 OBJ = $(SRC:.cpp=.o)
 
 $(NAME) : $(OBJ)
@@ -11,7 +11,7 @@ $(NAME) : $(OBJ)
 all : $(NAME)
 
 clean:
-	rm $(OBJ)
+	rm -f $(OBJ)
 
 fclean: clean
 	rm -rf $(NAME)
