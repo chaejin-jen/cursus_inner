@@ -6,11 +6,6 @@ Contact::Contact(void) : _idx(0) {
 	_setFncPtr[2] = &Contact::setNickname;
 	_setFncPtr[3] = &Contact::setPhoneNb;
 	_setFncPtr[4] = &Contact::setSecret;
-	_getFncPtr[0] = &Contact::getFirstname;
-	_getFncPtr[1] = &Contact::getLastname;
-	_getFncPtr[2] = &Contact::getNickname;
-	_getFncPtr[3] = &Contact::getPhoneNb;
-	_getFncPtr[4] = &Contact::getSecret;
 }
 Contact::~Contact(void) {}
 
@@ -36,19 +31,21 @@ std::string Contact::getSecret(void) const {
 
 int Contact::setAll(void) {
 	int i;
-	Contact nc;
+	// Contact nc;
+	std::string str[5];
 
 	i = 0;
 	while (i < 5)
 	{
-		if ((nc.*_setFncPtr[i])(_getline()) == 0)
+		str[i] = _getline();
+		if (!str[i].empty())
 			i++;
 		if (std::cin.eof())
 			return 1;
 	}
 	i = -1;
 	while (++i < 5)
-		(this->*_setFncPtr[i])((nc.*_getFncPtr[i])());
+		(this->*_setFncPtr[i])(str[i]);
 	return 0;
 }
 
@@ -57,7 +54,7 @@ int Contact::setIdx(int idx) {
 	return 0;
 }
 
-int Contact::setFirstname(std::string str) {
+int Contact::setFirstname(const std::string str) {
 	if (!std::cin.eof() && str.empty()){
 		std::cout << "First name empty." << std::endl;
 		return 1;
@@ -66,7 +63,7 @@ int Contact::setFirstname(std::string str) {
 	return 0;
 }
 
-int Contact::setLastname(std::string str) {
+int Contact::setLastname(const std::string str) {
 	if (!std::cin.eof() && str.empty()){
 		std::cout << "Last name empty." << std::endl;
 		return 1;
@@ -75,7 +72,7 @@ int Contact::setLastname(std::string str) {
 	return 0;
 }
 
-int Contact::setNickname(std::string str) {
+int Contact::setNickname(const std::string str) {
 	if (!std::cin.eof() && str.empty()){
 		std::cout << "Nickname empty." << std::endl;
 		return 1;
@@ -84,7 +81,7 @@ int Contact::setNickname(std::string str) {
 	return 0;
 }
 
-int Contact::setPhoneNb(std::string str) {
+int Contact::setPhoneNb(const std::string str) {
 	if (!std::cin.eof() && str.empty()){
 		std::cout << "Phone number empty." << std::endl;
 		return 1;
@@ -93,7 +90,7 @@ int Contact::setPhoneNb(std::string str) {
 	return 0;
 }
 
-int Contact::setSecret(std::string str) {
+int Contact::setSecret(const std::string str) {
 	if (!std::cin.eof() && str.empty()){
 		std::cout << "Secret empty." << std::endl;
 		return 1;

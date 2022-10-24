@@ -2,13 +2,7 @@
 #include <iomanip>
 #include <sstream>
 
-PhoneBook::PhoneBook(void) : _nb(0), _oldestIdx(0) {
-	// setFncPtr[0] = &Contact::setFirstname;
-	// setFncPtr[1] = &Contact::setLastname;
-	// setFncPtr[2] = &Contact::setNickname;
-	// setFncPtr[3] = &Contact::setPhoneNb;
-	// setFncPtr[4] = &Contact::setSecret;
-}
+PhoneBook::PhoneBook(void) : _nb(0), _oldestIdx(0) {}
 PhoneBook::~PhoneBook(void) {}
 
 int	PhoneBook::add(void)
@@ -24,7 +18,11 @@ int	PhoneBook::add(void)
 	if (this->_nb != 8)
 		_nb++;
 	else
+	{
 		_oldestIdx++;
+		if (_oldestIdx == 8)
+			_oldestIdx = 0;
+	}
 	return 0;
 }
 
@@ -46,7 +44,6 @@ void	PhoneBook::search(void) const
 
 void	PhoneBook::_putf(std::string str) const
 {
-	//std::string outstr;
 	std::cout << std::setw(10) << std::setfill(' ') << std::right;
 	std::cout << (str.length() > 10 ? str.substr(0, 9) + "." : str);
 	std::cout << '|';
@@ -78,19 +75,15 @@ void	PhoneBook::_display(void) const
 int	PhoneBook::_getidx(void) const
 {
 	int idx;
-
 	std::string str;
+
 	std::cout << "index : ";
-	if (!std::getline(std::cin, str))
-	{
+	std::getline(std::cin, str);
+	if (!std::cin.eof() && !std::cin){
 		std::cin.clear();
+		str = "";
 		return -1;
 	}
-	// if (!std::cin){
-	// // if (!std::cin.eof() && !std::cin){
-	// 	std::cin.clear();
-	// 	str = "";
-	// }
 	std::stringstream ssInt(str);
 	ssInt >> idx;
 	if (ssInt.fail())
