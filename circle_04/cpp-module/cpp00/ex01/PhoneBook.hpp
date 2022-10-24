@@ -2,43 +2,30 @@
 #ifndef __PHONEBOOK_H__
 #define __PHONEBOOK_H__
 
-// #include <iomanip>
 #include <iostream>
+#include "Contact.hpp"
 
 // ************************************************************************** //
 //                               PHONEBOOK Class                                //
 // ************************************************************************** //
 
-class PHONEBOOK {
+class PhoneBook {
 
 public:
-	static int	getNbPHONEBOOKs( void );
-	static int	getTotalAmount( void );
-	static int	getNbContacts( void );
-	static int	getNbWithdrawals( void );
-	static void	displayPHONEBOOKsInfos( void );
+	PhoneBook( void );
+	~PhoneBook( void );
 
-	PHONEBOOK( int initial_Contact );
-	~PHONEBOOK( void );
-
-	void	addContact( int Contact );
-	bool	searchContact( int withdrawal );
-	int		checkValid( void ) const;
-	void	displayContact( void ) const;
-	void	exitProgram( void );
+	int add( void );
+	void search( void ) const;
 
 private:
-	static int	_nbPHONEBOOKs;
+	int _nb;
+	int _oldestIdx;
+	Contact _contacts[8];
 
-	// static void	_displayTimestamp( void );
-
-	int				_PHONEBOOKIndex;
-	std::string		_firstName;
-	std::string		_lastName;
-	std::string		_nickname;
-	std::string		_phoneNb;
-	std::string		_secret;
-
+	int _getidx(void) const;
+	void _display(void) const;
+	void _putf(std::string str) const;
 };
 
 #endif /* __PHONEBOOK_H__ */
