@@ -30,6 +30,11 @@ void	PhoneBook::search(void) const
 {
 	int idx;
 
+	if (this->_nb == 0)
+	{
+		std::cout << "No data."<< std::endl;
+		return ;
+	}
 	this->_display();
 	idx = this->_getidx();
 	if (idx != -1)
@@ -65,11 +70,6 @@ void	PhoneBook::_display(void) const
 		this->_putf(this->_contacts[i].getNickname());
 		std::cout << "\n+-------------------------------------------+" << std::endl;
 	}
-	if (this->_nb == 0)
-	{
-		std::cout << "|                                           |\n";
-		std::cout << "+-------------------------------------------+" << std::endl;
-	}
 }
 
 int	PhoneBook::_getidx(void) const
@@ -77,24 +77,27 @@ int	PhoneBook::_getidx(void) const
 	int idx;
 	std::string str;
 
-	std::cout << "index : ";
-	std::getline(std::cin, str);
-	if (!std::cin.eof() && !std::cin){
-		std::cin.clear();
-		str = "";
-		return -1;
-	}
-	std::stringstream ssInt(str);
-	ssInt >> idx;
-	if (ssInt.fail())
+	while (1)
 	{
-		std::cout << "index is wrong" << std::endl;
-		return -1;
-	}
-	if (idx < 1  || idx > this->_nb)
-	{
-		std::cout << "index is out of range" << std::endl;
-		return -1;
+		std::cout << "index : ";
+		if (!std::getline(std::cin, str))
+		{
+			std::cout << std::endl;
+			return -1;
+		}
+		if (!std::cin.eof() && !std::cin){
+			std::cin.clear();
+			str = "";
+			return -1;
+		}
+		std::stringstream ssInt(str);
+		ssInt >> idx;
+		if (str.length() == 1 && idx > 0 && idx <= this->_nb)
+			break;
+		if (str.length() == 1 && str[0] < '9' && (str[0] < '1' || str[0] > ('0' + this->_nb)))
+			std::cout << "index is out of range" << std::endl;
+		else
+			std::cout << "index is wrong" << std::endl;
 	}
 	return idx - 1;
 }
