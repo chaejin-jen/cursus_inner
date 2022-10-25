@@ -31,7 +31,6 @@ std::string Contact::getSecret(void) const {
 
 int Contact::setAll(void) {
 	int i;
-	// Contact nc;
 	std::string str[5];
 
 	i = 0;
@@ -39,7 +38,15 @@ int Contact::setAll(void) {
 	{
 		str[i] = _getline();
 		if (!str[i].empty())
+		{
+			if (i == 3)
+			{
+				str[i] = this->_changePNb(str[i]);
+				if (str[i].empty())
+					continue;
+			}
 			i++;
+		}
 		if (std::cin.eof())
 			return 1;
 	}
@@ -109,4 +116,19 @@ std::string	Contact::_getline(void) const
 		str = "";
 	}
 	return str;
+}
+
+std::string	Contact::_changePNb(std::string str)
+{
+	std::string pnb = "";
+
+	for (size_t i = 0; i < str.length(); i++){
+		if (str[i] >= '0' && str[i] <= '9')
+			pnb += str[i];
+	}
+	if (pnb.empty()){
+		std::cout << "(phone number)No number" << std::endl;
+		return "";
+	}
+	return pnb;
 }
