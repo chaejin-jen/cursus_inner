@@ -39,6 +39,7 @@ private:
 	int (Contact::*_setFncPtr[5])(const std::string);
 	
 	std::string _getline(void) const;
+	std::string	_changePNb(std::string str);
 };
 
 #endif /* __CONTACT_H__ */
