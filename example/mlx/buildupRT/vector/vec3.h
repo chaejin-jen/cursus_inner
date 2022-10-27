@@ -1,6 +1,10 @@
 #ifndef VEC3_H
 # define VEC3_H
 
+typedef int	t_bool;
+# define FALSE 0
+# define TRUE 1
+
 typedef struct s_vec3
 {
 	float	x;

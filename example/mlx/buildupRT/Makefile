@@ -12,7 +12,7 @@ MLX = mlx/libmlx.a
 INC = -Ivector -Ilibft -Imlx
 LIB = -Llibft -lft -Lmlx -lmlx -framework OpenGL -framework AppKit
 
-SRC = vector/scene.c vector/operat.c vector/product.c vector/ray.c vector/vec_utils.c vector_draw_with_cam.c
+SRC = vector/sphere.c vector/scene.c vector/operat.c vector/product.c vector/ray.c vector/vec_utils.c sphere00.c
 OBJ = $(patsubst src%, obj%, $(SRC:.c=.o))
 
 obj/%.o : src/%.c
