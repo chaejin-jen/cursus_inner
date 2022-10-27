@@ -29,9 +29,9 @@ void	my_mlx_pixel_put(t_data *data, int x, int y, t_vec3 *color)
 
 int ft_draw(t_data *data)
 {
-	int		i;
-	int		j;
-	t_color	color;
+	int			i;
+	int			j;
+	t_color3	color;
 
 	j = data->height - 1;
 	while (j >= 0)

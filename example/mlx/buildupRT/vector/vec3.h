@@ -9,7 +9,7 @@ typedef struct s_vec3
 }				t_vec3;
 
 typedef t_vec3 t_point3; // 3D point
-typedef t_vec3 t_color; // RGB color
+typedef t_vec3 t_color3; // RGB color
 
 t_vec3	*ft_vec3_add(t_vec3 *target, t_vec3 *u, t_vec3 *v);
 t_vec3	*ft_vec3_sub(t_vec3 *target, t_vec3 *u, t_vec3 *v);
@@ -24,7 +24,7 @@ t_vec3	*ft_vec3_div_scalar(t_vec3 *target, float t, t_vec3 *v);
 	행렬 곱하기 열벡터 -> 벡터
 	똑같은 벡터의 내적 -> 벡터의 놈 -> 제곱합 -> 스칼라
 */
-/* inner product 방향이 일치하는 만큼만 곱한 것 (결과값은 스칼라) 
+/* inner product 방향이 일치하는 만큼만 곱한 것 (결과값은 스칼라)
 두 벡터의 차원(길이)은 같아야 함
 앞은 행 벡터, 뒤는 열 벡터가 와야 함 x^{T}y
 */
