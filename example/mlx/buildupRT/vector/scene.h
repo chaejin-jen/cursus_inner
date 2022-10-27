@@ -24,5 +24,7 @@ typedef struct	s_canvas
 
 void	ft_canvas_set(t_canvas *canvas, int width, int height);
 void	ft_camera_set(t_camera *cam, float aspect_ratio);
+t_ray	*ft_camera_cal_ray(t_ray *target, t_camera *cam,
+							 float u, float v);
 
 #endif

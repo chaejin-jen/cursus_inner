@@ -1,4 +1,5 @@
 #include "scene.h"
+#include "ray.h"
 
 void	ft_canvas_set(t_canvas *canvas, int width, int height)
 {
@@ -32,4 +33,25 @@ void	ft_camera_set(t_camera *cam, float aspect_ratio)
 	ft_vec3_div_scalar(&cam->lower_left_corner, 2, &cam->lower_left_corner);
 	ft_vec3_add(&cam->lower_left_corner, &cam->lower_left_corner, &focal_len);
 	ft_vec3_sub(&cam->lower_left_corner, &cam->orig, &cam->lower_left_corner);
+}
+
+// 카메라에서 출발한 광선
+t_ray	*ft_camera_cal_ray(t_ray *target, t_camera *cam,
+							 float u, float v)
+{
+	t_vec3 cal; // left_bottom + u * horizontal + v * vertical - origin 의 단위 벡터.
+
+	cal.x = cam->lower_left_corner.x
+			+ u * cam->horizontal.x
+			+ v * cam->vertical.x
+			- cam->orig.x;
+	cal.y = cam->lower_left_corner.y
+			+ u * cam->horizontal.y
+			+ v * cam->vertical.y
+			- cam->orig.y;
+	cal.z = cam->lower_left_corner.z
+			+ u * cam->horizontal.z
+			+ v * cam->vertical.z
+			- cam->orig.z;
+	return (ft_ray_set(target, &(cam->orig), &cal));
 }
