@@ -8,6 +8,14 @@ t_vec3	*ft_vec3_add(t_vec3 *target, t_vec3 *u, t_vec3 *v)
 	return (target);
 }
 
+t_vec3	*ft_vec3_add_scalar(t_vec3 *target, float t, t_vec3 *v)
+{
+	target->x = t + v->x;
+	target->y = t + v->y;
+	target->z = t + v->z;
+	return (target);
+}
+
 t_vec3	*ft_vec3_sub(t_vec3 *target, t_vec3 *u, t_vec3 *v)
 {
 	target->x = u->x - v->x;

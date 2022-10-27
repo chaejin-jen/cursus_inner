@@ -19,6 +19,7 @@ t_vec3	*ft_vec3_add(t_vec3 *target, t_vec3 *u, t_vec3 *v);
 t_vec3	*ft_vec3_sub(t_vec3 *target, t_vec3 *u, t_vec3 *v);
 t_vec3	*ft_vec3_multi(t_vec3 *target, t_vec3 *u, t_vec3 *v);
 t_vec3	*ft_vec3_div(t_vec3 *target, t_vec3 *u, t_vec3 *v);
+t_vec3	*ft_vec3_add_scalar(t_vec3 *target, float t, t_vec3 *v);
 t_vec3	*ft_vec3_multi_scalar(t_vec3 *target, float t, t_vec3 *v);
 t_vec3	*ft_vec3_div_scalar(t_vec3 *target, float t, t_vec3 *v);
 
