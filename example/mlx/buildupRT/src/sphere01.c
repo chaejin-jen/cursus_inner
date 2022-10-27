@@ -1,3 +1,4 @@
+//구와 camera ray의 정확한 교점 구하기
 //#include <mlx.h>
 #include "mlx/mlx.h"
 #include "libft/libft.h"
@@ -6,9 +7,6 @@
 #include "vector/scene.h"
 #include "vector/object.h"
 #include <math.h>
-#include <limits.h>
-
-#define INFINITY MAXFLOAT;
 
 typedef struct 	s_data
 {
@@ -47,15 +45,12 @@ double	hit_sphere(t_sphere *sp, t_ray *ray)
 // 레이트레이싱을 통해 픽셀의 색깔을 결정
 t_color3	*ft_ray_color(t_color3 *target, t_ray *r, t_sphere *sphere)
 {
-	t_vec3			unit_dir;
-	double			t;
-	t_color3		cal1;
-	t_color3		cal2;
-	t_vec3			n; // [-1, 1] 로 정규화된 법선 -> [0, 1]
-	t_hit_record	rec;
+	t_vec3		unit_dir;
+	double		t;
+	t_color3	cal1;
+	t_color3	cal2;
+	t_vec3		n; // [-1, 1] 로 정규화된 법선 -> [0, 1]
 
-	rec.tmin = 0;
-	rec.tmax = INFINITY;
 	t = hit_sphere(sphere, r);
 	if (t > 0.0)  // 광선이 구에 적중하면(광선과 구가 교점이 있고, 교점이 카메라 앞쪽이라면!) 정규화 된 구 표면에서의 법선을 반환
 	{

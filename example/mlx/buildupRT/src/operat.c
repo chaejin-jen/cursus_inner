@@ -8,7 +8,7 @@ t_vec3	*ft_vec3_add(t_vec3 *target, t_vec3 *u, t_vec3 *v)
 	return (target);
 }
 
-t_vec3	*ft_vec3_add_scalar(t_vec3 *target, float t, t_vec3 *v)
+t_vec3	*ft_vec3_add_scalar(t_vec3 *target, double t, t_vec3 *v)
 {
 	target->x = t + v->x;
 	target->y = t + v->y;
@@ -40,7 +40,7 @@ t_vec3	*ft_vec3_div(t_vec3 *target, t_vec3 *u, t_vec3 *v)
 	return (target);
 }
 
-t_vec3	*ft_vec3_multi_scalar(t_vec3 *target, float t, t_vec3 *v)
+t_vec3	*ft_vec3_multi_scalar(t_vec3 *target, double t, t_vec3 *v)
 {
 	target->x = v->x * t;
 	target->y = v->y * t;
@@ -48,7 +48,7 @@ t_vec3	*ft_vec3_multi_scalar(t_vec3 *target, float t, t_vec3 *v)
 	return (target);
 }
 
-t_vec3	*ft_vec3_div_scalar(t_vec3 *target, float t, t_vec3 *v)
+t_vec3	*ft_vec3_div_scalar(t_vec3 *target, double t, t_vec3 *v)
 {
 	return (ft_vec3_multi_scalar(target, (1 / t), v));
 }

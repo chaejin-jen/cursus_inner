@@ -1,11 +1,9 @@
-//구와 camera ray의 정확한 교점 구하기
-//#include <mlx.h>
-#include "mlx/mlx.h"
-#include "libft/libft.h"
-//#include "vector/vec3.h"
-#include "vector/ray.h"
-#include "vector/scene.h"
-#include "vector/object.h"
+#include <mlx.h>
+// #include "mlx/mlx.h"
+#include "libft.h"
+#include "ray.h"
+#include "scene.h"
+#include "object.h"
 #include <math.h>
 
 typedef struct 	s_data
@@ -22,63 +20,61 @@ typedef struct 	s_data
 	t_sphere	sp;
 }						t_data;
 
-// 카메라에서 출발한 광선
-t_ray	*ft_camera_cal_ray(t_ray *target, t_camera *cam,
-							 float u, float v)
-{
-	t_vec3 cal;
-
-	cal.x = cam->lower_left_corner.x
-			+ u * cam->horizontal.x
-			+ v * cam->vertical.x
-			- cam->orig.x;
-	cal.y = cam->lower_left_corner.y
-			+ u * cam->horizontal.y
-			+ v * cam->vertical.y
-			- cam->orig.y;
-	cal.z = cam->lower_left_corner.z
-			+ u * cam->horizontal.z
-			+ v * cam->vertical.z
-			- cam->orig.z;
-	return (ft_ray_set(target, &(cam->orig), &cal));
-}
-
-double	hit_sphere(t_sphere *sp, t_ray *ray)
+double	hit_sphere(t_sphere *sp, t_ray *ray, t_hit_record *rec)
 {
 	t_vec3	oc; //방향벡터로 나타낸 구의 중심.
 	//a, b, c는 각각 t에 관한 2차 방정식의 계수
 	double	a;
-	double	b;
+	double	half_b;
 	double	c;
 	double	discriminant;
+	double	sqrtd;
+	double	root;
+	t_point3	tmp;
+
 
 	ft_vec3_sub(&oc, &ray->orig, &sp->center);
-	a = ft_vec3_dot(&ray->dir, &ray->dir);
-	b = 2.0 * ft_vec3_dot(&oc, &ray->dir);
-	c = ft_vec3_dot(&oc, &oc) - sp->radius_squared;
-	discriminant = b * b - 4 * a * c;
+	a = ft_vec3_norm_squared(&ray->dir);
+	half_b = ft_vec3_dot(&oc, &ray->dir);
+	c = ft_vec3_norm_squared(&oc) - sp->radius_squared;
+	discriminant = half_b * half_b - a * c;
 	if (discriminant < 0) // 판별식이 0보다 작을 때 : 실근 없을 때,
-		return (-1.0);
-	else
-		return ((-b - sqrt(discriminant)) / (2.0 * a)); // 두 근 중 작은 근
+		return (FALSE);
+	sqrtd = sqrt(discriminant);
+	root = (-half_b - sqrtd) / a;
+	if (root < rec->tmin || rec->tmax < root)
+	{
+		root = (-half_b + sqrtd) / a;
+		if (root < rec->tmin || rec->tmax < root)
+			return (FALSE);
+	}
+	rec->t = root;
+	ft_ray_at(&rec->p, ray, root);
+	// ft_vec3_sub(&tmp, &rec->p, &sp->center);
+	// ft_vec3_div_scalar(&rec->normal, sp->radius, &tmp); // 정규화된 법선 벡터.
+	ft_vec3_div_scalar(&rec->normal, sp->radius, ft_vec3_sub(&rec->p, &rec->p, &sp->center)); // 정규화된 법선 벡터.
+	ft_hit_record_set_face_normal(ray, rec); // rec의 법선벡터와 광선의 방향벡터를 비교해서 앞면인지 뒷면인지 t_bool 값으로 저장.
+	return (TRUE);
 }
 
 // 레이트레이싱을 통해 픽셀의 색깔을 결정
 t_color3	*ft_ray_color(t_color3 *target, t_ray *r, t_sphere *sphere)
 {
-	t_vec3		unit_dir;
-	double		t;
-	t_color3	cal1;
-	t_color3	cal2;
-	t_vec3		n; // [-1, 1] 로 정규화된 법선 -> [0, 1]
+	t_vec3			unit_dir;
+	double			t;
+	t_color3		cal1;
+	t_color3		cal2;
+	t_vec3			n; // [-1, 1] 로 정규화된 법선 -> [0, 1]
+	t_hit_record	rec;
+	t_point3		tmp;
 
-	t = hit_sphere(sphere, r);
-	if (t > 0.0)  // 광선이 구에 적중하면(광선과 구가 교점이 있고, 교점이 카메라 앞쪽이라면!) 정규화 된 구 표면에서의 법선을 반환
+	rec.tmin = 0;
+	rec.tmax = INFINITY;
+	if (hit_sphere(sphere, r, &rec))
 	{
-		ft_vec3_unit_vec(&n, ft_vec3_sub(&n, ft_ray_at(&n, r, t), &sphere->center));
-		// [-1, 1] + 1 -> [0, 2]
-		// [0, 2]  / 2 -> [0, 1]
-		return (ft_vec3_multi_scalar(target, 0.5, ft_vec3_add_scalar(&n, 1, &n)));
+		// ft_vec3_add_scalar(&tmp, 1, &rec.normal);
+		// return (ft_vec3_multi_scalar(target, 0.5, &tmp));
+		return (ft_vec3_multi_scalar(target, 0.5, ft_vec3_add_scalar(target, 1, &rec.normal)));
 	}
 	ft_vec3_unit_vec(&unit_dir, &(r->dir));
 	t = 0.5 * (unit_dir.y + 1.0);
@@ -136,7 +132,7 @@ int main(void)
 {
 	t_data		data;
 	t_point3	center;
-	float		aspect_ratio;
+	double		aspect_ratio;
 
 	//ft_vec3_set_xyz(&center, 0, 0, -5);
 	//ft_sphere_set(&data.sp, center, 2);

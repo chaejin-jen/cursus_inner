@@ -8,7 +8,7 @@ void	ft_canvas_set(t_canvas *canvas, int width, int height)
 	canvas->aspect_ratio = (double)width / (double)height;
 }
 
-void	ft_camera_set(t_camera *cam, float aspect_ratio)
+void	ft_camera_set(t_camera *cam, double aspect_ratio)
 {
 	t_vec3	focal_len;
 
@@ -37,7 +37,7 @@ void	ft_camera_set(t_camera *cam, float aspect_ratio)
 
 // 카메라에서 출발한 광선
 t_ray	*ft_camera_cal_ray(t_ray *target, t_camera *cam,
-							 float u, float v)
+							 double u, double v)
 {
 	t_vec3 cal; // left_bottom + u * horizontal + v * vertical - origin 의 단위 벡터.
 

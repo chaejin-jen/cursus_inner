@@ -1,8 +1,7 @@
 #ifndef SCENE_H
 # define SCENE_H
 
-# include "vec3.h"
-//# include "utils.h"
+# include "ray.h"
 
 typedef struct	s_camera
 {
@@ -23,8 +22,8 @@ typedef struct	s_canvas
 }			t_canvas;
 
 void	ft_canvas_set(t_canvas *canvas, int width, int height);
-void	ft_camera_set(t_camera *cam, float aspect_ratio);
+void	ft_camera_set(t_camera *cam, double aspect_ratio);
 t_ray	*ft_camera_cal_ray(t_ray *target, t_camera *cam,
-							 float u, float v);
+							double u, double v);
 
 #endif
