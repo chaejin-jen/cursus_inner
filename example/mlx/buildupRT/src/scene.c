@@ -1,5 +1,18 @@
 #include "scene.h"
 #include "ray.h"
+#include <unistd.h>
+
+t_light	*light_point(t_point3 light_origin, t_color3 light_color, double bright_ratio)
+{
+	t_light	*light;
+
+	if(!(light = (t_light *)malloc(sizeof(t_light))))
+		return (NULL);
+	light->origin = light_origin;
+	light->light_color = light_color;
+	light->bright_ratio = bright_ratio;
+	return (light);
+}
 
 void	ft_canvas_set(t_canvas *canvas, int width, int height)
 {

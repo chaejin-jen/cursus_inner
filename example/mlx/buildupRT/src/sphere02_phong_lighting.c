@@ -1,3 +1,9 @@
+// 퐁 조명 모델의 광선 추적 : 광원에서 빛이 나와서 물체에 반사되어 눈에 들어오는 단계만 수학적으로 계산
+// 퐁 반사 모델 : (물리학적 기법) 광원에서 나온 빛이 물체에 반사되어 나올 때, 그 조도가 어느 정도가 되는지를 구하는 데에 활용되는 모델
+// 퐁 반사 모델의 조명(3가지) : (조도를 구할 때 고려하는 조명) ambient lighting, diffuse lighting, specular lighting
+// ambient lighting(주변 조명) : 밝은 낮 어두운 그늘에 들어가도 물체가 보이는 것처럼, 공기 중에 산란되어 존재하는 빛으로 인해 물체가 밝아지는 것을 묘사함
+// diffuse lighting(확산 조명) : 난반사의 역할 - 광선이 물체에 비스듬하게 들어올 수록 단위 면적 당 들어오는 광선의 수가 적음
+// specular lighting(반사광) : 정반사의 역할
 #include <mlx.h>
 // #include "mlx/mlx.h"
 #include "libft.h"
@@ -44,7 +50,7 @@ t_color3	*ft_ray_color(t_color3 *target, t_ray *r, t_object *world)
 	 // (1-t) * 흰색 + t * 하늘색
 	ft_vec3_multi_scalar(&cal1, (1.0 - t),
 			ft_vec3_set_xyz(&cal1, 1.0, 1.0, 1.0));
-	ft_vec3_multi_scalar(&cal2, t, ft_vec3_set_xyz(&cal2, 1.0, 1.0, 1.0));
+	ft_vec3_multi_scalar(&cal2, t, ft_vec3_set_xyz(&cal2, 0.5, 0.7, 1.0)); // CMY(Cyan Magenta Yellow)
 	return (ft_vec3_add(target, &cal1, &cal2));
 }
 

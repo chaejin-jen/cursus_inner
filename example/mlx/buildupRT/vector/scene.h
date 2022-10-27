@@ -3,6 +3,9 @@
 
 # include "ray.h"
 
+// typedef int t_object_type;
+# define LIGHT_POINT 1
+
 typedef struct	s_camera
 {
 	t_point3	orig;	// 카메라 원점(위치)
@@ -21,9 +24,19 @@ typedef struct	s_canvas
 	double	aspect_ratio;
 }			t_canvas;
 
+typedef struct		s_light
+{
+	t_point3	origin;
+	t_color3	light_color;
+	double		bright_ratio;
+}				t_light;
+
 void	ft_canvas_set(t_canvas *canvas, int width, int height);
 void	ft_camera_set(t_camera *cam, double aspect_ratio);
 t_ray	*ft_camera_cal_ray(t_ray *target, t_camera *cam,
 							double u, double v);
+
+t_light	*light_point(t_point3 light_origin, t_color3 light_color, double bright_ratio);
+
 
 #endif
