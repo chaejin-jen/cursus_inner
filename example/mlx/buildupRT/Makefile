@@ -12,7 +12,7 @@ LIB = -Llibft -lft -lmlx -framework OpenGL -framework AppKit
 # INC = -Ivector -Ilibft -Imlx
 # LIB = -Llibft -lft -Lmlx -lmlx -framework OpenGL -framework AppKit
 
-SRC = src/sphere.c src/scene.c src/operat.c src/product.c src/ray.c src/vec_utils.c src/sphere02_hit_record.c
+SRC = src/hit.c src/object.c src/object_utils.c src/sphere.c src/scene.c src/operat.c src/product.c src/ray.c src/vec_utils.c src/sphere02.c
 OBJ = $(patsubst src%, obj%, $(SRC:.c=.o))
 
 obj/%.o : src/%.c
