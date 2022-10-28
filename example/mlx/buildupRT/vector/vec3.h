@@ -1,6 +1,8 @@
 #ifndef VEC3_H
 # define VEC3_H
 
+#include <stdio.h> //printf
+
 typedef int	t_bool;
 # define FALSE 0
 # define TRUE 1
@@ -42,5 +44,6 @@ double	ft_vec3_norm_squared(t_vec3 *v);
 t_vec3	*ft_vec3_unit_vec(t_vec3 *target, t_vec3 *v);
 t_vec3	*ft_vec3_set_vec3(t_vec3 *target, const t_vec3 *v);
 t_vec3	*ft_vec3_set_xyz(t_vec3 *target, double x, double y, double z);
+t_vec3	*ft_vec3_min(t_vec3 *target, t_vec3 *vec1, t_vec3 *vec2);
 
 #endif

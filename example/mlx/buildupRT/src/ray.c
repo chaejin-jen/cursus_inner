@@ -1,4 +1,6 @@
 #include "ray.h"
+#include "scene.h"
+#include "math.h"
 
 // 광선 방향은 단위 길이 벡터가 아님에 유의 (속도적 측면 고려한 것)
 t_ray	*ft_ray_set(t_ray *target, const t_point3 *origin, const t_vec3 *direction)
@@ -14,6 +16,13 @@ t_point3	*ft_ray_at(t_point3 *target, const t_ray *ray, const double t)
 	target->x = ray->orig.x + t * ray->dir.x;
 	target->y = ray->orig.y + t * ray->dir.y;
 	target->z = ray->orig.z + t * ray->dir.z;
+	return (target);
+}
+
+t_hit_record *record_init(t_hit_record *target)
+{
+	target->tmin = EPSILON;
+	target->tmax = INFINITY;
 	return (target);
 }
 

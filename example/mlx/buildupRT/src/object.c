@@ -22,6 +22,7 @@ t_sphere	*sphere(t_point3 *center, double radius)
 	if(!(sp = (t_sphere *)malloc(sizeof(t_sphere))))
 		return (NULL);
 	sp->center = *center;
+	//printf("(sphere) center : %f, %f, %f\n", sp->center.x, sp->center.y, sp->center.z);
 	sp->radius = radius;
 	sp->radius_squared = radius * radius;
 	return (sp);

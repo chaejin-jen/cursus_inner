@@ -21,11 +21,14 @@ typedef struct s_hit_record
 	double		tmax;
 	t_bool		front_face;
 	// 그 외 교점에서의 색깔 등 추가적으로 필요한 정보는 이후에 추가
-	t_color3	albedo;
+	t_color3	albedo;  // 반사율
 }			t_hit_record;
+
 
 t_ray		*ft_ray_set(t_ray *target, const t_point3 *origin, const t_vec3 *direction);
 t_point3	*ft_ray_at(t_point3 *target, const t_ray *ray, const double t);
+
+t_hit_record *record_init(t_hit_record *record);
 void	ft_hit_record_set_face_normal(t_ray *r, t_hit_record *rec);
 
 #endif
