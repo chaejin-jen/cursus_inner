@@ -11,7 +11,8 @@ t_object	*object(t_object_type type, void *element, t_color3 *albedo)
 	new->type = type;
 	new->element = element;
 	new->next = NULL;
-	new->albedo = *albedo;
+	new->albedo = *albedo; // 이거 되나??
+	// ft_vec3_set_vec3(&new->albedo, albedo);
 	return (new);
 }
 
@@ -22,7 +23,6 @@ t_sphere	*sphere(t_point3 *center, double radius)
 	if(!(sp = (t_sphere *)malloc(sizeof(t_sphere))))
 		return (NULL);
 	sp->center = *center;
-	//printf("(sphere) center : %f, %f, %f\n", sp->center.x, sp->center.y, sp->center.z);
 	sp->radius = radius;
 	sp->radius_squared = radius * radius;
 	return (sp);

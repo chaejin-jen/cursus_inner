@@ -25,7 +25,7 @@ typedef struct s_hit_record
 }			t_hit_record;
 
 
-t_ray		*ft_ray_set(t_ray *target, const t_point3 *origin, const t_vec3 *direction);
+t_ray		*ft_ray_set(t_ray *target, const t_point3 *origin, t_vec3 *direction);
 t_point3	*ft_ray_at(t_point3 *target, const t_ray *ray, const double t);
 
 t_hit_record *record_init(t_hit_record *record);

@@ -1,10 +1,22 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   scene.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: chaejkim <chaejkim@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/10/28 19:38:53 by chaejkim          #+#    #+#             */
+/*   Updated: 2022/10/28 19:38:55 by chaejkim         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "scene.h"
 #include "ray.h"
 #include "object.h"
 #include <unistd.h>
 #include <stdlib.h>
 
-t_scene	*scene_init(void)
+t_scene	*scene_init(int width, int height)
 {
 	t_scene		*scene;
 	t_object	*world;
@@ -18,11 +30,11 @@ t_scene	*scene_init(void)
 	// malloc 할당 실패 시, 실습에서는 return NULL로 해두었지만, 적절한 에러 처리가 필요하다.
 	if(!(scene = (t_scene *)malloc(sizeof(t_scene))))
 		return (NULL);
-	ft_canvas_set(&scene->canvas, 400, 300);
+	ft_canvas_set(&scene->canvas, width, height);
 	ft_camera_set(&scene->camera, &scene->canvas, (t_point3 *)ft_vec3_set_xyz(&vec3, 0, 0, 0));
-	world = object(SP, sphere(ft_vec3_set_xyz(&center, -2, 0, -5), 2), (t_color3 *)ft_vec3_set_xyz(&vec3, 0.5, 0, 0)); // world 에 구1 추가
-	oadd(&world, object(SP, sphere(ft_vec3_set_xyz(&center, 2, 0, -5), 2), (t_color3 *)ft_vec3_set_xyz(&vec3, 0, 0.5, 0))); // world 에 구2 추가
-	oadd(&world, object(SP, sphere(ft_vec3_set_xyz(&center, 0, -1000, 0), 990), (t_color3 *)ft_vec3_set_xyz(&vec3, 1, 1, 1))); // world 에 구3 추가
+	world = object(SP, sphere(ft_vec3_set_xyz(&center, -2, 0, -5), 2), (t_color3 *)ft_vec3_set_xyz(&vec3, 1, 0, 0)); // world 에 구1 추가
+	oadd(&world, object(SP, sphere(ft_vec3_set_xyz(&center, 2, 0, -5), 2), (t_color3 *)ft_vec3_set_xyz(&vec3, 0, 1, 0))); // world 에 구2 추가
+	oadd(&world, object(SP, sphere(ft_vec3_set_xyz(&center, 0, -1000, 0), 999), (t_color3 *)ft_vec3_set_xyz(&vec3, 1, 1, 1))); // world 에 구3 추가
 	scene->world = world;
 	//printf("(scene_init)sp radius : %f, %f, %f\n", ((t_sphere *)world->element)->radius, ((t_sphere *)((t_object *)world->next)->element)->radius, ((t_sphere *)((t_object *)((t_object *)world->next)->next)->element)->radius);
 	lights = object(LIGHT_POINT,
@@ -35,7 +47,7 @@ t_scene	*scene_init(void)
 	//	((t_light *)scene->light->element)->light_color.x, ((t_light *)scene->light->element)->light_color.y, ((t_light *)scene->light->element)->light_color.z);
 	ka = 0.1; // 8.4 에서 설명
 	scene->ambient = *ft_vec3_multi_scalar(&vec3, ka, ft_vec3_set_xyz(&vec3, 1, 1, 1)); // 반사율
-	//ft_vec3_set_vec3(&scene->ambient, ft_vec3_multi_scalar(&vec3, ka, ft_vec3_set_xyz(&vec3, 1, 1, 1))); // 반사율
+	// ft_vec3_set_vec3(&scene->ambient, ft_vec3_multi_scalar(&vec3, ka, ft_vec3_set_xyz(&vec3, 1, 1, 1))); // 반사율
 	//printf("(scene_init)ambient : %f, %f, %f\n", scene->ambient.x, scene->ambient.y, scene->ambient.z);
 	return (scene);
 }

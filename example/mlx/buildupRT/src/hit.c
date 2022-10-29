@@ -46,7 +46,8 @@ t_bool	hit_sphere(t_object *sp_obj, t_ray *ray, t_hit_record *rec)
 	t_point3	tmp;
 	t_sphere	*sp;
 
-	rec->albedo = sp_obj->albedo;
+	// rec->albedo = sp_obj->albedo; // 이거 되나??
+	ft_vec3_set_vec3(&rec->albedo, &sp_obj->albedo);
 	sp = (t_sphere *)(sp_obj->element);
 	ft_vec3_sub(&oc, &ray->orig, &sp->center);
 	a = ft_vec3_norm_squared(&ray->dir);

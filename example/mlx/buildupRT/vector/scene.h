@@ -44,7 +44,7 @@ typedef struct	s_scene
 	t_hit_record	rec;
 }				t_scene;
 
-t_scene	*scene_init(void);
+t_scene	*scene_init(int width, int height);
 
 void	ft_canvas_set(t_canvas *canvas, int width, int height);
 void	ft_camera_set(t_camera *cam, t_canvas *canvas, t_point3 *orig);

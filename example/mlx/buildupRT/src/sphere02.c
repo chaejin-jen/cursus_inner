@@ -29,14 +29,11 @@ t_color3	*ft_ray_color(t_color3 *target, t_ray *r, t_object *world)
 	t_color3		cal2;
 	t_vec3			n; // [-1, 1] 로 정규화된 법선 -> [0, 1]
 	t_hit_record	rec;
-	t_point3		tmp;
 
 	rec.tmin = 0;
 	rec.tmax = INFINITY;
 	if (hit(world, r, &rec))
 	{
-		// ft_vec3_add_scalar(&tmp, 1, &rec.normal);
-		// return (ft_vec3_multi_scalar(target, 0.5, &tmp));
 		return (ft_vec3_multi_scalar(target, 0.5, ft_vec3_add_scalar(target, 1, &rec.normal)));
 	}
 	ft_vec3_unit_vec(&unit_dir, &(r->dir));

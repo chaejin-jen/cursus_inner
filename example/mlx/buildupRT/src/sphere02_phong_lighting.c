@@ -4,7 +4,8 @@
 // ambient lighting(주변 조명) : 밝은 낮 어두운 그늘에 들어가도 물체가 보이는 것처럼, 공기 중에 산란되어 존재하는 빛으로 인해 물체가 밝아지는 것을 묘사함
 // diffuse lighting(확산 조명) : 난반사의 역할 - 광선이 물체에 비스듬하게 들어올 수록 단위 면적 당 들어오는 광선의 수가 적음
 // specular lighting(반사광) : 정반사의 역할
-#include "mlx.h"
+// #include "mlx.h"
+#include <mlx.h>
 #include "libft.h"
 #include "ray.h"
 #include "scene.h"
@@ -41,19 +42,20 @@ t_color3	*phong_lighting(t_color3 *target, t_scene *scene)
 {
 	t_color3	light_color;
 	t_object	*lights;
-	t_color3	tmp;
+	t_color3	tmp1;
+	t_color3	tmp2;
 
 	ft_vec3_set_xyz(&light_color, 0, 0, 0); //광원이 하나도 없다면, 빛의 양은 (0, 0, 0)일 것이다.
 	lights = scene->light;
-	//while (lights) //여러 광원에서 나오는 모든 빛에 대해 각각 diffuse, specular 값을 모두 구해줘야 한다
-	//{
-	//	if(lights->type == LIGHT_POINT)
-	//		ft_vec3_add(&light_color, &light_color, point_light_get(target, scene, lights->element));
-	//	lights = lights->next;
-	//}
+	// while (lights) //여러 광원에서 나오는 모든 빛에 대해 각각 diffuse, specular 값을 모두 구해줘야 한다
+	// {
+	// 	if(lights->type == LIGHT_POINT)
+	// 		ft_vec3_add(&light_color, &light_color, point_light_get(target, scene, lights->element));
+	// 	lights = lights->next;
+	// }
 	ft_vec3_add(&light_color, &light_color, &scene->ambient);
-	ft_vec3_min(target, ft_vec3_multi(&light_color, &light_color, &scene->rec.albedo),
-		ft_vec3_set_xyz(&tmp, 1, 1, 1));
+	ft_vec3_set_xyz(&tmp1, 1, 1, 1);
+	ft_vec3_min(target, ft_vec3_multi(&tmp2, &light_color, &scene->rec.albedo), &tmp1);
 	return (target);
 	//모든 광원에 의한 빛의 양을 구한 후, 오브젝트의 반사율과 곱해준다. 그 값이 (1, 1, 1)을 넘으면 (1, 1, 1)을 반환한다.
 }
@@ -62,6 +64,7 @@ t_color3	*phong_lighting(t_color3 *target, t_scene *scene)
 // 레이트레이싱을 통해 픽셀의 색깔을 결정
 t_color3	*ft_ray_color(t_color3 *target, t_scene *scene)
 {
+	t_vec3		unit_dir;
 	double		t;
 	t_color3	cal1;
 	t_color3	cal2;
@@ -71,17 +74,14 @@ t_color3	*ft_ray_color(t_color3 *target, t_scene *scene)
 	record_init(&scene->rec);
 	if (hit(scene->world, &scene->ray, &scene->rec))
 		return (phong_lighting(target, scene)); //phong_lighting 함수는 8.4에서 설명한다. 이제 법선 벡터를 매핑해서 얻은 색이 아닌, 앞으로 작성할 phong_lighting 함수의 결과값을 반환한다!
-	else
-	{
 		//ray의 방향벡터의 y 값을 기준으로 그라데이션을 주기 위한 계수.
-		t = 0.5 * (scene->ray.dir.y + 1.0);
-		// (1-t) * 흰색 + t * 하늘색
-		ft_vec3_multi_scalar(&cal1, 1.0 - t,
-			ft_vec3_set_xyz(&cal1, 1, 1, 1)),
-		ft_vec3_multi_scalar(&cal2, 1.0 - t,
+	t = 0.5 * (scene->ray.dir.y + 1.0);
+	// (1-t) * 흰색 + t * 하늘색
+	ft_vec3_multi_scalar(&cal1, 1.0 - t,
+			ft_vec3_set_xyz(&cal1, 1.0, 1.0, 1.0)),
+	ft_vec3_multi_scalar(&cal2, t,
 			ft_vec3_set_xyz(&cal2, 0.5, 0.7, 1.0));
-		return (ft_vec3_add(target, &cal1, &cal2));
-	}
+	return (ft_vec3_add(target, &cal1, &cal2));
 }
 
 void	my_mlx_pixel_put(t_data *data, int x, int y, t_color3 *color)
@@ -131,17 +131,35 @@ int main_loop(t_data *data)
 }
 
 #include <stdio.h>
+#include <string.h>
 
-int main(void)
+void set_width_height(t_bool is_default, int *width, int *height, char **av)
 {
+	if (!is_default)
+	{
+		*width = ft_atoi(av[1]);
+		*height = ft_atoi(av[2]);
+	}
+	if (is_default || !*width || !*height)
+	{
+		*width = 400;
+		*height = 300;
+	}
+}
+
+int main(int ac, char *av[])
+{
+	int			width;
+	int			height;
 	t_data		data;
 	double		aspect_ratio;
 
-	data.scene = scene_init();
+	set_width_height(ac!=3, &width, &height, av);
+	data.scene = scene_init(width, height);
 	printf("P3\n%d %d\n255\n", data.scene->canvas.width, data.scene->canvas.height);
 	data.mlx = mlx_init();
 	aspect_ratio = 16.0 / 9.0;
-	data.width = 400;
+	data.width = width;
 	data.height = data.width / aspect_ratio;
 	data.mlx_win = mlx_new_window(data.mlx, data.width, data.height, "miniRT");
 	data.img = mlx_new_image(data.mlx, data.width, data.height);
