@@ -1,7 +1,7 @@
 #include "object.h"
 #include <stdlib.h>
 
-t_object	*create_object(t_object_type type, void *element, t_color3 albedo)
+t_object	*create_object(t_object_type type, void *element, t_color3 *albedo)
 {
 	t_object	*new;
 
@@ -10,7 +10,7 @@ t_object	*create_object(t_object_type type, void *element, t_color3 albedo)
 	new->type = type;
 	new->element = element;
 	new->next = NULL;
-	new->albedo = albedo;
+	new->albedo = *albedo;
 	//new->object_handler = 
 	return (new);
 }
@@ -23,6 +23,7 @@ t_light	*create_light(t_point3 *light_origin, t_color3 *light_color, double brig
 		return (NULL);
 	light->orig = *light_origin;
 	light->light_color = *light_color;
+	//printf("(light) origin : %f, %f, %f, color : %f, %f, %f\n", light->orig.x, light->orig.y, light->orig.z, light->light_color.x, light->light_color.y, light->light_color.z);
 	light->bright_ratio = bright_ratio;
 	return (light);
 }
@@ -34,13 +35,13 @@ t_light	*create_light(t_point3 *light_origin, t_color3 *light_color, double brig
 //	sp->radius_squared = radius * radius;
 //}
 
-t_sphere	*create_sphere(t_point3 center, double radius)
+t_sphere	*create_sphere(t_point3 *center, double radius)
 {
 	t_sphere *sp;
 
 	if(!(sp = (t_sphere *)malloc(sizeof(t_sphere))))
 		return (NULL);
-	sp->center = center;
+	sp->center = *center;
 	sp->radius = radius;
 	sp->radius_squared = radius * radius;
 	return (sp);

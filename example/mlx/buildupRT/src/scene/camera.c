@@ -6,7 +6,7 @@ void	ft_camera_set(t_camera *cam, double aspect_ratio, t_point3 *orig)
 
 	cam->viewport_h = 2.0;
 	cam->viewport_w = cam->viewport_h * aspect_ratio;
-	cam->focal_len = 1.0;
+	cam->lens_radius = 1.0;
 	cam->orig = *orig;
 	//ft_vec3_set_xyz(&cam->orig, 0.0, 0.0, 0.0);
 	vec_set(&cam->horizontal, cam->viewport_w, 0.0, 0.0);
@@ -20,5 +20,5 @@ void	ft_camera_set(t_camera *cam, double aspect_ratio, t_point3 *orig)
 	cam->lower_left_corner.z = cam->orig.z
 				- (cam->horizontal.z / 2)
 				- (cam->vertical.z / 2)
-				- cam->focal_len;
+				- cam->lens_radius;
 }

@@ -12,7 +12,7 @@ typedef struct s_vec3
 
 //t_vec3	*vec_set_vec3(t_vec3 *target, const t_vec3 *v);
 t_vec3	*vec_set(t_vec3 *target, double x, double y, double z);
-t_vec3	*vec_min(t_vec3 *target, t_vec3 *vec1, t_vec3 *vec2);
+t_vec3	*vec_min(t_vec3 *target, const t_vec3 *vec1, const t_vec3 *vec2);
 
 t_vec3	*vec_add(t_vec3 *target, const t_vec3 *v1, const t_vec3 *v2);
 t_vec3	*vec_sub(t_vec3 *target, const t_vec3 *v1, const t_vec3 *v2);

@@ -2,6 +2,7 @@
 # define RT_INT_H
 
 # include "vec3.h"
+# include <stdio.h> //printf
 
 # define EPSILON 1e-6 // 0.000001
 

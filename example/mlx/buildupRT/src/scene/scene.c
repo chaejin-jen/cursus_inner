@@ -15,7 +15,7 @@
 t_scene	*scene_init(int width, int height)
 {
 	t_scene		*scene;
-	t_object	*world;
+	t_object	*object;
 	t_object	*lights;
 	double		ka; // 8.4 에서 설명
 	t_point3	orig;
@@ -28,12 +28,12 @@ t_scene	*scene_init(int width, int height)
 		return (NULL);
 	//ft_canvas_set(&scene->canvas, width, height);
 	ft_camera_set(&scene->camera, 16.0/9.0, (t_point3 *)vec_set(&vec3, 0, 0, 0));
-	world = create_sphere(SP, sphere(vec_set(&center, -2, 0, -5), 2), (t_color3 *)vec_set(&vec3, 1, 0, 0)); // world 에 구1 추가
-	oadd(&world, create_sphere(SP, sphere(vec_set(&center, 2, 0, -5), 2), (t_color3 *)vec_set(&vec3, 0, 1, 0))); // world 에 구2 추가
-	oadd(&world, create_sphere(SP, sphere(vec_set(&center, 0, -1000, 0), 999), (t_color3 *)vec_set(&vec3, 1, 1, 1))); // world 에 구3 추가
-	scene->world = world;
-	lights = create_light(LIGHT,
-		(void *)light_point(vec_set(&orig, 0, 5, 0), vec_set(&vec3, 1, 1, 1), 0.5),
+	object = create_object(SP, create_sphere(vec_set(&center, -2, 0, -5), 2), vec_set(&vec3, 1, 0, 0)); // object 에 구1 추가
+	oadd(&object, create_object(SP, create_sphere(vec_set(&center, 2, 0, -5), 2), vec_set(&vec3, 0, 1, 0))); // object 에 구2 추가
+	oadd(&object, create_object(SP, create_sphere(vec_set(&center, 0, -1000, 0), 1000), vec_set(&vec3, 1, 1, 1))); // object 에 구3 추가
+	scene->object = object;
+	lights = create_object(LIGHT,
+		(void *)create_light(vec_set(&orig, 0, 5, 0), vec_set(&vec3, 1, 1, 1), 0.5),
 		vec_set(&color, 0, 0, 0)); // 더미 albedo
 	scene->light = lights;
 	ka = 0.1; // 8.4 에서 설명

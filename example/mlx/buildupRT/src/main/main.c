@@ -37,16 +37,16 @@ int	main(int argc, char *argv[])
 }
 
 
-void	my_mlx_pixel_put(t_data *data, int x, int y, t_color3 *color)
+static void	my_mlx_pixel_put(t_img *img, int x, int y, t_color3 *color)
 {
 	char	*dst;
 
-	dst = data->addr
-		+ (y * data->line_lenth + x * (data->bits_per_pixel / 8));
+	dst = img->addr
+		+ (y * img->line_lenth + x * (img->bits_per_pixel / 8));
 	*(unsigned int*)dst = ((int)color->x << 16) | ((int)color->y << 8) | (int)color->z;
 }
 
-int ft_draw(t_data *data)
+static int ft_draw(t_rt_data *data)
 {
 	int			i;
 	int			j;
@@ -55,35 +55,35 @@ int ft_draw(t_data *data)
 	t_scene		*scene;
 
 	scene = data->scene;
-	j = scene->canvas.height - 1;
+	j = data->height - 1;
 	while (j >= 0)
 	{
 		i = 0;
 		ft_putstr_fd("\rScanlines remaining: ", 1);
 		ft_putnbr_fd(j, 1);
 		ft_putchar_fd(' ', 1);
-		while (i < scene->canvas.width)
+		while (i < data->width)
 		{
-			ft_camera_cal_ray(&scene->ray, &scene->camera, (double)i / (scene->canvas.width - 1),
-				(double)j / (scene->canvas.height - 1));
+			ft_camera_cal_ray(&scene->ray, &scene->camera, (double)i / (data->width - 1),
+				(double)j / (data->height - 1));
 			ft_ray_color(&color, scene);
 			vec_mul_scalar(&color, 255.999, &color);
-			my_mlx_pixel_put(data, i, scene->canvas.height - 1 - j, &color);
+			my_mlx_pixel_put(&data->img, i, data->height - 1 - j, &color);
 			i++;
 		}
 		j--;
 	}
-	mlx_put_image_to_window(data->mlx, data->mlx_win, data->img, 0, 0);
+	mlx_put_image_to_window(data->mlx, data->mlx_win, data->img.ptr, 0, 0);
 	return (0);
 }
 
-int main_loop(t_data *data)
+static int main_loop(t_rt_data *data)
 {
 	ft_draw(data);
 	return (0);
 }
 
-void set_width_height(t_bool is_default, int *width, int *height, char **av)
+static void set_width_height(t_bool is_default, int *width, int *height, char **av)
 {
 	if (!is_default)
 	{
@@ -101,7 +101,7 @@ static void rt_data_init(t_rt_data *data, int width, int height)
 {
 	double		aspect_ratio;
 
-	//printf("P3\n%d %d\n255\n", data->scene->canvas.width, data->scene->canvas.height);
+	//printf("P3\n%d %d\n255\n", data->data->width, data->data->height);
 	data->mlx = mlx_init();
 	aspect_ratio = 16.0 / 9.0;
 	data->width = width;

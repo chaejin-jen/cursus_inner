@@ -32,7 +32,7 @@ t_bool	hit_sphere(t_object *sp_obj, t_ray *ray, t_hit_record *rec)
 			return (FALSE);
 	}
 	rec->t = root;
-	???ft_ray_at(&rec->p, ray, root);
+	ft_ray_at(&rec->p, ray, root); //???
 	// ft_vec3_sub(&tmp, &rec->p, &sp->center);
 	// ft_vec3_div_scalar(&rec->normal, sp->radius, &tmp); // 정규화된 법선 벡터.
 	vec_div_scalar(&rec->normal, sp->radius, vec_sub(&rec->p, &rec->p, &sp->center)); // 정규화된 법선 벡터.

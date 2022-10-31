@@ -1,8 +1,8 @@
 #include "ray.h"
 #include <math.h>
 
-t_ray	*ft_camera_cal_ray(t_ray *target, t_camera *cam,
-							 double u, double v)
+t_ray	*ft_camera_cal_ray(t_ray *target, const t_camera *cam,
+							const double u, const double v)
 {
 	t_vec3 cal; // left_bottom + u * horizontal + v * vertical - origin 의 단위 벡터.
 
@@ -61,8 +61,8 @@ t_color3	*phong_lighting(t_color3 *target, t_scene *scene)
 {
 	t_color3	light_color;
 	t_object	*lights;
-	t_color3	tmp1;
-	t_color3	tmp2;
+	t_color3	diffuse;
+	t_color3	white;
 
 	vec_set(&light_color, 0, 0, 0); //광원이 하나도 없다면, 빛의 양은 (0, 0, 0)일 것이다.
 	lights = scene->light;
@@ -70,26 +70,34 @@ t_color3	*phong_lighting(t_color3 *target, t_scene *scene)
 	{
 		if(lights->type == LIGHT)
 		{
-			point_light_get(target, scene, lights->element);
-			vec_add(&light_color, &light_color, &tmp1);
+			point_light_get(&diffuse, scene, lights->element);
+			vec_add(&light_color, &light_color, &diffuse);
 		}
 		lights = lights->next;
 	}
+	vec_set(&white, 1, 1, 1);
 	vec_add(&light_color, &light_color, &scene->ambient);
-	vec_set(&tmp1, 1, 1, 1);
-	vec_min(target, vec_mul(&tmp2, &light_color, &scene->rec.albedo), &tmp1);
-	return (vec_min(target, &tmp1, &tmp2));
+	vec_mul(&light_color, &light_color, &scene->rec.albedo);
+	return (vec_min(target, &white, &light_color));
 	//모든 광원에 의한 빛의 양을 구한 후, 오브젝트의 반사율과 곱해준다. 그 값이 (1, 1, 1)을 넘으면 (1, 1, 1)을 반환한다.
 }
 
-t_color3	*point_light_get(t_color3 *target, t_scene *scene, t_light *light)
+t_color3	*point_light_get(t_color3 *target, t_scene *scene, const t_light *light)
 {
-	t_color3	diffuse;
 	t_vec3		light_dir;
 	double		kd; // diffuse의 강도
 	t_vec3		tmp;
 
+	t_color3	specular;
+	t_vec3		view_dir;
+	t_vec3		reflect_dir;
+	double		spec;
+	double		ksn;
+	double		ks;
+
 	vec_unit_vec(&light_dir, vec_sub(&tmp, &light->orig, &scene->rec.p)); //교점에서 출발하여 광원을 향하는 벡터(정규화 됨)
+	//vec_sub(&tmp, &light->orig, &scene->rec.p);
+	//vec_unit_vec(&light_dir, &tmp); //교점에서 출발하여 광원을 향하는 벡터(정규화 됨)
 	// cosΘ는 Θ 값이 90도 일 때 0이고 Θ가 둔각이 되면 음수가 되므로 0.0보다 작은 경우는 0.0으로 대체한다.
 	kd = fmax(vec_dot(&scene->rec.normal, &light_dir), 0.0);// (교점에서 출발하여 광원을 향하는 벡터)와 (교점에서의 법선벡터)의 내적값.
 	return (vec_mul_scalar(target, kd, &light->light_color));
