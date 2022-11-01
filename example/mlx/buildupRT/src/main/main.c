@@ -5,8 +5,8 @@
 // ambient lighting(주변 조명) : 밝은 낮 어두운 그늘에 들어가도 물체가 보이는 것처럼, 공기 중에 산란되어 존재하는 빛으로 인해 물체가 밝아지는 것을 묘사함
 // diffuse lighting(확산 조명) : 난반사의 역할 - 광선이 물체에 비스듬하게 들어올 수록 단위 면적 당 들어오는 광선의 수가 적음
 // specular lighting(반사광) : 정반사의 역할
-// #include "mlx.h"
-#include <mlx.h>
+#include "mlx.h"
+// #include <mlx.h>
 #include "libft.h"
 #include "ray.h"
 #include "scene.h"
@@ -66,6 +66,7 @@ static int ft_draw(t_rt_data *data)
 		{
 			ft_camera_cal_ray(&scene->ray, &scene->camera, (double)i / (data->width - 1),
 				(double)j / (data->height - 1));
+			// printf("(camera_cal_ray) origin : %f, %f, %f, color : %f, %f, %f\n", scene->ray.orig.x, scene->ray.orig.y, scene->ray.orig.z, scene->ray.dir.x, scene->ray.dir.y, scene->ray.dir.z);
 			ft_ray_color(&color, scene);
 			vec_mul_scalar(&color, 255.999, &color);
 			my_mlx_pixel_put(&data->img, i, data->height - 1 - j, &color);

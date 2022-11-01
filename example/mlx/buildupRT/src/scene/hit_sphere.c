@@ -32,10 +32,9 @@ t_bool	hit_sphere(t_object *sp_obj, t_ray *ray, t_hit_record *rec)
 			return (FALSE);
 	}
 	rec->t = root;
-	ft_ray_at(&rec->p, ray, root); //???
-	// ft_vec3_sub(&tmp, &rec->p, &sp->center);
-	// ft_vec3_div_scalar(&rec->normal, sp->radius, &tmp); // 정규화된 법선 벡터.
-	vec_div_scalar(&rec->normal, sp->radius, vec_sub(&rec->p, &rec->p, &sp->center)); // 정규화된 법선 벡터.
+	ft_ray_at(&rec->p, ray, root);
+	vec_sub(&tmp, &rec->p, &sp->center);
+	vec_div_scalar(&rec->normal, sp->radius, &tmp); // 정규화된 법선 벡터.
 	record_set_face_normal(ray, rec); // rec의 법선벡터와 광선의 방향벡터를 비교해서 앞면인지 뒷면인지 t_bool 값으로 저장.
 	return (TRUE);
 }

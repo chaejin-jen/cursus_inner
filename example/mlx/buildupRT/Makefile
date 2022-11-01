@@ -6,11 +6,11 @@ FLAGS = -Wall -Werror -Wextra
 LFT = libft/libft.a
 MLX = mlx/libmlx.a
 
-INC = -Iinclude -Ilibft
-LIB = -Llibft -lft -lmlx -framework OpenGL -framework AppKit
+# INC = -Iinclude -Ilibft
+# LIB = -Llibft -lft -lmlx -framework OpenGL -framework AppKit
 
-#  INC = -Ivector -Ilibft -Imlx
-#  LIB = -Llibft -lft -Lmlx -lmlx -framework OpenGL -framework AppKit
+INC = -Iinclude -Ilibft -Imlx
+LIB = -Llibft -lft -Lmlx -lmlx -framework OpenGL -framework AppKit
 
 MAIN_SRC = $(addprefix src/main/, main.c)
 SCENE_SRC = $(addprefix src/scene/, camera.c hit_record.c hit_sphere.c hit.c object.c ray.c scene.c)

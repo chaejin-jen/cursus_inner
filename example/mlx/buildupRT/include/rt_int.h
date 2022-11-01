@@ -5,6 +5,7 @@
 # include <stdio.h> //printf
 
 # define EPSILON 1e-6 // 0.000001
+# define LUMEN 3
 
 typedef t_vec3 t_point3;
 typedef t_vec3 t_color3;

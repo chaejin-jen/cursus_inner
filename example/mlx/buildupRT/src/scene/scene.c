@@ -27,7 +27,7 @@ t_scene	*scene_init(int width, int height)
 	if(!(scene = (t_scene *)malloc(sizeof(t_scene))))
 		return (NULL);
 	//ft_canvas_set(&scene->canvas, width, height);
-	ft_camera_set(&scene->camera, 16.0/9.0, (t_point3 *)vec_set(&vec3, 0, 0, 0));
+	ft_camera_set(&scene->camera, 16.0/9.0, vec_set(&vec3, 0, 0, 0));
 	object = create_object(SP, create_sphere(vec_set(&center, -2, 0, -5), 2), vec_set(&vec3, 1, 0, 0)); // object 에 구1 추가
 	oadd(&object, create_object(SP, create_sphere(vec_set(&center, 2, 0, -5), 2), vec_set(&vec3, 0, 1, 0))); // object 에 구2 추가
 	oadd(&object, create_object(SP, create_sphere(vec_set(&center, 0, -1000, 0), 1000), vec_set(&vec3, 1, 1, 1))); // object 에 구3 추가
@@ -37,6 +37,7 @@ t_scene	*scene_init(int width, int height)
 		vec_set(&color, 0, 0, 0)); // 더미 albedo
 	scene->light = lights;
 	ka = 0.1; // 8.4 에서 설명
-	scene->ambient = *vec_mul_scalar(&vec3, ka, vec_set(&vec3, 1, 1, 1)); // 반사율
+	vec_mul_scalar(&scene->ambient, ka, vec_set(&vec3, 1, 1, 1)); // 반사율
+	// printf("(scene_init) ambient : %f, %f, %f\n", scene->ambient.x, scene->ambient.y, scene->ambient.z);
 	return (scene);
 }

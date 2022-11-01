@@ -8,7 +8,7 @@ void	ft_camera_set(t_camera *cam, double aspect_ratio, t_point3 *orig)
 	cam->viewport_w = cam->viewport_h * aspect_ratio;
 	cam->lens_radius = 1.0;
 	cam->orig = *orig;
-	//ft_vec3_set_xyz(&cam->orig, 0.0, 0.0, 0.0);
+	//vec_set(&cam->orig, 0.0, 0.0, 0.0);
 	vec_set(&cam->horizontal, cam->viewport_w, 0.0, 0.0);
 	vec_set(&cam->vertical, 0.0, cam->viewport_h, 0.0);
 	cam->lower_left_corner.x = cam->orig.x

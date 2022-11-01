@@ -26,8 +26,8 @@ t_vec3	*vec_mul_scalar(t_vec3 *target, double t, const t_vec3 *v1)
 
 t_vec3	*vec_div_scalar(t_vec3 *target, double t, const t_vec3 *v1)
 {
-	target->x = v1->x * t;
-	target->y = v1->y * t;
-	target->z = v1->z * t;
+	target->x = v1->x * (1 / t);
+	target->y = v1->y * (1 / t);
+	target->z = v1->z * (1 / t);
 	return (target);
 }

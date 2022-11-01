@@ -1,7 +1,7 @@
 #include "object.h"
 #include <stdlib.h>
 
-t_object	*create_object(t_object_type type, void *element, t_color3 *albedo)
+t_object	*create_object(t_object_type type, void *element, const t_color3 *albedo)
 {
 	t_object	*new;
 
@@ -15,7 +15,7 @@ t_object	*create_object(t_object_type type, void *element, t_color3 *albedo)
 	return (new);
 }
 
-t_light	*create_light(t_point3 *light_origin, t_color3 *light_color, double bright_ratio)
+t_light	*create_light(const t_point3 *light_origin, const t_color3 *light_color, double bright_ratio)
 {
 	t_light	*light;
 
@@ -35,7 +35,7 @@ t_light	*create_light(t_point3 *light_origin, t_color3 *light_color, double brig
 //	sp->radius_squared = radius * radius;
 //}
 
-t_sphere	*create_sphere(t_point3 *center, double radius)
+t_sphere	*create_sphere(const t_point3 *center, double radius)
 {
 	t_sphere *sp;
 
