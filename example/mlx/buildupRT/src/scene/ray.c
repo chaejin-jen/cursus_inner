@@ -93,11 +93,11 @@ static t_color3	*phong_lighting(t_color3 *target, const t_scene *scene)
 
 static t_vec3	*reflect(t_vec3 *target, t_vec3 *v, const t_vec3 *n)
 {
-    //v - 2 * dot(v, n) * n;
+	//v - 2 * dot(v, n) * n;
 	t_vec3		tmp;
 
 	vec_mul_scalar(&tmp, vec_dot(v, n) * 2, n);
-    return (vec_sub(target, v, &tmp));
+	return (vec_sub(target, v, &tmp));
 }
 
 static t_color3	*point_light_get(t_color3 *target, const t_scene *scene, const t_light *light)
@@ -105,6 +105,7 @@ static t_color3	*point_light_get(t_color3 *target, const t_scene *scene, const t
 	t_vec3		light_dir;
 	double		kd; // diffuse의 강도
 	t_vec3		tmp;
+	t_vec3		diffuse;
 
 	t_color3	specular;
 	t_vec3		view_dir;
@@ -112,7 +113,8 @@ static t_color3	*point_light_get(t_color3 *target, const t_scene *scene, const t
 	double		spec;
 	double		ksn;
 	double		ks;
-	double      brightness;
+	double		brightness;
+	t_vec3		tmp2;
 
 	vec_sub(&tmp, &light->orig, &scene->rec.p);
 	// printf("(point_light_get) op : %f, %f, %f\n", tmp.x, tmp.y, tmp.z);
@@ -121,17 +123,18 @@ static t_color3	*point_light_get(t_color3 *target, const t_scene *scene, const t
 	// cosΘ는 Θ 값이 90도 일 때 0이고 Θ가 둔각이 되면 음수가 되므로 0.0보다 작은 경우는 0.0으로 대체한다.
 	kd = fmax(vec_dot(&scene->rec.normal, &light_dir), 0.0);// (교점에서 출발하여 광원을 향하는 벡터)와 (교점에서의 법선벡터)의 내적값.
 	// printf("(point_light_get) rec.n : %f, %f, %f\n", scene->rec.normal.x, scene->rec.normal.y, scene->rec.normal.z);
-	return (vec_mul_scalar(target, kd, &light->light_color));
+	vec_mul_scalar(&diffuse, kd, &light->light_color);
 	
-	// vec_unit_vec(&view_dir, vec_mul_scalar(&tmp, -1, &scene->ray.dir));
-    // reflect(&reflect_dir, vec_mul_scalar(&tmp, -1, &light_dir), &scene->rec.normal);
-    // ksn = 64; // shininess value
-    // ks = 0.5; // specular strength
-    // spec = pow(fmax(vec_dot(&view_dir, &reflect_dir), 0.0), ksn);
-    // vec_mul_scalar(&specular, ks * spec, &light->light_color);
-	// brightness = light->bright_ratio * LUMEN;
-    // // return (vec_add(target, target, &specular));
-	// vec_add(&tmp, &scene->ambient, target);
-	// vec_add(&tmp, &tmp, &specular);
-	// return (vec_mul_scalar(target, brightness, &tmp));
+	vec_unit_vec(&view_dir, vec_mul_scalar(&tmp, -1, &scene->ray.dir));
+	reflect(&reflect_dir, vec_mul_scalar(&tmp, -1, &light_dir), &scene->rec.normal);
+	ksn = 64; // shininess value
+	ks = 0.5; // specular strength
+	spec = pow(fmax(vec_dot(&view_dir, &reflect_dir), 0.0), ksn);
+	vec_mul_scalar(&specular, ks * spec, &light->light_color);
+	brightness = light->bright_ratio * LUMEN;
+	vec_add(target, &diffuse, &specular);
+	// return (vec_add(target, &diffuse, &specular));
+	vec_add(&tmp, &scene->ambient, target);
+	vec_add(&tmp2, &tmp, &specular);
+	return (vec_mul_scalar(target, brightness, &tmp2));
 }
