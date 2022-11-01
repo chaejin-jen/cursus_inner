@@ -12,18 +12,27 @@ typedef struct s_vec3
 
 typedef t_vec3 t_point3;
 
-t_vec3	ft_vec3_set(const double x, const double y, const double z);
-t_vec3	ft_vec3_min(const t_vec3 v1, const t_vec3 v2);
+t_vec3	vec3(const double x, const double y, const double z);
+t_vec3	vmin(t_vec3 v1, t_vec3 v2);
 
-t_vec3	ft_vec3_add(t_vec3 v1, const t_vec3 v2);
-t_vec3	ft_vec3_sub(t_vec3 v1, const t_vec3 v2);
-t_vec3	ft_vec3_multi(t_vec3 v1, const t_vec3 v2);
-t_vec3	ft_vec3_div(t_vec3 v1, const t_vec3 v2);
+double	vdot(const t_vec3 v1, const t_vec3 v2);
+t_vec3	vcross(const t_vec3 v1, const t_vec3 v2);
 
-t_vec3	ft_vec3_add_scalar(t_vec3 v1, const double t);
-t_vec3	ft_vec3_sub_scalar(t_vec3 v1, const double t);
-t_vec3	ft_vec3_multi_scalar(t_vec3 v1, const double t);
-t_vec3	ft_vec3_div_scalar(t_vec3 v1, const double t);
+t_vec3	vadd(t_vec3 v1, const t_vec3 v2);
+t_vec3	vsub(t_vec3 v1, const t_vec3 v2);
+t_vec3	vmul(t_vec3 v1, const t_vec3 v2);
+t_vec3	vdiv(t_vec3 v1, const t_vec3 v2);
+
+t_vec3	vadd_(t_vec3 v1, const double t);
+t_vec3	vsub_(t_vec3 v1, const double t);
+t_vec3	vmul_(t_vec3 v1, const double t);
+t_vec3	vdiv_(t_vec3 v1, const double t);
+
+/* 벡터의 길이 */
+double	vnorm_squared(const t_vec3 v);
+double	vnorm(const t_vec3 v);
+t_vec3	vunit(const t_vec3 v1);
+
 
 /* 벡터곱 연산 결과
 	행벡터 곱하기 열벡터 -> 스칼라
@@ -35,13 +44,5 @@ t_vec3	ft_vec3_div_scalar(t_vec3 v1, const double t);
 두 벡터의 차원(길이)은 같아야 함
 앞은 행 벡터, 뒤는 열 벡터가 와야 함 x^{T}y
 */
-double	ft_vec3_dot(const t_vec3 v1, const t_vec3 v2);
-t_vec3	ft_vec3_cross(const t_vec3 v1, const t_vec3 v2);
-
-/* 벡터의 길이 */
-double	ft_vec3_norm_squared(const t_vec3 v);
-double	ft_vec3_norm(const t_vec3 v);
-t_vec3	ft_vec3_unit(const t_vec3 v1);
-
 
 #endif
