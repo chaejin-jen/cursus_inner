@@ -15,7 +15,7 @@ t_object	*create_object(t_object_type type, void *element, t_color3 albedo)
 	return (new);
 }
 
-t_light	*light_point(t_point3 light_origin, t_color3 light_color, double bright_ratio)
+t_light	*create_light(t_point3 light_origin, t_color3 light_color, float bright_ratio)
 {
 	t_light	*light;
 
@@ -27,14 +27,14 @@ t_light	*light_point(t_point3 light_origin, t_color3 light_color, double bright_
 	return (light);
 }
 
-//void	ft_sphere_set(t_sphere *sp, t_point3 center, double radius)
+//void	ft_sphere_set(t_sphere *sp, t_point3 center, float radius)
 //{
 //	sp->center = center;
 //	sp->radius = radius;
-//	sp->radius_squared = radius * radius;
+//	sp->radius2 = radius * radius;
 //}
 
-t_sphere	*create_sphere(t_point3 center, double radius)
+t_sphere	*create_sphere(t_point3 center, float radius)
 {
 	t_sphere *sp;
 
@@ -42,30 +42,18 @@ t_sphere	*create_sphere(t_point3 center, double radius)
 		return (NULL);
 	sp->center = center;
 	sp->radius = radius;
-	sp->radius_squared = radius * radius;
+	sp->radius2 = radius * radius;
 	return (sp);
 }
 
-void	oadd(t_object **list, t_object *new)
+t_plane	*create_plane(t_point3 point, t_vec3 normal)
 {
-	t_object	*cur;
+	t_plane	*pl;
 
-	if (*list == NULL)
-	{
-		*list = new;
-		return ;
-	}
-	cur = *list;
-	while (cur->next)
-		cur = cur->next;
-	cur->next = new;
-}
-
-t_object	*olast(t_object *list)
-{
-	if (list == NULL)
+	pl = (t_plane *)malloc(sizeof(t_plane));
+	if (!pl)
 		return (NULL);
-	while (list->next)
-		list = list->next;
-	return (list);
+	pl->point = point;
+	pl->normal = vdiv(normal, vnorm(normal));
+	return (pl);
 }

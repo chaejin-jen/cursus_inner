@@ -5,33 +5,37 @@
 
 typedef struct s_vec3
 {
-	double	x;
-	double	y;
-	double	z;
+	float	x;
+	float	y;
+	float	z;
 }				t_vec3;
 
 typedef t_vec3 t_point3;
+typedef t_vec3 t_color3;
 
-t_vec3	vec3(const double x, const double y, const double z);
+t_vec3	vec3(float x, float y, float z);
+t_vec3	point3(float x, float y, float z);
+t_vec3	color3(float x, float y, float z);
 t_vec3	vmin(t_vec3 v1, t_vec3 v2);
+void	vprnt(char *vname, t_vec3 *v);
 
-double	vdot(const t_vec3 v1, const t_vec3 v2);
-t_vec3	vcross(const t_vec3 v1, const t_vec3 v2);
+float	vdot(t_vec3 v1, t_vec3 v2);
+t_vec3	vcross(t_vec3 v1, t_vec3 v2);
 
-t_vec3	vadd(t_vec3 v1, const t_vec3 v2);
-t_vec3	vsub(t_vec3 v1, const t_vec3 v2);
-t_vec3	vmul(t_vec3 v1, const t_vec3 v2);
-t_vec3	vdiv(t_vec3 v1, const t_vec3 v2);
+t_vec3	vadd_(t_vec3 v1, t_vec3 v2);
+t_vec3	vsub_(t_vec3 v1, t_vec3 v2);
+t_vec3	vmul_(t_vec3 v1, t_vec3 v2);
+t_vec3	vdiv_(t_vec3 v1, t_vec3 v2);
 
-t_vec3	vadd_(t_vec3 v1, const double t);
-t_vec3	vsub_(t_vec3 v1, const double t);
-t_vec3	vmul_(t_vec3 v1, const double t);
-t_vec3	vdiv_(t_vec3 v1, const double t);
+t_vec3	vadd(t_vec3 v1, float t);
+t_vec3	vsub(t_vec3 v1, float t);
+t_vec3	vmul(t_vec3 v1, float t);
+t_vec3	vdiv(t_vec3 v1, float t);
 
 /* 벡터의 길이 */
-double	vnorm_squared(const t_vec3 v);
-double	vnorm(const t_vec3 v);
-t_vec3	vunit(const t_vec3 v1);
+float	vnorm2(t_vec3 v);
+float	vnorm(t_vec3 v);
+t_vec3	vunit(t_vec3 v);
 
 
 /* 벡터곱 연산 결과

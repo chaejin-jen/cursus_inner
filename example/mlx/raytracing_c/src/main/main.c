@@ -1,4 +1,5 @@
-#include <mlx.h>
+// #include <mlx.h>
+#include "mlx.h"
 #include "scene.h"
 #include "ray.h"
 #include "object.h"
@@ -40,7 +41,7 @@ static void set_width_height(t_bool is_default, int *width, int *height, char **
 
 static void rt_data_init(t_rt_data *data, int width, int height)
 {
-	double		aspect_ratio;
+	float		aspect_ratio;
 
 	//printf("P3\n%d %d\n255\n", data->scene->canvas.width, data->scene->canvas.height);
 	data->mlx = mlx_init();
@@ -80,10 +81,9 @@ static int ft_draw(t_rt_data *data)
 		ft_putchar_fd(' ', 1);
 		while (i < data->width)
 		{
-			scene->ray = ft_camera_cal_ray(&scene->camera,
-				(double)i / (data->width - 1), (double)j / (data->height - 1));
-			color = ft_ray_color(scene);
-			color = ft_vec3_multi_scalar(color, 255.999);
+			scene->ray = ray_primary(&scene->camera,
+				(float)i / (data->width - 1), (float)j / (data->height - 1));
+			color = vmul(ray_color(scene), 255.999);
 			my_mlx_pixel_put(&data->img, i, data->height - 1 - j, &color);
 			i++;
 		}
