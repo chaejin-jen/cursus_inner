@@ -3,6 +3,7 @@
 #define __PHONEBOOK_H__
 
 #include <iostream>
+#include <cstdio>
 #include "Contact.hpp"
 
 // ************************************************************************** //
