@@ -88,12 +88,21 @@ static void	getlines(std::ifstream &ifs, std::string &lines, int cnt){
 static std::string &replacelines(std::string &lines, const std::string &src, const std::string &dst)
 {
 	std::string	tmp(lines);
+	size_t		skip_cnt;
 
+	lines.clear();
+	skip_cnt = 0;
 	for (std::string::iterator it = tmp.begin(); it != tmp.end(); it++){
-		if (std::string(it, tmp.end()).find(src) == 0){
-			lines = std::string(tmp.begin(), it) + dst + std::string(it + src.length(), tmp.end());
-			tmp = lines;
+		if (skip_cnt != 0){
+			skip_cnt--;
+			continue;
 		}
+		if (std::string(it, tmp.end()).find(src) == 0){
+			skip_cnt = src.length() - 1;
+			lines += dst;
+		}
+		else
+			lines += *it;
 	}
 	return lines;
 }
