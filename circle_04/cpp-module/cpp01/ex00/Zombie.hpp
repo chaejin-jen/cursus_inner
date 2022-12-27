@@ -3,6 +3,8 @@
 #define __ZOMBIE_H__
 
 #include <iostream>
+#include <string>
+#include "NullptrFT.hpp"
 
 // ************************************************************************** //
 //                               ZOMBIE Class                                //
@@ -11,6 +13,8 @@
 class Zombie {
 
 public:
+	Zombie( void );
+	Zombie( NullptrFT *ptr );
 	Zombie( std::string name );
 	~Zombie( void );
 
@@ -18,7 +22,6 @@ public:
 
 private:
 	std::string _name;
-
 };
 
 Zombie* newZombie( std::string name );

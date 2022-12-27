@@ -1,5 +1,14 @@
 #include "Zombie.hpp"
 
+Zombie::Zombie( void ) : _name("Default") {
+	std::cout << _name << " is born!" << std::endl;
+}
+
+Zombie::Zombie( NullptrFT *ptr ) : _name("Null") {
+	(void)ptr;
+	std::cout << _name << " is born!" << std::endl;
+}
+
 Zombie::Zombie( std::string name ) : _name(name) {
 	std::cout << _name << " is born!" << std::endl;
 }
