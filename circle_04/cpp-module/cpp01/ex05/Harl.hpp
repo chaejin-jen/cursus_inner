@@ -3,19 +3,27 @@
 #define __HARL_H__
 
 #include <iostream>
+#include <string>
 
-#define LEVEL_NUM 4
+namespace harl{
+	const int maxLv = 4;
 
-#define DEBUG_MSG "I love having extra bacon for my \
-7XL-double-cheese-triple-pickle-specialketchup burger. I really do!"
+	const char * const debugMsg = "[DEBUG]\n\
+I love having extra bacon \
+for my 7XL-double-cheese-triple-pickle-special-ketchup burger.\nI really do!\n";
 
-#define INFO_MSG "I cannot believe adding extra bacon costs more money.\
-You didn’t put enough bacon in my burger! If you did, I wouldn’t be asking for more!"
+	const char * const infoMsg = "[INFO]\n\
+I cannot believe adding extra bacon costs more money.\n\
+You didn’t put enough bacon in my burger!\n\
+If you did, I wouldn’t be asking for more!\n";
 
-#define WARNING_MSG "I think I deserve to have some extra bacon for free.\
-I’ve been coming for years whereas you started working here since last month."
+	const char * const warnMsg = "[WARNING]\n\
+I think I deserve to have some extra bacon for free.\n\
+I’ve been coming for years whereas you started working here since last month.\n";
 
-#define ERROR_MSG "This is unacceptable! I want to speak to the manager now."
+	const char * const errMsg = "[ERROR]\n\
+This is unacceptable! I want to speak to the manager now.\n";
+}
 
 // ************************************************************************** //
 //                               HARL Class                                //
@@ -38,6 +46,6 @@ private:
 
 };
 
-typedef	void (Harl::*functionPtr[LEVEL_NUM])(void);
+typedef	void (Harl::*functionPtr[harl::maxLv])(void);
 
 #endif /* __HARL_H__ */
