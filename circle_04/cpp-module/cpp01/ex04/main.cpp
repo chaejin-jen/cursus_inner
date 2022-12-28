@@ -13,22 +13,22 @@ int	main(int ac, char *av[])
 	std::ifstream	ifs;
 	std::ofstream	ofs;
 
-	if (ac != 4 || check_argv(av) != 0)
-		return (1);
+	if (ac != 4 || check_argv(av) != 0){
+		std::cerr << "error : arguments\n[hint] ./replace <filename> <s1(find)> <s2(replace)>" << std::endl;
+		return 1;
+	}
 	if (open_ifs_ofs(ifs, ofs, av[1]) != 0)
-		return (1);
+		return 1;
 	if (write_replace(ifs, ofs, av[2], av[3]) != 0)
-		return (1);
+		return 1;
 	ifs.close();
 	ofs.close();
-	return (0);
+	return 0;
 }
 
 static int	check_argv(char **av){
-	if (!*av[1] || !*av[2] ||!*av[3]){
-		std::cerr << "error : arguments" << std::endl;
+	if (!*av[1] || !*av[2] ||!*av[3])
 		return 1;
-	}
 	return 0;
 }
 
@@ -64,7 +64,7 @@ static int	write_replace(std::ifstream &ifs, std::ofstream &ofs, char *s1, char 
 			return 1;
 		}
 	}
-	return (0);
+	return 0;
 }
 
 static void	getlines(std::ifstream &ifs, std::string &lines, int cnt){
