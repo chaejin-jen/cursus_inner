@@ -8,6 +8,7 @@
 int	main(void)
 {
 	int var = 1024;	// target variable
+	// char *var = "1024";	// char variable
 	std::cout << "variable : "  << var << std::endl;
 
 	void *ptr_var = (void *)&var; // cast to void pointer
@@ -21,13 +22,15 @@ int	main(void)
 
 	std::cout << "ptr_str : "  << ptr_str << std::endl;
 
-	void *ptr_back = nullptr; // restore void pointer from string (초기화 중요)
+	void *ptr_back = NullptrFT; // restore void pointer from string (초기화 중요)
 	sprintf((char *)&ptr_back, ptr_str.c_str());
 
 	std::cout << "ptr_back : "  << ptr_back << std::endl;
 
 	int *int_ptr_back = (int *)ptr_back; // cast void pointer to int pointer again
 	*int_ptr_back = 2048;
+	// char **char_ptr_back = (char **)&ptr_back; // cast void pointer to int pointer again
+	// *char_ptr_back = "2048";
 
 	std::cout << "variable : "  << var << std::endl;
 }
