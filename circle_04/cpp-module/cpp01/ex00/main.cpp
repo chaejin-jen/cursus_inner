@@ -15,27 +15,7 @@ int	main(void)
 	std::cout << "======== constructor exception ========" << std::endl;
 	/* Zombie( void ); */
 	Zombie unknown;
-
-	/* Zombie( NullptrFT *ptr ); */
-	Zombie znull(NULL);
-
-	/* Zombie( std::string name ); */
-	const char s1[] = "aaaa";
-	Zombie zs1(s1);
-	const char *s2 = "bbbb";
-	Zombie zs2(s2);
-	char s3[] = "cccc";
-	Zombie zs3(s3);
-	char *s4 = new char[strlen("dddd")+1];;
-	strcpy(s4, "dddd");
-	Zombie zs4(s4);
-
 	unknown.announce();
-	znull.announce();
-	zs1.announce();
-	zs2.announce();
-	zs3.announce();
-	zs4.announce();
 
 	std::cout << "======== zombie is born ========" << std::endl;
 	Zombie zombie("stack");
