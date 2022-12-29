@@ -44,6 +44,7 @@ void	ScavTrap::_setMaxValue(void){
 
 void ScavTrap::_setStatus(const ScavTrap &other){
 	
+	this->_name = other._name;
 	this->_hp = other._hp;
 	this->_ep = other._ep;
 	this->_ad = other._ad;

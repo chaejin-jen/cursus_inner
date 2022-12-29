@@ -44,6 +44,7 @@ void	FragTrap::_setMaxValue(void){
 
 void FragTrap::_setStatus(const FragTrap &other){
 	
+	this->_name = other._name;
 	this->_hp = other._hp;
 	this->_ep = other._ep;
 	this->_ad = other._ad;
