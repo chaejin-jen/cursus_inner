@@ -7,7 +7,7 @@ DiamondTrap::DiamondTrap(void){
 }
 
 DiamondTrap::DiamondTrap(std::string name){
-	std::cout << "Default constructor called - DiamondTrap" << std::endl;
+	std::cout << "Constructor called (std::string) - DiamondTrap" << std::endl;
 	this->_setMaxValue();
 	ClapTrap::_setStatus(name + "_clap_name");
 }

@@ -7,7 +7,7 @@ FragTrap::FragTrap(void){
 }
 
 FragTrap::FragTrap(std::string name){
-	std::cout << "Default constructor called - FragTrap" << std::endl;
+	std::cout << "Constructor called (std::string) - FragTrap" << std::endl;
 	this->_setMaxValue();
 	ClapTrap::_setStatus(name);
 }

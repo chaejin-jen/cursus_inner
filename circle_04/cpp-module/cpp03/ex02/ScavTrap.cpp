@@ -7,7 +7,7 @@ ScavTrap::ScavTrap(void){
 }
 
 ScavTrap::ScavTrap(std::string name){
-	std::cout << "Default constructor called - ScavTrap" << std::endl;
+	std::cout << "Constructor called (std::string) - ScavTrap" << std::endl;
 	this->_setMaxValue();
 	ClapTrap::_setStatus(name);
 }

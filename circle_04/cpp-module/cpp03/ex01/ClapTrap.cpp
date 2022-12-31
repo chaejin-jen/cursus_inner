@@ -8,7 +8,7 @@ ClapTrap::ClapTrap(void) : _name("unnamed"), _hp(claptrap::MAX_HP),
 
 ClapTrap::ClapTrap(std::string name) : _name(name), _hp(claptrap::MAX_HP), 
 	_ep(claptrap::MAX_EP), _ad(claptrap::MAX_AD){
-	std::cout << "Default constructor called - ClapTrap" << std::endl;
+	std::cout << "Constructor called (std::string) - ClapTrap" << std::endl;
 }
 
 ClapTrap::ClapTrap(const ClapTrap& other) {
