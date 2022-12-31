@@ -3,7 +3,6 @@
 #define __FIXED_H__
 
 #include <iostream>
-#include <string>
 
 // ************************************************************************** //
 //                               FIXED Class                                //
