@@ -16,7 +16,7 @@ Fixed::Fixed(const float f) {
 	const int	*p; // int	*p = (int *)(&f);
 	p = static_cast<const int *>(static_cast<const void *>(&f));
 
-	int(exp) = ((*p & fixed::exp_bits_mask) >> 23) - 127;
+	int(exp) = ((*p & fixed::float_exp_bits_mask) >> 23) - 127;
 	if (f == 0 || exp <= -fixed::float_frac_nbits){			/* zero or too small */
 		this->_raw = 0;
 		return ;
@@ -26,7 +26,7 @@ Fixed::Fixed(const float f) {
 			<< f << "\033[0m" << std::endl;
 
 	int	fixed_int_nbits(fixed::float_frac_nbits - Fixed::_nbits);
-	this->_raw = *p & fixed::frac_bits_mask;
+	this->_raw = *p & fixed::float_frac_bits_mask;
 	if (exp < fixed_int_nbits){
 		this->_raw += 1 << (fixed_int_nbits - (exp + 1));
 		this->_raw = this->_raw >> (fixed_int_nbits - exp);

@@ -6,12 +6,10 @@
 
 namespace fixed{
 	/* float bit layout (32 bits) : seee eeee emmm mmmm mmmm mmmm mmmm mmmm */
-	const int exp_bits_mask = 0x7F800000;
-	const int frac_bits_mask = 0x007FFFF0;
-	const int sign_bit = 0x80000000;
 	const int float_frac_nbits = 23;
-	// const int fixed_int_bits_mask = 0x7FFFFF00;
-	// const int fixed_frac_bits_mask = 0xFF;
+	const int float_exp_bits_mask = 0b11111111 << float_frac_nbits;
+	const int float_frac_bits_mask = 0b11111111111111111111111;
+	const int sign_bit = 1 << 31;
 }
 
 // ************************************************************************** //
