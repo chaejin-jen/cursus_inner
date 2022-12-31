@@ -1,4 +1,5 @@
 #include "Fixed.hpp"
+#include <cmath>
 
 const int Fixed::_nbits = 8;
 
@@ -13,31 +14,18 @@ Fixed::Fixed(const int n) : _raw(n << Fixed::_nbits){
 Fixed::Fixed(const float f) {
 	std::cout << "Float constructor called" << std::endl;
 
-	const int	*p; // int	*p = (int *)(&f);
-	p = static_cast<const int *>(static_cast<const void *>(&f));
+	// const int	*p; // int	*p = (int *)(&f);
+	// p = static_cast<const int *>(static_cast<const void *>(&f));
 
-	int(exp) = ((*p & fixed::float_exp_bits_mask) >> 23) - 127;
-	if (f == 0 || exp <= -fixed::float_frac_nbits){			/* zero or too small */
-		this->_raw = 0;
-		return ;
-	}
-	if (exp >= fixed::float_frac_nbits)
-		std::cerr << "\033[0;31m[warning] out of range : "
-			<< f << "\033[0m" << std::endl;
-
-	int	fixed_int_nbits(fixed::float_frac_nbits - Fixed::_nbits);
-	this->_raw = *p & fixed::float_frac_bits_mask;
-	if (exp < fixed_int_nbits){
-		this->_raw += 1 << (fixed_int_nbits - (exp + 1));
-		this->_raw = this->_raw >> (fixed_int_nbits - exp);
-	}
-	else{
-		this->_raw = this->_raw << (exp - fixed_int_nbits);
-	}
-	if (exp + Fixed::_nbits >= 0)
-		this->_raw += (1 << (exp + Fixed::_nbits));
-	if (*p & fixed::sign_bit)
-		this->_raw = ~this->_raw + 1;
+	// int(exp) = ((*p & fixed::float_exp_bits_mask) >> 23) - 127;
+	// if (f == 0 || exp <= -fixed::float_frac_nbits){			/* zero or too small scale */
+	// 	this->_raw = 0;
+	// 	return ;
+	// }
+	// if (exp >= fixed::float_frac_nbits)
+	// 	std::cerr << "\033[0;31m[warning] out of range : "	/* too small or too big */
+	// 		<< f << "\033[0m" << std::endl;
+	this->_raw = static_cast<int>(roundf(f * (1 << Fixed::_nbits)));
 }
 
 Fixed::Fixed(const Fixed& other) {
@@ -66,10 +54,6 @@ void Fixed::setRawBits(int const raw) {
 }
 
 float Fixed::toFloat(void) const {
-	// std::cout << "static_cast<float>(this->_raw) : "
-	// 	<< static_cast<float>(this->_raw) << std::endl;
-	// std::cout << "1 << Fixed::_nbits : "
-	// 	<< (1 << Fixed::_nbits) << std::endl;
 	return static_cast<float>(this->_raw) / (1 << Fixed::_nbits);
 }
 

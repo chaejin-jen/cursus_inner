@@ -8,8 +8,6 @@ namespace fixed{
 	/* float bit layout (32 bits) : seee eeee emmm mmmm mmmm mmmm mmmm mmmm */
 	const int float_frac_nbits = 23;
 	const int float_exp_bits_mask = 0b11111111 << float_frac_nbits;
-	const int float_frac_bits_mask = 0b11111111111111111111111;
-	const int sign_bit = 1 << 31;
 }
 
 // ************************************************************************** //
