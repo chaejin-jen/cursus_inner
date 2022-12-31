@@ -16,7 +16,6 @@ class Fixed {
 		~Fixed(void);
 		int getRawBits(void) const;
 		void setRawBits(int const raw);
-		// static void getNBits();
 	private:
 		int _raw;
 		static const int _nbits;

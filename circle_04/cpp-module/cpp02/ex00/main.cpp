@@ -1,7 +1,6 @@
 #include "Fixed.hpp"
 
 int main( void ){
-	// Fixed::getNBits();
 	Fixed a;
 	Fixed b( a );
 	Fixed c;

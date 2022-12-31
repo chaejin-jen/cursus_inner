@@ -30,7 +30,3 @@ int Fixed::getRawBits(void) const {
 void Fixed::setRawBits(int const raw) {
 	this->_raw = raw;
 }
-
-// void Fixed::getNBits(){
-// 	std::cout <<  "the number of fractional bits : " << Fixed::_nbits << std::endl;
-// }
