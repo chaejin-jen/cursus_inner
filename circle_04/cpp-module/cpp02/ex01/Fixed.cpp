@@ -26,15 +26,18 @@ Fixed::Fixed(const float f) {
 			<< f << "\033[0m" << std::endl;
 
 	int	fixed_int_nbits(fixed::float_frac_nbits - Fixed::_nbits);
-	int frac_bits(*p & fixed::frac_bits_mask);
-	if (exp < fixed_int_nbits)
-		this->_raw = frac_bits >> (fixed_int_nbits - exp);
-	else
-		this->_raw = frac_bits << (exp - fixed_int_nbits);
+	this->_raw = *p & fixed::frac_bits_mask;
+	if (exp < fixed_int_nbits){
+		this->_raw += 1 << (fixed_int_nbits - (exp + 1));
+		this->_raw = this->_raw >> (fixed_int_nbits - exp);
+	}
+	else{
+		this->_raw = this->_raw << (exp - fixed_int_nbits);
+	}
 	if (exp + Fixed::_nbits >= 0)
 		this->_raw += (1 << (exp + Fixed::_nbits));
 	if (*p & fixed::sign_bit)
-		this->_raw = ~(this->_raw + 1);
+		this->_raw = ~this->_raw + 1;
 }
 
 Fixed::Fixed(const Fixed& other) {
