@@ -10,7 +10,7 @@ WrongCat::WrongCat(const WrongCat& other) : WrongAnimal(other.getType()){
 
 WrongCat& WrongCat::operator=(const WrongCat& other){
 	std::cout << "\033[0;90mCopy assignment operator called - WrongCat\033[0m" << std::endl;
-	this->_type = other.getType();
+	type = other.getType();
 	return *this;
 }
 
@@ -19,7 +19,7 @@ WrongCat::~WrongCat(void){
 }
 
 std::string const & WrongCat::getType(void) const{
-	return WrongAnimal::_type;
+	return WrongAnimal::type;
 }
 
 void WrongCat::makeSound(void) const{

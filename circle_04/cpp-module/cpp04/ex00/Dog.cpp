@@ -10,7 +10,7 @@ Dog::Dog(const Dog& other) : Animal(other.getType()){
 
 Dog& Dog::operator=(const Dog& other){
 	std::cout << "\033[0;90mCopy assignment operator called - Dog\033[0m" << std::endl;
-	this->_type = other.getType();
+	type = other.getType();
 	return *this;
 }
 
@@ -19,7 +19,7 @@ Dog::~Dog(void){
 }
 
 std::string const & Dog::getType(void) const{
-	return Animal::_type;
+	return type;
 }
 
 void Dog::makeSound(void) const{

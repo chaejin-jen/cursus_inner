@@ -20,7 +20,7 @@ class WrongAnimal {
 		void makeSound(void) const;
 
 	protected:
-		std::string	_type;
+		std::string	type;
 };
 
 #endif /* __WRONGANIMAL_H__ */

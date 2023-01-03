@@ -10,7 +10,7 @@ Cat::Cat(const Cat& other) : Animal(other.getType()){
 
 Cat& Cat::operator=(const Cat& other){
 	std::cout << "\033[0;90mCopy assignment operator called - Cat\033[0m" << std::endl;
-	this->_type = other.getType();
+	type = other.getType();
 	return *this;
 }
 
@@ -19,7 +19,7 @@ Cat::~Cat(void){
 }
 
 std::string const & Cat::getType(void) const{
-	return Animal::_type;
+	return Animal::type;
 }
 
 void Cat::makeSound(void) const{
