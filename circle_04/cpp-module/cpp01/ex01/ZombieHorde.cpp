@@ -13,8 +13,7 @@ Zombie* zombieHorde( int N, std::string name )
 	zombieH = new Zombie[N];
 	for (int i = 0; i < N ; i++)
 	{
-		std::string newname(SSTR(name + '_' << i));
-		zombieH[i].setname(newname);
+		zombieH[i].setname(SSTR(name + '_' << i));
 		zombieH[i].announce();
 	}
 	return zombieH;
