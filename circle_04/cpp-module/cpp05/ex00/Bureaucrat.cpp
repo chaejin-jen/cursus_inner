@@ -1,5 +1,4 @@
 #include "Bureaucrat.hpp"
-#include <iomanip>
 
 Bureaucrat::Bureaucrat(void) : _name("unnamed"), _grade(150){
 }
@@ -83,7 +82,7 @@ const char * Bureaucrat::GradeTooLowException::what(void) const throw(){
 	return "Exception : grade too low!";
 }
 
-std::ostream & operator << (std::ostream &os, const Bureaucrat &data){
+std::ostream &operator<<(std::ostream &os, const Bureaucrat &data){
 	os << data.getName() << ", bureaucrat grade " << data.getGrade() << ".\n";
 	return os;
 }

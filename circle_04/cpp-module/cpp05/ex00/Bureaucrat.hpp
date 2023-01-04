@@ -54,10 +54,10 @@ public:
 	};
 	
 private:
-	std::string _name;
+	const std::string _name;
 	int			_grade;
 };
 
-std::ostream & operator << (std::ostream &os, const Bureaucrat &data);
+std::ostream &operator<<(std::ostream &os, const Bureaucrat &data);
 
 #endif /* __BUREAUCRAT_H__ */
