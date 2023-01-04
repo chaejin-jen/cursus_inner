@@ -5,8 +5,9 @@ int main()
 {
 	{
 		try {
-			Form form = Form("50", 50, 50);
-			//Form form = Form("77", 77, 77);
+			// Form form = Form();
+			// Form form = Form("50", 50, 50);
+			Form form = Form("77", 77, 77);
 			Bureaucrat br = Bureaucrat("Jen", 60);
 			//for (int i = 0 ; i < 13 ; i++)
 			//	br.incGrade();

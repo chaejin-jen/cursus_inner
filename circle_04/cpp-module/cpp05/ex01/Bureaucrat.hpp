@@ -6,6 +6,8 @@
 #include <string>
 #include <exception>
 
+#include "Form.hpp"
+
 class Form;
 
 namespace bureaucrat{
@@ -38,23 +40,11 @@ public:
 
 	class GradeTooHighException : public std::exception {
 	public:
-		GradeTooHighException(void);
-		GradeTooHighException(GradeTooHighException const &other);
-		virtual ~GradeTooHighException(void) throw();
-
-		GradeTooHighException &operator=(const GradeTooHighException &other);
-
-		virtual const char* what(void) const throw();
+		const char* what(void) const throw();
 	};
 	class GradeTooLowException : public std::exception {
 	public:
-		GradeTooLowException(void);
-		GradeTooLowException(GradeTooLowException const &other);
-		virtual ~GradeTooLowException(void) throw();
-
-		GradeTooLowException &operator=(const GradeTooLowException &other);
-
-		virtual const char* what(void) const throw();
+		const char* what(void) const throw();
 	};
 	
 private:

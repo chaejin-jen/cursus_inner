@@ -47,7 +47,6 @@ int Form::getGradeToExecute(void) const{
 	return _gradeToExecute;
 }
 
-
 void Form::beSigned(Bureaucrat &br){
 	if (br.getGrade() > _gradeToSign) {
 		throw Form::GradeTooLowException();
@@ -56,35 +55,10 @@ void Form::beSigned(Bureaucrat &br){
 	}
 }
 
-
-Form::GradeTooHighException::GradeTooHighException(void){}
-Form::GradeTooHighException::GradeTooHighException(GradeTooHighException const &copy){
-	*this = copy;
-}
-Form::GradeTooHighException::~GradeTooHighException(void) throw(){}
-Form::GradeTooHighException 
-	&Form::GradeTooHighException::operator=(GradeTooHighException const &other) {
-	if (this != &other) {
-		*this = other;
-	}
-	return *this;
-}
 const char * Form::GradeTooHighException::what(void) const throw(){
 	return "grade too high to sign this form!";
 }
 
-Form::GradeTooLowException::GradeTooLowException(void){}
-Form::GradeTooLowException::GradeTooLowException(GradeTooLowException const &copy){
-	*this = copy;
-}
-Form::GradeTooLowException::~GradeTooLowException(void) throw(){}
-Form::GradeTooLowException 
-	&Form::GradeTooLowException::operator=(GradeTooLowException const &other) {
-	if (this != &other) {
-		*this = other;
-	}
-	return *this;
-}
 const char * Form::GradeTooLowException::what(void) const throw(){
 	return "grade too low to sign this form!";
 }
