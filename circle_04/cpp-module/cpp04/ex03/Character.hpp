@@ -4,7 +4,6 @@
 
 #include <string>
 #include "ICharacter.hpp"
-#include "AMateria.hpp"
 
 // ************************************************************************** //
 //                               CHARACTER Class                                //
@@ -24,8 +23,8 @@ public:
 
 protected:
 	std::string _name;
-	//AMateria *_inventory[4];
-	AMateria **_inventory;
+	AMateria *_slot[4];
+	//AMateria **_slot;
 };
 
 #endif /* __CHARACTER_H__ */

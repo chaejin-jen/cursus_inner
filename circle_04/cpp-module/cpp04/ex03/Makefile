@@ -1,6 +1,6 @@
-NAME = ameteria
+NAME = a.out
 CXX = c++
-CXXFLAGS = -Wall -Wextra -Werror -std=c++98
+CXXFLAGS = -Wall -Wextra -Werror -std=c++98 -g -fsanitize=address
 
 SRC = main.cpp Character.cpp MateriaSource.cpp \
 	  AMateria.cpp Cure.cpp Ice.cpp
