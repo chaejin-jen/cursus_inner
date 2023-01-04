@@ -34,9 +34,9 @@ int Bureaucrat::getGrade(void) const{
 }
 
 void Bureaucrat::setGrade(int grade){
-	if (grade <= bureaucrat::MIN)
+	if (grade < bureaucrat::MIN)
 		throw Bureaucrat::GradeTooHighException();
-	else if (grade >= bureaucrat::MAX)
+	else if (grade > bureaucrat::MAX)
 		throw Bureaucrat::GradeTooLowException();
 	else
 		_grade = grade;
@@ -50,34 +50,10 @@ void Bureaucrat::decGrade(void){
 	setGrade(_grade + 1);
 }
 
-Bureaucrat::GradeTooHighException::GradeTooHighException(void){}
-Bureaucrat::GradeTooHighException::GradeTooHighException(GradeTooHighException const &copy){
-	*this = copy;
-}
-Bureaucrat::GradeTooHighException::~GradeTooHighException(void) throw(){}
-Bureaucrat::GradeTooHighException 
-	&Bureaucrat::GradeTooHighException::operator=(GradeTooHighException const &other) {
-	if (this != &other) {
-		*this = other;
-	}
-	return *this;
-}
 const char * Bureaucrat::GradeTooHighException::what(void) const throw(){
 	return "Exception : grade too high!";
 }
 
-Bureaucrat::GradeTooLowException::GradeTooLowException(void){}
-Bureaucrat::GradeTooLowException::GradeTooLowException(GradeTooLowException const &copy){
-	*this = copy;
-}
-Bureaucrat::GradeTooLowException::~GradeTooLowException(void) throw(){}
-Bureaucrat::GradeTooLowException 
-	&Bureaucrat::GradeTooLowException::operator=(GradeTooLowException const &other) {
-	if (this != &other) {
-		*this = other;
-	}
-	return *this;
-}
 const char * Bureaucrat::GradeTooLowException::what(void) const throw(){
 	return "Exception : grade too low!";
 }
