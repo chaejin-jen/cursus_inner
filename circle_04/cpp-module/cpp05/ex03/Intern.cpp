@@ -21,7 +21,7 @@ Intern& Intern::operator=(const Intern& other) {
 }
 
 AForm* Intern::makeForm(std::string form_name, std::string b_name) const{
-	
+
 	std::string fname[3] = {
 		"robotomy request",
 		"presidential pardon",
@@ -37,8 +37,11 @@ AForm* Intern::makeForm(std::string form_name, std::string b_name) const{
 	int i(-1);
 	while (++i < 3 && form_name != fname[i]) ;
 
-	if (i < 3)
-		return (FncPtr[i](b_name));
+	if (i < 3){
+		AForm* f(FncPtr[i](b_name));
+		std::cout << "Intern creates " << *f << std::endl;
+		return f;
+	}
 	throw NonExistentForm();
 	return NULL;
 }

@@ -38,6 +38,4 @@ private:
 	static AForm* _makePresidentialPardonForm( std::string name );
 };
 
-// std::ostream &operator<<(std::ostream &os, const Intern &data);
-
 #endif /* __Intern_H__ */
