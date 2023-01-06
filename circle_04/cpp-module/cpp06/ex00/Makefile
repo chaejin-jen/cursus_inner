@@ -2,7 +2,7 @@ NAME = convert
 CXX = c++
 CXXFLAGS = -Wall -Wextra -Werror -std=c++98
 
-SRC = main.cpp Convert.cpp
+SRC = main.cpp Convert.cpp NumType.cpp
 OBJ = $(SRC:.cpp=.o)
 
 $(NAME) : $(OBJ)

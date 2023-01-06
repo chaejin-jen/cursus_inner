@@ -6,6 +6,8 @@
 #include <exception>
 #include <sstream>
 
+#include "NumType.hpp"
+
 // ************************************************************************** //
 //                               CONVERT Class                                //
 // ************************************************************************** //
@@ -26,14 +28,17 @@ public:
 	public:
 		const char* what(void) const throw();
 	};
-	class SSFailException : public std::exception{
+	class ImpossibleException : public std::exception{
 	public:
 		const char* what(void) const throw();
 	};
 private:
 	std::string _literal;
+	double _d;
+	NumType _type;
 
 	Convert(void);
+	static int _detectType(std::string literal);
 };
 
 #endif /* __CONVERT_H__ */
