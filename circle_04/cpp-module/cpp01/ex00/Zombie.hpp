@@ -3,6 +3,7 @@
 #define __ZOMBIE_H__
 
 #include <iostream>
+#include <string>
 
 // ************************************************************************** //
 //                               ZOMBIE Class                                //
@@ -11,6 +12,7 @@
 class Zombie {
 
 public:
+	Zombie( void );
 	Zombie( std::string name );
 	~Zombie( void );
 
@@ -18,7 +20,6 @@ public:
 
 private:
 	std::string _name;
-
 };
 
 Zombie* newZombie( std::string name );

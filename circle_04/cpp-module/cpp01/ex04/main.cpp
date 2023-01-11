@@ -1,41 +1,108 @@
 #include <iostream>
 #include <fstream>
+#include <string>
 
-bool exists( const std::string& fileName );
+static int	check_argv(char **av);
+static int	open_ifs_ofs(std::ifstream &ifs, std::ofstream &ofs, std::string filename);
+static int	write_replace(std::ifstream &ifs, std::ofstream &ofs, char *s1, char *s2);
+static void	getlines(std::ifstream &ifs, std::string &str, int cnt);
+static std::string &replacelines(std::string &str, const std::string &src, const std::string &dst);
 
 int	main(int ac, char *av[])
 {
 	std::ifstream	ifs;
 	std::ofstream	ofs;
-	std::string		src;
-	std::string		dst;
 
-	if (ac != 3 || (!*av[1] || !*av[2])){
-		std::cout << "error : arguments" << std::endl;
+	if (ac != 4 || check_argv(av) != 0){
+		std::cerr << "error : arguments\n[hint] ./replace <filename> <s1(find)> <s2(replace)>" << std::endl;
 		return 1;
 	}
-	if (!exists("test00")){
-		std::cout << "error : read-file not exists" << std::endl;
+	if (open_ifs_ofs(ifs, ofs, av[1]) != 0)
 		return 1;
-	}
-	ifs.open("test01", std::ios::in);
-	ifs >> dst;
-	std::cout << dst << std::endl;
+	if (write_replace(ifs, ofs, av[2], av[3]) != 0)
+		return 1;
 	ifs.close();
-
-
-	ofs.open("test00.replace", std::ios::out | std::ios::trunc);
-
-	ofs << "i like ponie a whole damn lot" << std::endl;
 	ofs.close();
-
-	// replace를 제외한 모든 std::string 클래스의 멤버 함수들을 사용 가능합니다. 현명하게 사용하세요!
-
-	// 당연히, 에러는 최선을 다해 막아주어야 합니다. C 파일 관리 함수들을 불러오지 마세요. 이건 치팅이구요, 치팅은 나쁘잖아요. 오키?
+	return 0;
 }
 
-bool exists( const std::string& fileName )
+static int	check_argv(char **av){
+	if (!*av[1] || !*av[2] ||!*av[3])
+		return 1;
+	return 0;
+}
+
+static int	open_ifs_ofs(std::ifstream &ifs, std::ofstream &ofs, std::string filename){
+	ifs.open(filename, std::ios::in);
+	if (ifs.is_open() == false){
+		std::cerr << "error : open failed (read-file)" << std::endl;
+		return 1;
+	}
+	ofs.open(std::string(filename) + ".replace", std::ios::out | std::ios::trunc);
+	if (ofs.is_open() == false){
+		std::cerr << "error : open failed (write-file)" << std::endl;
+		return 1;
+	}
+	return 0;
+}
+
+static int	write_replace(std::ifstream &ifs, std::ofstream &ofs, char *s1, char *s2){
+	std::string	src(s1);
+	std::string	dst(s2);
+	int	newline_cnt(0);
+
+	for (std::string::iterator it = src.begin(); it != src.end(); it++){
+		if (*it == '\n')
+			newline_cnt++;
+	}
+	while (!ifs.eof()){
+		std::string	lines;
+		getlines(ifs, lines, newline_cnt);
+		ofs << replacelines(lines, src, dst);
+		if (ofs.fail()){
+			std::cerr << "error : write failed" << std::endl;
+			return 1;
+		}
+	}
+	return 0;
+}
+
+static void	getlines(std::ifstream &ifs, std::string &lines, int cnt){
+	if (cnt == 0){
+		getline(ifs, lines);
+		if (ifs.eof() == false)
+			lines += "\n";
+		return ;
+	}
+	for (int i = -1; i != cnt; i++){
+		std::string	line;
+		getline(ifs, line);
+		lines += line;
+		if (ifs.eof() == false)
+			lines += "\n";
+		else
+			break;
+	}
+}
+
+static std::string &replacelines(std::string &lines, const std::string &src, const std::string &dst)
 {
-	std::ifstream infile(fileName.c_str());
-	return infile.good();
+	std::string	tmp(lines);
+	size_t		skip_cnt;
+
+	lines.clear();
+	skip_cnt = 0;
+	for (std::string::iterator it = tmp.begin(); it != tmp.end(); it++){
+		if (skip_cnt != 0){
+			skip_cnt--;
+			continue;
+		}
+		if (std::string(it, tmp.end()).find(src) == 0){
+			skip_cnt = src.length() - 1;
+			lines += dst;
+		}
+		else
+			lines += *it;
+	}
+	return lines;
 }

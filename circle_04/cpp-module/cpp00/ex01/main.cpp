@@ -24,7 +24,7 @@ int	main(void) {
 		if (std::cin.eof())
 		{
 			std::cin.clear();
-			clearerr(stdin);
+			std::clearerr(stdin);
 		}
 	}
 	std::cout << "Bye" << std::endl;

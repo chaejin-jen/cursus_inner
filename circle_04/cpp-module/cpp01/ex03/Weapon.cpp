@@ -3,11 +3,11 @@
 // Weapon::Weapon( void ) : _type("body without weapon") {}
 
 Weapon::Weapon( std::string type ) : _type(type) {
-	std::cout << "(create)" << this->_type << std::endl;
+	// std::cout << "\033[0;90m(create)" << this->_type << "\033[0m" << std::endl;
 }
 
 Weapon::~Weapon( void ) {
-	std::cout << "(distroy)" << this->_type << std::endl;
+	// std::cout << "\033[0;90m(distroy)" << this->_type << "\033[0m" << std::endl;
 }
 
 std::string Weapon::getType(void) const
@@ -17,5 +17,6 @@ std::string Weapon::getType(void) const
 
 void Weapon::setType(std::string type)
 {
+	// std::cout << "\033[0;92m(change)" << this->_type << " -> " << type << "\033[0m" << std::endl;	
 	this->_type = type;
 }
