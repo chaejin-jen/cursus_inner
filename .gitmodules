@@ -1,3 +1,6 @@
 [submodule "circle_03/minishell"]
 	path = circle_03/minishell
 	url = git@github.com:MeltingCheeze/minishell.git
+[submodule "circle_04/minirt"]
+	path = circle_04/minirt
+	url = git@github.com:namchaen/petitRT.git
