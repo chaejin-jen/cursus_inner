@@ -1,0 +1,3 @@
+[submodule "circle_03/minishell"]
+	path = circle_03/minishell
+	url = git@github.com:MeltingCheeze/minishell.git
