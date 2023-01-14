@@ -4,6 +4,7 @@
 
 namespace vec{
 	void test_constructor();
+	void test_capacity();
 }
 
 #include "test_utils.h"

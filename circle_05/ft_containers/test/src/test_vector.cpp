@@ -1,8 +1,8 @@
-#include "vector.hpp"
 #include "test.h"
+#include "vector.hpp"
 
-//template <typename iterator>
-//void putElements(const iterator first, const iterator last);
+//#include <vector>
+//namespace ft = std;
 
 void vec::test_constructor()
 {
@@ -16,4 +16,20 @@ void vec::test_constructor()
 	::std::cout << "*(vector_a.rbegin()) = 33;" << ::std::endl;
 	*(vector_a.rbegin()) = 33;
 	putElements(vector_a.rbegin(), vector_a.rend());
+}
+
+void vec::test_capacity()
+{
+	::ft::vector<int> vector_a(5, 100);
+	putElements(vector_a.begin(), vector_a.end());
+	::std::cout << "size: " << vector_a.size() << ::std::endl;
+	::std::cout << "max_size: " << vector_a.max_size() << ::std::endl;
+	::std::cout << "capacity: " << vector_a.capacity() << ::std::endl;
+	::std::cout << "do reserve(10)!" << ::std::endl;
+	vector_a.reserve(10);
+	putElements(vector_a.begin(), vector_a.end());
+	::std::cout << "size: " << vector_a.size() << ::std::endl;
+	::std::cout << "capacity: " << vector_a.capacity() << ::std::endl;
+	::std::cout << "max_size: " << vector_a.max_size() << ::std::endl;
+	//putElements(vector_a.rbegin(), vector_a.rend());
 }
