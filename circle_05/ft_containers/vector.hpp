@@ -93,7 +93,6 @@ private:
 	void create();
 	void create(size_type n, const T& value);
 	void create(const_iterator first, const_iterator last);
-	void allocate(size_type n);
 	void construct(size_type n, const T& value);
 	void construct(const_iterator first, const_iterator last);
 	void destroy();
@@ -430,26 +429,21 @@ void vector<T, Allocator>::create()
 template <typename T, typename Allocator>
 void vector<T, Allocator>::create(size_type n, const T& value)
 {
-	allocate(n);
-	construct(n, value); //__construct_at_end(n);
-	//::std::memset(finish_, 0, n * sizeof(T));
+	if (n > max_size())
+		throw ::std::length_error("over max_size");
+	start_ = finish_ = alloc_.allocate(n);
+	end_of_storage_ = start_ + n;
+	construct(n, value);
 }
 
 template <typename T, typename Allocator>
 void vector<T, Allocator>::create(const_iterator first, const_iterator last)
 {
-	allocate(last - first);
-	construct(first, last);
-}
-
-
-template <typename T, typename Allocator>
-void vector<T, Allocator>::allocate(size_type n)
-{
-	if (n > max_size())
+	if (last - first > max_size())
 		throw ::std::length_error("over max_size");
-	start_ = finish_ = alloc_.allocate(n);
-	end_of_storage_ = start_ + n;
+	start_ = finish_ = alloc_.allocate(last - first);
+	end_of_storage_ = start_ + (last - first);
+	construct(first, last);
 }
 
 template <typename T, typename Allocator>
