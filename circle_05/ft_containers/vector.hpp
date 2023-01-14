@@ -253,20 +253,16 @@ vector<T, Allocator>::rend() const
 	return static_cast<vector::const_reverse_iterator>(start_);
 }
 
-//// capacity:
-//template <typename T, typename Allocator>
-//typename vector<T, Allocator>::size_type
-//vector<T, Allocator>::size() const
-//{
+// capacity:
+template <typename T, typename Allocator>
+typename vector<T, Allocator>::size_type
+vector<T, Allocator>::size() const
+{ return static_cast<size_type>(end() - begin()); }
 
-//}
-
-//template <typename T, typename Allocator>
-//typename vector<T, Allocator>::size_type
-//vector<T, Allocator>::max_size() const
-//{
-	
-//}
+template <typename T, typename Allocator>
+typename vector<T, Allocator>::size_type
+vector<T, Allocator>::max_size() const
+{ return size_type(-1) / sizeof(T); }
 
 //template <typename T, typename Allocator>
 //void vector<T, Allocator>::resize(size_type sz, T c)
@@ -279,25 +275,36 @@ vector<T, Allocator>::rend() const
 //		;
 //}
 
-//template <typename T, typename Allocator>
-//typename vector<T, Allocator>::size_type
-//vector<T, Allocator>::capacity() const
-//{
+template <typename T, typename Allocator>
+typename vector<T, Allocator>::size_type
+vector<T, Allocator>::capacity() const
+{ return size_type(end_of_storage_ - begin()); }
 
-//}
+template <typename T, typename Allocator>
+bool vector<T, Allocator>::empty() const
+{ return begin() == end(); }
 
-//template <typename T, typename Allocator>
-//bool vector<T, Allocator>::empty() const
-//{
-
-//}
-
-//template <typename T, typename Allocator>
-//void vector<T, Allocator>::reserve(size_type n)
-//{
-//	if (n > max_size())
-//		throw ::std::length_error("over max_size");
-//}
+template <typename T, typename Allocator>
+void vector<T, Allocator>::reserve(size_type n)
+{
+	if (n > max_size())
+		throw ::std::length_error("over max_size");
+	if (capacity() < n)
+	{
+		const size_type old_size = size();
+		allocator_type new_alloc;
+		iterator new_iter = new_alloc.allocate(n);
+		::std::swap(alloc_, new_alloc);
+		::std::swap(start_, new_iter);
+		finish_ = start_;
+		construct(new_iter, new_iter + old_size);
+		destroy();
+		::std::swap(alloc_, new_alloc);
+		::std::swap(start_, new_iter);
+		finish_ = start_ + old_size;
+		end_of_storage_ = start_ + n;
+	}
+}
 
 //// element access:
 
