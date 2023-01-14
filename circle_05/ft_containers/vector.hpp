@@ -135,12 +135,12 @@ private:
 
 //}
 
-//// specialized algorithms:
-//template <typename T, typename Allocator>
-//void swap(vector<T, Allocator>& x, vector<T, Allocator>& y)
-//{
-
-//}
+// specialized algorithms:
+template <typename T, typename Allocator>
+void swap(vector<T, Allocator>& x, vector<T, Allocator>& y)
+{
+	x.swap(y);
+}
 
 
 // construct/copy/destroy:
@@ -409,11 +409,22 @@ void vector<T, Allocator>::reserve(size_type n)
 //	//throws : Nothing unless an exception is thrown by the copy constructor or assignment operator of T.
 //}
 
-//template <typename T, typename Allocator>
-//void vector<T, Allocator>::swap(vector<T, Allocator>&)
-//{
-
-//}
+template <typename T, typename Allocator>
+void vector<T, Allocator>::swap(vector<T, Allocator>& x)
+{
+	allocator_type alloc(alloc_);
+	iterator start(start_);
+	iterator finish(finish_);
+	iterator end_of_storage(end_of_storage_);
+	alloc_ = x.alloc_;
+	start_ = x.start_;
+	finish_ = x.finish_;
+	end_of_storage_ = x.end_of_storage_;
+	x.alloc_ = alloc;
+	x.start_ = start;
+	x.finish_ = finish;
+	x.end_of_storage_ = end_of_storage;
+}
 
 template <typename T, typename Allocator>
 void vector<T, Allocator>::clear(){ destroy(); }
