@@ -8,11 +8,29 @@
 namespace ft {
 
 // primitives:
-template<class Iterator> struct iterator_traits;
+template<class Iterator> struct iterator_traits {
+	typedef typename Iterator::difference_type difference_type;
+	typedef typename Iterator::value_type value_type;
+	typedef typename Iterator::pointer pointer;
+	typedef typename Iterator::reference reference;
+	typedef typename Iterator::iterator_category iterator_category;
+};
 
-template<class T> struct iterator_traits<T*>;
+template<class T> struct iterator_traits<T*> {
+	typedef ptrdiff_t difference_type;
+	typedef T value_type;
+	typedef T* pointer;
+	typedef T& reference;
+	typedef random_access_iterator_tag iterator_category;
+};
 
-template<class T> struct iterator_traits<const T*>;
+template<class T> struct iterator_traits<const T*> {
+	typedef ptrdiff_t difference_type;
+	typedef T value_type;
+	typedef const T* pointer;
+	typedef const T& reference;
+	typedef random_access_iterator_tag iterator_category;
+};
 
 template<class Category, class T, class Distance = std::ptrdiff_t,
 	class Pointer = T*, class Reference = T&> struct iterator;
@@ -104,5 +122,21 @@ template <class charT, class traits>
 
 template <class charT, class traits = std::char_traits<charT> >
 	class ostreambuf_iterator;
+
+/* reverse function
+template <class BidirectionalIterator>
+void reverse(BidirectionalIterator first, BidirectionalIterator last) {
+	typename iterator_traits<BidirectionalIterator>::difference_type n =
+		distance(first, last);
+	--n;
+	while(n > 0) {
+		typename iterator_traits<BidirectionalIterator>::value_type
+		tmp = *first;
+		*first++ = *--last;
+		*last = tmp;
+		n -= 2;
+	}
+}
+*/
 
 }
