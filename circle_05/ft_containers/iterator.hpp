@@ -33,7 +33,13 @@ template<class T> struct iterator_traits<const T*> {
 };
 
 template<class Category, class T, class Distance = std::ptrdiff_t,
-	class Pointer = T*, class Reference = T&> struct iterator;
+	class Pointer = T*, class Reference = T&> struct iterator {
+		typedef T value_type;
+		typedef Distance difference_type;
+		typedef Pointer pointer;
+		typedef Reference reference;
+		typedef Category iterator_category;
+	};
 
 struct input_iterator_tag {};
 struct output_iterator_tag {};
