@@ -1,6 +1,6 @@
 #pragma once
-#ifndef __ITERATOR_H__
-#define __ITERATOR_H__
+#ifndef __FT_ITERATOR_H__
+#define __FT_ITERATOR_H__
 
 
 /*
@@ -258,3 +258,5 @@ template <class Iterator>
 		}
 
 }
+
+#endif /* __FT_ITERATOR_H__ */
