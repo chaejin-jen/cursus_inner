@@ -270,20 +270,25 @@ public:
 	typedef ft::reverse_iterator<const_iterator> const_reverse_iterator;
 
 	// construct/copy/destroy:
-	explicit vector(const Allocator & = Allocator()){
-		create();
+	explicit vector(const Allocator& alloc = Allocator())
+		:start_(0), finish_(0), end_of_storage_(0), alloc_(alloc){
 	}
 	explicit vector(size_type n, const T& value = T(),
-		const Allocator & = Allocator()) {
-			create(n, value);
+		const Allocator& alloc = Allocator())
+			:start_(0), finish_(0), end_of_storage_(0), alloc_(alloc){
+			if (n > 0)
+				create(n, value);
 		}
 	template <typename InputIterator>
 	vector(InputIterator first, InputIterator last,
-		const Allocator & = Allocator()) {
-			create(first, last);
+		const Allocator& alloc = Allocator()) {
+			if (last - first > 0)
+				create(first, last);
 		}
-	vector(const vector<T, Allocator>& x) {
-			create(x.begin(), x.end());
+	vector(const vector<T, Allocator>& x)
+		:start_(0), finish_(0), end_of_storage_(0), alloc_(x.alloc_){
+			if (x.size())
+				create(x.begin(), x.end());
 		}
 	~vector() {
 		destroy();
@@ -451,9 +456,6 @@ protected:
 	pointer end_of_storage_;
 
 private:
-	void create(){
-		start_ = finish_ = end_of_storage_ = 0;
-	}
 	void create(size_type n, const T& value){
 		if (n > max_size())
 			throw ::std::length_error("over max_size");
@@ -472,22 +474,22 @@ private:
 	void construct(size_type n, const T& value){
 		if (n > max_size())
 			throw ::std::length_error("over max_size");
-		do{
+		while (n > 0){
 			alloc_.construct(finish_, value);
 			++finish_;
 			--n;
-		}while (n > 0);
+		}
 	}
 	void construct(const_iterator first, const_iterator last){
 		size_t i(0);
 
 		if (first > last)
 			return ; // exception
-		do{
+		while ((first + i) != last){
 			alloc_.construct(finish_, *(first + i));
 			++finish_;
 			++i;
-		}while ((first + i) != last);
+		}
 	}
 	void destroy(){
 			if (start_)

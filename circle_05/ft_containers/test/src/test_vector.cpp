@@ -7,6 +7,9 @@
 
 void vec::test_constructor()
 {
+	::std::cout << "\n\n======= vector test_constructor =======" << ::std::endl;
+	::ft::vector<int> vec1(0);
+	::std::cout << "vec1(0).begin()" << vec1.begin() << ::std::endl;
 	::ft::vector<int> vector_a(5, 100);
 	::ft::vector<int> vector_b(3);
 	::ft::vector<int> vector_c(vector_a);
@@ -21,6 +24,7 @@ void vec::test_constructor()
 
 void vec::test_capacity()
 {
+	::std::cout << "\n\n======= vector test_capacity =======" << ::std::endl;
 	::ft::vector<int> vector_a(5, 100);
 	putElements(vector_a.begin(), vector_a.end());
 	::std::cout << "size: " << vector_a.size() << ::std::endl;
@@ -37,13 +41,14 @@ void vec::test_capacity()
 
 void vec::test_swap()
 {
+	::std::cout << "\n\n======= vector test_swap =======" << ::std::endl;
 	::ft::vector<int> vector_a(5, 100);
 	::ft::vector<int> vector_b(3, 11);
 	::std::cout << "a: ";
 	putElements(vector_a.begin(), vector_a.end());
 		::std::cout << "b: ";
 	putElements(vector_b.begin(), vector_b.end());
-	::std::cout << "\n\n======= vector_b.swap(vector_a) =======" << ::std::endl;
+	::std::cout << "\n\n\" vector_b.swap(vector_a) \"" << ::std::endl;
 	vector_b.swap(vector_a);
 	::std::cout << "a: ";
 	putElements(vector_a.begin(), vector_a.end());
@@ -54,7 +59,7 @@ void vec::test_swap()
 	::std::cout << "\tsize: " << vector_b.size() << ::std::endl;
 	::std::cout << "\tcapacity: " << vector_b.capacity() << ::std::endl;
 
-	::std::cout << "\n\n======= ::ft::swap(vector_a, vector_b); =======" << ::std::endl;
+	::std::cout << "\n\n\" ::ft::swap(vector_a, vector_b); \" " << ::std::endl;
 	::ft::swap(vector_a, vector_b);
 	::std::cout << "a: ";
 	putElements(vector_a.begin(), vector_a.end());
@@ -101,7 +106,7 @@ void vec::test_vvector()
 		putElements((*iter).begin(), (*iter).end());
 		putElements((*iter_b).begin(), (*iter_b).end());
 
-		::std::cout << "\n\n======= vvector_b.swap(vvector_a) =======" << ::std::endl;
+		::std::cout << "\n\n\"vvector_b.swap(vvector_a)\"" << ::std::endl;
 		vvector_b.swap(vvector_a);
 		::std::cout << "a: ";
 		putElements((*iter).begin(), (*iter).end());
@@ -160,8 +165,9 @@ void vec::test_element_access()
 {
 	{
 		::std::cout << "\n\n======= test_element_access =======" << ::std::endl;
-		size_t vec_size = 1;
-		//vec_size = 1 // makes vec1.at(2) throw std::out_of_range
+		size_t vec_size = 8;
+		vec_size = 1; // vec1.at(2) makes throw std::out_of_range
+		//vec_size = 0; // vec1.front() makes segfault
 		::ft::vector<int> vec1(vec_size);
 		srand(time(NULL));
 		for (int i = 0; i < vec_size; i++){
