@@ -381,22 +381,26 @@ public:
 		return start_[n];
 	}
 	const_reference at(size_type n) const{
-
+		if (n >= size())
+			throw ::std::out_of_range("vector out of range");
+		return start_[n];
 	}
 	reference at(size_type n){
-
+		if (n >= size())
+			throw ::std::out_of_range("vector out of range");
+		return start_[n];
 	}
 	reference front(){
-
+		return *start_;
 	}
 	const_reference front() const{
-
+		return *start_;
 	}
 	reference back(){
-
+		return *(finish_ - 1);
 	}
 	const_reference back() const{
-
+		return *(finish_ - 1);
 	}
 
 	// modifiers:

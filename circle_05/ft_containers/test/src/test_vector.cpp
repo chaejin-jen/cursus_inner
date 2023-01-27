@@ -1,5 +1,6 @@
 #include "test.h"
 #include "vector.hpp"
+//#include <cstdlib>
 
 //#include <vector>
 //namespace ft = std;
@@ -152,5 +153,53 @@ void vec::test_operator()
 			<< (vv_b3 == vv_b4) << ::std::endl;
 		::std::cout << "vvetor...b3(5, 13) <= vvetor...b3(5, 14) : "
 			<< (vv_b3 <= vv_b4) << ::std::endl;
+	}
+}
+
+void vec::test_element_access()
+{
+	{
+		::std::cout << "\n\n======= test_element_access =======" << ::std::endl;
+		size_t vec_size = 1;
+		//vec_size = 1 // makes vec1.at(2) throw std::out_of_range
+		::ft::vector<int> vec1(vec_size);
+		srand(time(NULL));
+		for (int i = 0; i < vec_size; i++){
+			vec1[i] = (int)(rand()) % 10000;
+		}
+		::ft::vector<int> const c_vec1(vec1);
+		::ft::vector<int> &r_vec1 = vec1;
+		::ft::vector<int> const &cr_vec1 = c_vec1;
+
+		::std::cout << "vec1: ";
+		putElements(vec1.begin(), vec1.end());
+
+		::std::cout << "======= front() =======" << ::std::endl;
+		::std::cout << "vec1: " << vec1.front() << ::std::endl;
+		::std::cout << "c_vec1: " << c_vec1.front() << ::std::endl;
+		::std::cout << "r_vec1: " << r_vec1.front() << ::std::endl;
+		::std::cout << "cr_vec1: " << cr_vec1.front() << ::std::endl;
+
+		::std::cout << "======= [1] =======" << ::std::endl;
+		::std::cout << "vec1: " << vec1[1] << ::std::endl;
+		::std::cout << "c_vec1: " << c_vec1[1] << ::std::endl;
+		::std::cout << "r_vec1: " << r_vec1[1] << ::std::endl;
+		::std::cout << "cr_vec1: " << cr_vec1[1] << ::std::endl;
+
+		try{
+			::std::cout << "======= at(2) =======" << ::std::endl;
+			::std::cout << "vec1: " << vec1.at(2) << ::std::endl;
+			::std::cout << "c_vec1: " << c_vec1.at(2) << ::std::endl;
+			::std::cout << "r_vec1: " << r_vec1.at(2) << ::std::endl;
+			::std::cout << "cr_vec1: " << cr_vec1.at(2) << ::std::endl;
+		}catch(const std::exception &e){
+			::std::cerr << e.what() << ::std::endl;
+		}
+
+		::std::cout << "======= back() =======" << ::std::endl;
+		::std::cout << "vec1: " << vec1.back() << ::std::endl;
+		::std::cout << "c_vec1: " << c_vec1.back() << ::std::endl;
+		::std::cout << "r_vec1: " << r_vec1.back() << ::std::endl;
+		::std::cout << "cr_vec1: " << cr_vec1.back() << ::std::endl;
 	}
 }

@@ -9,6 +9,7 @@ int main(int argc, char **argv)
 	vec::test_swap();
 	//vec::test_vvector();
 	vec::test_operator();
+	vec::test_element_access();
 	std::cout << "\033[0;90m" << std::endl;
 	system("leaks test");
 	return (0);
