@@ -6,6 +6,8 @@ namespace vec{
 	void test_constructor();
 	void test_capacity();
 	void test_swap();
+	void test_vvector();
+	void test_operator();
 }
 
 #include "test_utils.h"

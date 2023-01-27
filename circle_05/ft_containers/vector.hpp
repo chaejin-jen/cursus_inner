@@ -375,10 +375,10 @@ public:
 
 	// element access:
 	reference operator[](size_type n){
-
+		return start_[n];
 	}
 	const_reference operator[](size_type n) const{
-
+		return start_[n];
 	}
 	const_reference at(size_type n) const{
 
@@ -499,40 +499,57 @@ private:
 
 };
 
-//// operator:
-//template <typename T, typename Allocator>
-//bool operator==(const vector<T, Allocator>& x, const vector<T, Allocator>& y){
-//}
+// operator:
+template <typename T, typename Allocator>
+bool operator==(const vector<T, Allocator>& x, const vector<T, Allocator>& y){
+	if (x.size() != y.size())
+		return (false);
+	for (size_t i = 0; i < x.size(); i++){
+		if (x[i] != y[i])
+			return false;
+	}
+	return true;
+}
 
-//template <typename T, typename Allocator>
-//bool operator< (const vector<T, Allocator>& x, const vector<T, Allocator>& y){
+template <typename T, typename Allocator>
+bool operator< (const vector<T, Allocator>& x, const vector<T, Allocator>& y){
+	size_t i = 0;
+	while (i < x.size() && i < y.size())
+	{
+		if (x[i] < y[i])
+			return true;
+		else if (x[i] > y[i])
+			return false;
+		i++;
+	}
+	if (i < y.size())
+		return true;
+	return false;
+}
 
-//}
+template <typename T, typename Allocator>
+bool operator!=(const vector<T, Allocator>& x, const vector<T, Allocator>& y){
+	return !(x == y);
+}
 
-//template <typename T, typename Allocator>
-//bool operator!=(const vector<T, Allocator>& x, const vector<T, Allocator>& y){
+template <typename T, typename Allocator>
+bool operator> (const vector<T, Allocator>& x, const vector<T, Allocator>& y){
+	return y < x;
+}
 
-//}
+template <typename T, typename Allocator>
+bool operator>=(const vector<T, Allocator>& x, const vector<T, Allocator>& y){
+	return !(x < y);
+}
 
-//template <typename T, typename Allocator>
-//bool operator> (const vector<T, Allocator>& x, const vector<T, Allocator>& y){
-
-//}
-
-//template <typename T, typename Allocator>
-//bool operator>=(const vector<T, Allocator>& x, const vector<T, Allocator>& y){
-
-//}
-
-//template <typename T, typename Allocator>
-//bool operator<=(const vector<T, Allocator>& x, const vector<T, Allocator>& y){
-
-//}
+template <typename T, typename Allocator>
+bool operator<=(const vector<T, Allocator>& x, const vector<T, Allocator>& y){
+	return !(y < x);
+}
 
 // specialized algorithms:
 template <typename T, typename Allocator>
-void swap(vector<T, Allocator>& x, vector<T, Allocator>& y)
-{
+void swap(vector<T, Allocator>& x, vector<T, Allocator>& y){
 	x.swap(y);
 }
 
