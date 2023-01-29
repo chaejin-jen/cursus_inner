@@ -9,6 +9,7 @@ namespace vec{
 	void test_vvector();
 	void test_operator();
 	void test_element_access();
+	void test_modifiers();
 }
 
 #include "test_utils.h"

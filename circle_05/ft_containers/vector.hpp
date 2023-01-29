@@ -249,6 +249,7 @@ void vector<T, Allocator>::clear();
 #include <algorithm>
 #include <stdexcept>
 #include "ft_iterator.hpp"
+#include "ft_type_traits.tpp"
 
 namespace ft {
 template <typename T, typename Allocator = ::std::allocator<T> >
@@ -271,22 +272,24 @@ public:
 
 	// construct/copy/destroy:
 	explicit vector(const Allocator& alloc = Allocator())
-		:start_(0), finish_(0), end_of_storage_(0), alloc_(alloc){
+		: start_(0), finish_(0), end_of_storage_(0), alloc_(alloc){
 	}
 	explicit vector(size_type n, const T& value = T(),
 		const Allocator& alloc = Allocator())
-			:start_(0), finish_(0), end_of_storage_(0), alloc_(alloc){
+			: start_(0), finish_(0), end_of_storage_(0), alloc_(alloc){
 			if (n > 0)
 				create(n, value);
 		}
-	template <typename InputIterator>
+	template <typename InputIterator,
+		typename ft::enable_if<!ft::is_integral<InputIterator>::value, InputIterator>::type>
 	vector(InputIterator first, InputIterator last,
-		const Allocator& alloc = Allocator()) {
+		const Allocator& alloc = Allocator())
+			: start_(0), finish_(0), end_of_storage_(0), alloc_(alloc){
 			if (last - first > 0)
 				create(first, last);
 		}
 	vector(const vector<T, Allocator>& x)
-		:start_(0), finish_(0), end_of_storage_(0), alloc_(x.alloc_){
+		: start_(0), finish_(0), end_of_storage_(0), alloc_(x.alloc_){
 			if (x.size())
 				create(x.begin(), x.end());
 		}
@@ -300,15 +303,18 @@ public:
 		}
 		return *this;
 	}
-	template <typename InputIterator>
+	template <typename InputIterator,
+		typename ft::enable_if<!ft::is_integral<InputIterator>::value, InputIterator>::type>
 	void assign(InputIterator first, InputIterator last){
-		//erase(begin(), end());
-		//insert(begin(), first, last)
+		erase(begin(), end());
+		insert(begin(), first, last);
 	}
-	void assign(size_type n, const T& u);
+	void assign(size_type n, const T& u){
+		erase(begin(), end());
+		insert(begin(), n, u);
+	}
 	allocator_type get_allocator() const{
-		//erase(begin(), end());
-		//insert(begin(), n, t);
+		return allocator_type(alloc_);
 	}
 
 	// iterators:
@@ -339,7 +345,7 @@ public:
 
 	// capacity:
 	size_type size() const{
-		return static_cast<size_type>(end() - begin());
+		return static_cast<size_type>(finish_ - start_);
 	}
 	size_type max_size() const{
 		return size_type(-1) / sizeof(T);
@@ -353,7 +359,7 @@ public:
 		//	;
 	}
 	size_type capacity() const{
-		return size_type(end_of_storage_ - begin());
+		return size_type(end_of_storage_ - start_);
 	}
 	bool empty() const{
 		return begin() == end();
@@ -361,20 +367,17 @@ public:
 	void reserve(size_type n){
 		if (n > max_size())
 			throw ::std::length_error("over max_size");
-		if (capacity() < n)
-		{
-			const size_type old_size = size();
-			allocator_type new_alloc;
-			iterator new_iter = new_alloc.allocate(n);
-			::std::swap(alloc_, new_alloc);
-			::std::swap(start_, new_iter);
-			finish_ = start_;
-			construct(new_iter, new_iter + old_size);
+		if (n > capacity()){
+			pointer tmp = alloc_.allocate(n);
+			size_type i = 0;
+			while (start_ + i < finish_){
+				alloc_.construct(tmp + i, *(start_ + i));
+				i++;
+			}
 			destroy();
-			::std::swap(alloc_, new_alloc);
-			::std::swap(start_, new_iter);
-			finish_ = start_ + old_size;
-			end_of_storage_ = start_ + n;
+			start_ = tmp;
+			finish_ = tmp + i;
+			end_of_storage_ = tmp + n;
 		}
 	}
 
@@ -410,26 +413,67 @@ public:
 
 	// modifiers:
 	void push_back(const T& x){
-
+		if (finish_ == end_of_storage_)
+			reserve(start_ == end_of_storage_ ? 1 : capacity() * 2);
+		alloc_.construct(finish_++, x);
 	}
 	void pop_back(){
-
+		alloc_.destroy(finish_++);
 	}
 	iterator insert(iterator position, const T& x){
+		difference_type pos = position - begin();
 
+		insert(position, 1, x);
+		return begin() + pos;
 	}
 	void insert(iterator position, size_type n, const T& x){
+		difference_type pos = position - begin();
 
+		if (n == 0)
+			return ;
+		if (finish_ + n > end_of_storage_)
+			reserve_r(size() + n, n);
+		else
+			move_r(start_ + pos + n, finish_ + n - 1);
+		pointer p = start_ + pos + n;
+		while (--p >= start_ + pos){
+			alloc_.construct(p, x);
+		}
+		finish_ += n;
 	}
-	template <typename InputIterator>
+	template <typename InputIterator,
+		typename ft::enable_if<!ft::is_integral<InputIterator>::value, InputIterator>::type>
 	void insert(iterator position, InputIterator first, InputIterator last){
+		difference_type pos = position - begin();
+		difference_type n = last - first;
 
+		if (n < 0)
+			return ;
+		if (finish_ + n > end_of_storage_)
+			reserve_r(size() + n, n);
+		else
+			move_r(start_ + pos + n, finish_ + n - 1);
+		pointer p = start_ + pos + n;
+		while (first <= --last){
+			alloc_.construct(--p, *last);
+		}
+		finish_ += n;
 	}
 	iterator erase(iterator position){
+		difference_type pos = position - begin();
 
+		move_l(position, 1);
+		if (position < finish_)
+			--finish_;
+		return start_ + pos;
 	}
 	iterator erase(iterator first, iterator last){
-		//throws : Nothing unless an exception is thrown by the copy constructor or assignment operator of T.
+		difference_type pos = first - begin();
+		difference_type n = last - first;
+
+		move_l(first, n);
+		finish_ -= n;
+		return start_ + pos;
 	}
 	void swap(vector<T, Allocator>& x){
 		allocator_type alloc(alloc_);
@@ -481,14 +525,14 @@ private:
 		}
 	}
 	void construct(const_iterator first, const_iterator last){
-		size_t i(0);
+		size_type n(0);
 
 		if (first > last)
 			return ; // exception
-		while ((first + i) != last){
-			alloc_.construct(finish_, *(first + i));
+		while ((first + n) != last){
+			alloc_.construct(finish_, *(first + n));
 			++finish_;
-			++i;
+			++n;
 		}
 	}
 	void destroy(){
@@ -503,6 +547,38 @@ private:
 		start_ = finish_ = end_of_storage_ = 0;
 	}
 
+	void reserve_r(size_type n, difference_type pos){
+		if (n > max_size())
+			throw ::std::length_error("over max_size");
+		if (n > capacity()){
+			pointer tmp = alloc_.allocate(n);
+			size_type i = 0;
+			while (start_ + i < finish_){
+				alloc_.construct(tmp + pos + i, start_[i]);
+				i++;
+			}
+			destroy();
+			start_ = tmp;
+			finish_ = tmp + i;
+			end_of_storage_ = tmp + n;
+		}
+	}
+
+	void move_r(pointer new_first, pointer new_last){
+		while (new_last >= new_first){
+			alloc_.construct(new_last, *(new_last - 1));
+			alloc_.destroy(new_last--);
+		}
+	}
+	void move_l(pointer position, difference_type n){
+		while (position + n < finish_){
+			alloc_.destroy(position);
+			alloc_.construct(position, *(position + n));
+			position++;
+		}
+		while (position < finish_)
+			alloc_.destroy(position++);
+	}
 };
 
 // operator:

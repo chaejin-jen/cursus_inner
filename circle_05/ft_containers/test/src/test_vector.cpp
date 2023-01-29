@@ -8,9 +8,16 @@
 void vec::test_constructor()
 {
 	::std::cout << "\n\n======= vector test_constructor =======" << ::std::endl;
-	::ft::vector<int> vec1(0);
-	::std::cout << "vec1(0).begin()" << vec1.begin() << ::std::endl;
-	::ft::vector<int> vector_a(5, 100);
+	{
+		::ft::vector<int> vec1(0);
+		::std::cout << "vec1(0).size()" << (vec1.size()) << ::std::endl;
+	}
+	{
+		::ft::vector<int> vec2(20, 1);
+		::std::cout << "v(20,1)" << (vec2.size()) << ::std::endl;
+		putElements(vec2.begin(), vec2.end());
+	}
+	::ft::vector<int> vector_a(5);
 	::ft::vector<int> vector_b(3);
 	::ft::vector<int> vector_c(vector_a);
 	*(vector_a.begin()) = 77;
@@ -73,6 +80,7 @@ void vec::test_swap()
 
 void vec::test_vvector()
 {
+	::std::cout << "\n\n======= vector test_vvector =======" << ::std::endl;
 	{
 		::ft::vector<int> vector_a1(10, 100);
 		::ft::vector<int> vector_a2(10, 101);
@@ -127,6 +135,7 @@ void vec::test_vvector()
 
 void vec::test_operator()
 {
+	::std::cout << "\n\n======= vector test_operator =======" << ::std::endl;
 	{
 		::ft::vector<int> vector_a1(10, 100);
 		::ft::vector<int> vector_a2(10, 101);
@@ -166,7 +175,7 @@ void vec::test_element_access()
 	{
 		::std::cout << "\n\n======= test_element_access =======" << ::std::endl;
 		size_t vec_size = 8;
-		vec_size = 1; // vec1.at(2) makes throw std::out_of_range
+		//vec_size = 1; // vec1.at(2) makes throw std::out_of_range
 		//vec_size = 0; // vec1.front() makes segfault
 		::ft::vector<int> vec1(vec_size);
 		srand(time(NULL));
@@ -180,20 +189,20 @@ void vec::test_element_access()
 		::std::cout << "vec1: ";
 		putElements(vec1.begin(), vec1.end());
 
-		::std::cout << "======= front() =======" << ::std::endl;
+		::std::cout << "\033[0;92mfront()\033[0m" << ::std::endl;
 		::std::cout << "vec1: " << vec1.front() << ::std::endl;
 		::std::cout << "c_vec1: " << c_vec1.front() << ::std::endl;
 		::std::cout << "r_vec1: " << r_vec1.front() << ::std::endl;
 		::std::cout << "cr_vec1: " << cr_vec1.front() << ::std::endl;
 
-		::std::cout << "======= [1] =======" << ::std::endl;
+		::std::cout << "\033[0;92m[1]\033[0m" << ::std::endl;
 		::std::cout << "vec1: " << vec1[1] << ::std::endl;
 		::std::cout << "c_vec1: " << c_vec1[1] << ::std::endl;
 		::std::cout << "r_vec1: " << r_vec1[1] << ::std::endl;
 		::std::cout << "cr_vec1: " << cr_vec1[1] << ::std::endl;
 
 		try{
-			::std::cout << "======= at(2) =======" << ::std::endl;
+		::std::cout << "\033[0;92mat(2)\033[0m" << ::std::endl;
 			::std::cout << "vec1: " << vec1.at(2) << ::std::endl;
 			::std::cout << "c_vec1: " << c_vec1.at(2) << ::std::endl;
 			::std::cout << "r_vec1: " << r_vec1.at(2) << ::std::endl;
@@ -202,10 +211,111 @@ void vec::test_element_access()
 			::std::cerr << e.what() << ::std::endl;
 		}
 
-		::std::cout << "======= back() =======" << ::std::endl;
+		::std::cout << "\033[0;92mback()\033[0m" << ::std::endl;
 		::std::cout << "vec1: " << vec1.back() << ::std::endl;
 		::std::cout << "c_vec1: " << c_vec1.back() << ::std::endl;
 		::std::cout << "r_vec1: " << r_vec1.back() << ::std::endl;
 		::std::cout << "cr_vec1: " << cr_vec1.back() << ::std::endl;
 	}
 }
+
+void vec::test_modifiers()
+{
+	::std::cout << "\n\n======= vector test_modifiers =======" << ::std::endl;
+	srand(time(NULL));
+	{
+		::std::cout << "\033[0;92mpush_back (check capacity)\033[0m" << ::std::endl;
+		::ft::vector<int> vec1;
+		size_t cap(vec1.capacity());
+		for (int i = 0; i < 100 ; i++){
+			int n = rand() & 1000;
+			vec1.push_back(n);
+			::std::cout << n << " ";
+			//if (cap < vec1.capacity()){
+			//	cap = vec1.capacity();
+			//	::std::cout << i << " (size) " << vec1.size()
+			//		<< " (cap) "  << vec1.capacity() << ::std::endl;
+			//}
+		}
+		::std::cout << ::std::endl;
+		putElements(vec1.begin(), vec1.end());
+	}
+
+	{
+		::std::cout << "\033[0;92minsert(position, value)\033[0m" << ::std::endl;
+		::ft::vector<int> vec1;
+		//::ft::vector<int> vec1(5, 20);
+		::std::cout << "(size) " << vec1.size()
+			<< " (cap) "  << vec1.capacity() << ": ";
+		putElements(vec1.begin(), vec1.end());
+
+		vec1.insert(vec1.begin() + vec1.size(), -1);
+		//vec1.insert(vec1.begin() + vec1.size() + 1, 0);  // segmentation fault
+		vec1.insert(vec1.begin(), 1);
+		vec1.insert(vec1.begin(), 2);
+		vec1.insert(vec1.begin(), 3);
+		vec1.insert(vec1.begin(), 4);
+		vec1.insert(vec1.begin(), 5);
+		::std::cout << "(size) " << vec1.size()
+			<< " (cap) "  << vec1.capacity() << '\n';
+		putElements(vec1.begin(), vec1.end());
+	}
+
+	{
+		::std::cout << "\033[0;91minsert(position, first, last)\033[0m" << ::std::endl;
+		::ft::vector<int> vec1;
+		::ft::vector<int> vec2;
+		for (int i = 0; i < 20 ; i++){
+			int n = rand() & 1000;
+			vec1.push_back(n);
+		}
+		::std::cout << "vec1 (size) " << vec1.size()
+			<< " (cap) "  << vec1.capacity() << "\n\t";
+		putElements(vec1.begin(), vec1.end());
+
+		//vec2.insert(vec2.begin(), vec1.begin() + 1, vec1.begin() + 5);
+		::std::cout << "vec2 : (size) " << vec2.size()
+			<< " (cap) "  << vec2.capacity() << "\n\t";
+		putElements(vec2.begin(), vec2.end());
+	}
+
+	{
+		::std::cout << "\033[0;92merase(position)\033[0m" << ::std::endl;
+		::ft::vector<int> vec1;
+		for (int i = 0; i < 20 ; i++){
+			//int n = rand() & 1000;
+			//vec1.push_back(n);
+			vec1.push_back(i);
+		}
+		::std::cout << "vec1 (size) " << vec1.size()
+			<< " (cap) "  << vec1.capacity() << "\n\t";
+		putElements(vec1.begin(), vec1.end());
+		vec1.erase(vec1.begin() + 2);
+		vec1.erase(vec1.begin());
+		vec1.erase(vec1.end() - 1);
+		//vec1.erase(vec1.end()); // segmentation fault
+		::std::cout << "vec1 : (size) " << vec1.size()
+			<< " (cap) "  << vec1.capacity() << "\n\t";
+		putElements(vec1.begin(), vec1.end());
+	}
+
+	{
+		::std::cout << "\033[0;92merase(first, last)\033[0m" << ::std::endl;
+		::ft::vector<int> vec1;
+		for (int i = 0; i < 20 ; i++){
+			int n = rand() & 1000;
+			vec1.push_back(n);
+		}
+		::std::cout << "vec1 (size) " << vec1.size()
+			<< " (cap) "  << vec1.capacity() << "\n\t";
+		putElements(vec1.begin(), vec1.end());
+		vec1.erase(vec1.begin() + 7, vec1.begin() + 15); // [vec1[7] ~ vec1[15])
+		//vec1.erase(vec1.begin(), vec1.begin()); // noting change
+		::std::cout << "vec1 : (size) " << vec1.size()
+			<< " (cap) "  << vec1.capacity() << "\n\t";
+		putElements(vec1.begin(), vec1.end());
+	}
+}
+
+
+
