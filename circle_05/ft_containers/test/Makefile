@@ -1,7 +1,7 @@
 NAME := test
 CXX := c++
-CXXFLAGS := # -Wall -Wextra -Werror -std=c++98
-SANFLAGS := -g3 -fsanitize=address
+CXXFLAGS := -std=c++98 -D STD_VERSION # -Wall -Wextra -Werror -std=c++98
+DBGFLAGS := -g #-fsanitize=address
 
 CONTAINERSDIR := ..
 INC := -Iinc -I$(CONTAINERSDIR)
@@ -9,16 +9,17 @@ INC := -Iinc -I$(CONTAINERSDIR)
 SRC := $(addprefix src/, \
 	  main.cpp \
 	  test_vector.cpp \
+	  test_type_traits.cpp \
 	  )
 OBJ := $(patsubst src%, obj%, $(SRC:.cpp=.o))
 
 obj/%.o : src/%.cpp
-	$(CXX) $(CXXFLAGS) $(INC) -o $@ -c $<
+	$(CXX) $(CXXFLAGS) $(DBGFLAGS) $(INC) -o $@ -c $<
 
 all : obj $(NAME)
 
 $(NAME) : $(OBJ)
-	$(CXX) $(CXXFLAGS) $(INC) -o $@ $^
+	$(CXX) $(CXXFLAGS) $(DBGFLAGS) $(INC) -o $@ $^
 
 clean:
 	rm -rf obj

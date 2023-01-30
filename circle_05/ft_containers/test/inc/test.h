@@ -12,6 +12,9 @@ namespace vec{
 	void test_modifiers();
 }
 
+void test_vec_enable_if();
+
+
 #include "test_utils.h"
 
 #endif /* __TEST_H__ */

@@ -43,7 +43,7 @@ void vec::test_capacity()
 	::std::cout << "size: " << vector_a.size() << ::std::endl;
 	::std::cout << "capacity: " << vector_a.capacity() << ::std::endl;
 	::std::cout << "max_size: " << vector_a.max_size() << ::std::endl;
-	//putElements(vector_a.rbegin(), vector_a.rend());
+	putElements(vector_a.rbegin(), vector_a.rend());
 }
 
 void vec::test_swap()
@@ -266,14 +266,17 @@ void vec::test_modifiers()
 		::ft::vector<int> vec1;
 		::ft::vector<int> vec2;
 		for (int i = 0; i < 20 ; i++){
-			int n = rand() & 1000;
-			vec1.push_back(n);
+			//int n = rand() & 1000;
+			//vec1.push_back(n);
+			vec1.push_back(i);
 		}
 		::std::cout << "vec1 (size) " << vec1.size()
 			<< " (cap) "  << vec1.capacity() << "\n\t";
 		putElements(vec1.begin(), vec1.end());
 
-		//vec2.insert(vec2.begin(), vec1.begin() + 1, vec1.begin() + 5);
+		vec2.insert(vec2.begin(), vec1.begin() + 1, vec1.begin() + 5);
+		vec2.insert(vec2.begin() + 2, vec1.begin(), vec1.end());
+		vec2.insert(vec2.end(), vec1.begin(), vec1.end());
 		::std::cout << "vec2 : (size) " << vec2.size()
 			<< " (cap) "  << vec2.capacity() << "\n\t";
 		putElements(vec2.begin(), vec2.end());

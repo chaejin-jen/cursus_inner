@@ -249,6 +249,7 @@ void vector<T, Allocator>::clear();
 #include <algorithm>
 #include <stdexcept>
 #include "ft_iterator.hpp"
+#include "random_access_iterator.tpp"
 #include "ft_type_traits.tpp"
 
 namespace ft {
@@ -261,14 +262,14 @@ public:
 	typedef typename Allocator::const_reference const_reference;
 	typedef typename Allocator::pointer pointer;
 	typedef typename Allocator::const_pointer const_pointer;
-	typedef pointer iterator;
-	typedef const_pointer const_iterator;
+	typedef ft::random_access_iterator<pointer> iterator;
+	typedef ft::random_access_iterator<const_pointer> const_iterator;
 	typedef size_t size_type;
 	typedef T value_type;
 	typedef Allocator allocator_type;
-	typedef typename ft::iterator_traits<iterator>::difference_type difference_type; // Difference between two pointers
-	typedef ft::reverse_iterator<iterator> reverse_iterator;
-	typedef ft::reverse_iterator<const_iterator> const_reverse_iterator;
+	typedef typename ft::iterator_traits<pointer>::difference_type difference_type; // Difference between two pointers
+	typedef ft::reverse_iterator<pointer> reverse_iterator;
+	typedef ft::reverse_iterator<const_pointer> const_reverse_iterator;
 
 	// construct/copy/destroy:
 	explicit vector(const Allocator& alloc = Allocator())
@@ -441,9 +442,8 @@ public:
 		}
 		finish_ += n;
 	}
-	template <typename InputIterator,
-		typename ft::enable_if<!ft::is_integral<InputIterator>::value, InputIterator>::type>
-	void insert(iterator position, InputIterator first, InputIterator last){
+	template <typename InputIterator>
+	void insert(iterator position, InputIterator first, typename ft::enable_if<!ft::is_integral<InputIterator>::value, InputIterator>::type last){
 		difference_type pos = position - begin();
 		difference_type n = last - first;
 
@@ -462,24 +462,24 @@ public:
 	iterator erase(iterator position){
 		difference_type pos = position - begin();
 
-		move_l(position, 1);
-		if (position < finish_)
+		move_l(position.base(), 1);
+		if (position.base() < finish_)
 			--finish_;
-		return start_ + pos;
+		return iterator(start_) + pos;
 	}
 	iterator erase(iterator first, iterator last){
 		difference_type pos = first - begin();
 		difference_type n = last - first;
 
-		move_l(first, n);
+		move_l(first.base(), n);
 		finish_ -= n;
-		return start_ + pos;
+		return iterator(start_) + pos;
 	}
 	void swap(vector<T, Allocator>& x){
 		allocator_type alloc(alloc_);
-		iterator start(start_);
-		iterator finish(finish_);
-		iterator end_of_storage(end_of_storage_);
+		pointer start(start_);
+		pointer finish(finish_);
+		pointer end_of_storage(end_of_storage_);
 		alloc_ = x.alloc_;
 		start_ = x.start_;
 		finish_ = x.finish_;
@@ -538,9 +538,9 @@ private:
 	void destroy(){
 			if (start_)
 		{
-			vector::iterator it = finish_;
-			while (it != start_) {
-				alloc_.destroy(--it);
+			pointer p = finish_;
+			while (p != start_) {
+				alloc_.destroy(--p);
 			}
 			alloc_.deallocate(start_, end_of_storage_ - start_);
 		}
@@ -570,17 +570,16 @@ private:
 			alloc_.destroy(new_last--);
 		}
 	}
-	void move_l(pointer position, difference_type n){
-		while (position + n < finish_){
-			alloc_.destroy(position);
-			alloc_.construct(position, *(position + n));
-			position++;
+	void move_l(pointer p, difference_type n){
+		while (p + n < finish_){
+			alloc_.destroy(p);
+			alloc_.construct(p, *(p + n));
+			p++;
 		}
-		while (position < finish_)
-			alloc_.destroy(position++);
+		while (p < finish_)
+			alloc_.destroy(p++);
 	}
 };
-
 // operator:
 template <typename T, typename Allocator>
 bool operator==(const vector<T, Allocator>& x, const vector<T, Allocator>& y){
