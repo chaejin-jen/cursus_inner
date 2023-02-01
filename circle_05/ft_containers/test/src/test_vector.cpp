@@ -262,7 +262,7 @@ void vec::test_modifiers()
 	}
 
 	{
-		::std::cout << "\033[0;91minsert(position, first, last)\033[0m" << ::std::endl;
+		::std::cout << "\033[0;92minsert(position, first, last)\033[0m" << ::std::endl;
 		::ft::vector<int> vec1;
 		::ft::vector<int> vec2;
 		for (int i = 0; i < 20 ; i++){
@@ -274,9 +274,9 @@ void vec::test_modifiers()
 			<< " (cap) "  << vec1.capacity() << "\n\t";
 		putElements(vec1.begin(), vec1.end());
 
-		vec2.insert(vec2.begin(), vec1.begin() + 1, vec1.begin() + 5);
-		vec2.insert(vec2.begin() + 2, vec1.begin(), vec1.end());
-		vec2.insert(vec2.end(), vec1.begin(), vec1.end());
+		vec2.insert(vec2.begin(), vec1.begin() + 1, vec1.begin() + 5); // 1 2 3 4
+		vec2.insert(vec2.begin() + 2, vec1.begin(), vec1.end()); // 1 2 0...19 3 4
+		vec2.insert(vec2.end(), vec1.begin(), vec1.end()); // 1 2 0...19 3 4 0...19
 		::std::cout << "vec2 : (size) " << vec2.size()
 			<< " (cap) "  << vec2.capacity() << "\n\t";
 		putElements(vec2.begin(), vec2.end());
