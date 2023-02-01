@@ -1,6 +1,6 @@
 #pragma once
-#ifndef __FT_ITERATORS_H__
-#define __FT_ITERATORS_H__
+#ifndef __RANDOM_ACCESS_ITTERATOR_TPP__
+#define __RANDOM_ACCESS_ITTERATOR_TPP__
 
 #include "ft_iterator.hpp"
 
@@ -121,4 +121,4 @@ template <class Iterator>
 
 }
 
-#endif /* __FT_ITERATORS_H__ */
+#endif /* __RANDOM_ACCESS_ITTERATOR_TPP__ */

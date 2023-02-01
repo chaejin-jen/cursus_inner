@@ -1,6 +1,6 @@
 #pragma once
-#ifndef __TYPE_TRAITS_TPP__
-#define __TYPE_TRAITS_TPP__
+#ifndef __FT_TYPE_TRAITS_TPP__
+#define __FT_TYPE_TRAITS_TPP__
 
 namespace ft
 {
@@ -61,4 +61,4 @@ namespace ft
 
 }
 
-#endif /* __TYPE_TRAITS_TPP__ */
+#endif /* __FT_TYPE_TRAITS_TPP__ */
