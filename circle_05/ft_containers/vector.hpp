@@ -415,7 +415,7 @@ public:
 		alloc_.construct(finish_++, x);
 	}
 	void pop_back(){
-		alloc_.destroy(finish_++);
+		alloc_.destroy(--finish_);
 	}
 	iterator insert(iterator position, const T& x){
 		difference_type pos = position - begin();
@@ -484,7 +484,9 @@ public:
 		x.end_of_storage_ = end_of_storage;
 	}
 	void clear(){
-		destroy();
+		while (finish_ > start_) {
+			alloc_.destroy(--finish_);
+		}
 	}
 
 protected:
