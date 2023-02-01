@@ -41,12 +41,12 @@ namespace ft
 	struct is_integral<unsigned int> : true_type{};
 	template <>
 	struct is_integral<long> : true_type{};
-	template <>
-	struct is_integral<long long> : true_type{};
+	//template <>
+	//struct is_integral<long long> : true_type{};           // 'long long' is a C++11 extension
 	template <>
 	struct is_integral<unsigned long> : true_type{};
-	template <>
-	struct is_integral<unsigned long long> : true_type{};
+	//template <>
+	//struct is_integral<unsigned long long> : true_type{};  //'long long' is a C++11 extension
 
 	// If B is true, the member typedef type shall equal T;
 	// otherwise, there shall be no member type.

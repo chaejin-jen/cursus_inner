@@ -278,29 +278,26 @@ public:
 	explicit vector(size_type n, const T& value = T(),
 		const Allocator& alloc = Allocator())
 			: start_(0), finish_(0), end_of_storage_(0), alloc_(alloc){
-			if (n > 0)
-				create(n, value);
+			assign(n, value);
 		}
-	template <typename InputIterator,
-		typename ft::enable_if<!ft::is_integral<InputIterator>::value, InputIterator>::type>
-	vector(InputIterator first, InputIterator last,
+	template <typename InputIterator>
+	vector(InputIterator first, typename ft::enable_if<!ft::is_integral<InputIterator>::value, InputIterator>::type last,
 		const Allocator& alloc = Allocator())
 			: start_(0), finish_(0), end_of_storage_(0), alloc_(alloc){
 			if (last - first > 0)
-				create(first, last);
+				assign(first, last);
 		}
 	vector(const vector<T, Allocator>& x)
 		: start_(0), finish_(0), end_of_storage_(0), alloc_(x.alloc_){
 			if (x.size())
-				create(x.begin(), x.end());
+				assign(x.begin(), x.end());
 		}
 	~vector() {
 		destroy();
 	}
 	vector<T, Allocator>& operator=(const vector<T, Allocator>& x){
 		if (&x != this) {
-			destroy();
-			create(x.begin(), x.end());
+			assign(x.begin(), x.end());
 		}
 		return *this;
 	}
@@ -491,47 +488,12 @@ public:
 	}
 
 protected:
-	allocator_type alloc_;
 	pointer start_;
 	pointer finish_;
 	pointer end_of_storage_;
+	allocator_type alloc_;
 
 private:
-	void create(size_type n, const T& value){
-		if (n > max_size())
-			throw ::std::length_error("over max_size");
-		start_ = finish_ = alloc_.allocate(n);
-		end_of_storage_ = start_ + n;
-		construct(n, value);
-	}
-	void create(const_iterator first, const_iterator last){
-		if (last - first > max_size())
-			throw ::std::length_error("over max_size");
-		start_ = finish_ = alloc_.allocate(last - first);
-		end_of_storage_ = start_ + (last - first);
-		construct(first, last);
-	}
-
-	void construct(size_type n, const T& value){
-		if (n > max_size())
-			throw ::std::length_error("over max_size");
-		while (n > 0){
-			alloc_.construct(finish_, value);
-			++finish_;
-			--n;
-		}
-	}
-	void construct(const_iterator first, const_iterator last){
-		size_type n(0);
-
-		if (first > last)
-			return ; // exception
-		while ((first + n) != last){
-			alloc_.construct(finish_, *(first + n));
-			++finish_;
-			++n;
-		}
-	}
 	void destroy(){
 		if (start_)
 		{
