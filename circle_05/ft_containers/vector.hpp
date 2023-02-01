@@ -420,7 +420,11 @@ public:
 	iterator insert(iterator position, const T& x){
 		difference_type pos = position - begin();
 
-		insert(position, 1, x);
+		if (finish_ == end_of_storage_)
+			reserve(start_ == end_of_storage_ ? 1 : capacity() * 2);
+		move_r(start_ + pos, 1);
+		alloc_.construct(start_ + pos, x);
+		finish_++;
 		return begin() + pos;
 	}
 	void insert(iterator position, size_type n, const T& x){
@@ -448,10 +452,10 @@ public:
 			reserve(size() + n);
 		move_r(start_ + pos, n);
 		pointer p = start_ + pos;
+		finish_ += n;
 		while (first < last){
 			alloc_.construct(p++, *first++);
 		}
-		finish_ += n;
 	}
 	iterator erase(iterator position){
 		difference_type pos = position - begin();
