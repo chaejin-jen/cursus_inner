@@ -104,6 +104,7 @@ void swap(vector<T, Allocator>& x, vector<T, Allocator>& y);
 #include "ft_iterator.hpp"
 #include "random_access_iterator.tpp"
 #include "ft_type_traits.tpp"
+#include "ft_algorithm.tpp"
 
 namespace ft {
 template <typename T, typename Allocator = ::std::allocator<T> >
@@ -388,27 +389,12 @@ template <typename T, typename Allocator>
 bool operator==(const vector<T, Allocator>& x, const vector<T, Allocator>& y){
 	if (x.size() != y.size())
 		return (false);
-	for (size_t i = 0; i < x.size(); i++){
-		if (x[i] != y[i])
-			return false;
-	}
-	return true;
+	return ::ft::equal(x.begin(), x.end(), y.begin());
 }
 
 template <typename T, typename Allocator>
 bool operator< (const vector<T, Allocator>& x, const vector<T, Allocator>& y){
-	size_t i = 0;
-	while (i < x.size() && i < y.size())
-	{
-		if (x[i] < y[i])
-			return true;
-		else if (x[i] > y[i])
-			return false;
-		i++;
-	}
-	if (i < y.size())
-		return true;
-	return false;
+	return ::ft::lexicographical_compare(x.begin(), x.end(), y.begin(), y.end());
 }
 
 template <typename T, typename Allocator>
