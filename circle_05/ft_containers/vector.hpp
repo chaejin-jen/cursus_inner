@@ -122,8 +122,8 @@ public:
 	typedef T value_type;
 	typedef Allocator allocator_type;
 	typedef typename ft::iterator_traits<pointer>::difference_type difference_type; // Difference between two pointers
-	typedef ft::reverse_iterator<pointer> reverse_iterator;
-	typedef ft::reverse_iterator<const_pointer> const_reverse_iterator;
+	typedef ft::reverse_iterator<iterator> reverse_iterator;
+	typedef ft::reverse_iterator<const_iterator> const_reverse_iterator;
 
 	// construct/copy/destroy:
 	explicit vector(const Allocator& alloc = Allocator())
@@ -135,11 +135,10 @@ public:
 			assign(n, value);
 		}
 	template <typename InputIterator>
-	vector(InputIterator first, typename ft::enable_if<!ft::is_integral<InputIterator>::value, InputIterator>::type last,
+	vector(typename ft::enable_if<!ft::is_integral<InputIterator>::value, InputIterator>::type first, InputIterator last,
 		const Allocator& alloc = Allocator())
 			: start_(0), finish_(0), end_of_storage_(0), alloc_(alloc){
-			if (last - first > 0)
-				assign(first, last);
+			assign(first, last);
 		}
 	vector(const vector<T, Allocator>& x)
 		: start_(0), finish_(0), end_of_storage_(0), alloc_(x.alloc_){
@@ -156,7 +155,7 @@ public:
 		return *this;
 	}
 	template <typename InputIterator>
-	void assign(InputIterator first, typename ft::enable_if<!ft::is_integral<InputIterator>::value, InputIterator>::type last){
+	void assign(typename ft::enable_if<!ft::is_integral<InputIterator>::value, InputIterator>::type first, InputIterator last){
 		erase(begin(), end());
 		insert(begin(), first, last);
 	}
@@ -182,16 +181,16 @@ public:
 		return const_iterator(finish_);
 	}
 	reverse_iterator rbegin(){
-		return reverse_iterator(finish_);
+		return reverse_iterator(end());
 	}
 	const_reverse_iterator rbegin() const{
-		return const_reverse_iterator(finish_);
+		return const_reverse_iterator(end());
 	}
 	reverse_iterator rend(){
-		return reverse_iterator(start_);
+		return reverse_iterator(begin());
 	}
 	const_reverse_iterator rend() const{
-		return const_reverse_iterator(start_);
+		return const_reverse_iterator(begin());
 	}
 
 	// capacity:
@@ -296,9 +295,9 @@ public:
 		}
 	}
 	template <typename InputIterator>
-	void insert(iterator position, InputIterator first, typename ft::enable_if<!ft::is_integral<InputIterator>::value, InputIterator>::type last){
+	void insert(iterator position, typename ft::enable_if<!ft::is_integral<InputIterator>::value, InputIterator>::type first, InputIterator last){
 		difference_type pos = position - begin();
-		difference_type n = last - first;
+		difference_type n = ft::distance(first, last);
 
 		if (n < 0)
 			return ;
@@ -307,7 +306,7 @@ public:
 		move_r(start_ + pos, n);
 		pointer p = start_ + pos;
 		finish_ += n;
-		while (first < last){
+		while (n-- > 0){
 			alloc_.construct(p++, *first++);
 		}
 	}

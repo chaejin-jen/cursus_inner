@@ -65,60 +65,59 @@ public:
 		return *this;
 	}
 	reference operator[](difference_type n) const{
-		return *(current + n);
+		return current[n];
 	}
 };
 
-template <class Iterator>
+template <class T, class U>
 	bool operator==(
-		const random_access_iterator<Iterator>& x,
-		const random_access_iterator<Iterator>& y){
+		const random_access_iterator<T>& x,
+		const random_access_iterator<U>& y){
 			return x.base() == y.base();
 		}
-template <class Iterator>
+template <class T, class U>
 	bool operator<(
-		const random_access_iterator<Iterator>& x,
-		const random_access_iterator<Iterator>& y){
+		const random_access_iterator<T>& x,
+		const random_access_iterator<U>& y){
 			return x.base() < y.base();
 		}
-template <class Iterator>
+template <class T, class U>
 	bool operator!=(
-		const random_access_iterator<Iterator>& x,
-		const random_access_iterator<Iterator>& y){
+		const random_access_iterator<T>& x,
+		const random_access_iterator<U>& y){
 			return x.base() != y.base();
 		}
-template <class Iterator>
+template <class T, class U>
 	bool operator>(
-		const random_access_iterator<Iterator>& x,
-		const random_access_iterator<Iterator>& y){
+		const random_access_iterator<T>& x,
+		const random_access_iterator<U>& y){
 			return x.base() > y.base();
 		}
-template <class Iterator>
+template <class T, class U>
 	bool operator>=(
-		const random_access_iterator<Iterator>& x,
-		const random_access_iterator<Iterator>& y){
+		const random_access_iterator<T>& x,
+		const random_access_iterator<U>& y){
 			return x.base() >= y.base();
 		}
-template <class Iterator>
+template <class T, class U>
 	bool operator<=(
-		const random_access_iterator<Iterator>& x,
-		const random_access_iterator<Iterator>& y){
+		const random_access_iterator<T>& x,
+		const random_access_iterator<U>& y){
 			return x.base() <= y.base();
 		}
 
-template <class Iterator>
-	typename random_access_iterator<Iterator>::difference_type operator-(
-			const random_access_iterator<Iterator>& x,
-			const random_access_iterator<Iterator>& y){
-				return x.base() - y.base();
-			}
-template <class Iterator>
-	random_access_iterator<Iterator> operator+(
-		typename random_access_iterator<Iterator>::difference_type n,
-		const random_access_iterator<Iterator>& x){
-			return random_access_iterator<Iterator> (n + x.base());
+template <class T, class U>
+	typename random_access_iterator<T>::difference_type operator-(
+		const random_access_iterator<T>& x,
+		const random_access_iterator<U>& y){
+		return x.base() - y.base();
 		}
-
+template<class T>
+	random_access_iterator<T> operator+(
+	typename random_access_iterator<T>::difference_type n,
+	const random_access_iterator<T>& x){
+		return random_access_iterator<T>(x.base() + n);
+	}
 }
 
 #endif /* __RANDOM_ACCESS_ITTERATOR_TPP__ */

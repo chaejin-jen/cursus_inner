@@ -207,55 +207,65 @@ public:
 	}
 };
 
-template <class Iterator>
+template <class T, class U>
 	bool operator==(
-		const reverse_iterator<Iterator>& x,
-		const reverse_iterator<Iterator>& y){
+		const reverse_iterator<T>& x,
+		const reverse_iterator<U>& y){
 			return x.base() == y.base();
 		}
-template <class Iterator>
+template <class T, class U>
 	bool operator<(
-		const reverse_iterator<Iterator>& x,
-		const reverse_iterator<Iterator>& y){
+		const reverse_iterator<T>& x,
+		const reverse_iterator<U>& y){
 			return x.base() > y.base();
 		}
-template <class Iterator>
+template <class T, class U>
 	bool operator!=(
-		const reverse_iterator<Iterator>& x,
-		const reverse_iterator<Iterator>& y){
+		const reverse_iterator<T>& x,
+		const reverse_iterator<U>& y){
 			return x.base() != y.base();
 		}
-template <class Iterator>
+template <class T, class U>
 	bool operator>(
-		const reverse_iterator<Iterator>& x,
-		const reverse_iterator<Iterator>& y){
+		const reverse_iterator<T>& x,
+		const reverse_iterator<U>& y){
 			return x.base() < y.base();
 		}
-template <class Iterator>
+template <class T, class U>
 	bool operator>=(
-		const reverse_iterator<Iterator>& x,
-		const reverse_iterator<Iterator>& y){
+		const reverse_iterator<T>& x,
+		const reverse_iterator<U>& y){
 			return x.base() <= y.base();
 		}
-template <class Iterator>
+template <class T, class U>
 	bool operator<=(
-		const reverse_iterator<Iterator>& x,
-		const reverse_iterator<Iterator>& y){
+		const reverse_iterator<T>& x,
+		const reverse_iterator<U>& y){
 			return x.base() >= y.base();
 		}
 
-template <class Iterator>
-	typename reverse_iterator<Iterator>::difference_type operator-(
-			const reverse_iterator<Iterator>& x,
-			const reverse_iterator<Iterator>& y){
+template <class T, class U>
+	typename reverse_iterator<T>::difference_type operator-(
+			const reverse_iterator<T>& x,
+			const reverse_iterator<U>& y){
 				return y.base() - x.base();
 			}
-template <class Iterator>
-	reverse_iterator<Iterator> operator+(
-		typename reverse_iterator<Iterator>::difference_type n,
-		const reverse_iterator<Iterator>& x){
-			return reverse_iterator<Iterator> (x.base() - n);
+template <class T>
+	reverse_iterator<T> operator+(
+		typename reverse_iterator<T>::difference_type n,
+		const reverse_iterator<T>& x){
+			return reverse_iterator<T>(x.base() - n);
 		}
+
+template<class InputIterator>
+typename iterator_traits<InputIterator>::difference_type
+	distance(InputIterator first, InputIterator last){
+		typename iterator_traits<InputIterator>::difference_type n = 0;
+		while (first != last) {
+			++first; ++n;
+		}
+		return n;
+	}
 
 }
 
