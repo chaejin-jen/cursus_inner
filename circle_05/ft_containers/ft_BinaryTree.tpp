@@ -24,10 +24,42 @@ public:
 	};
 	virtual void insert(key_type key) = 0;
 	virtual void insertfix(Node *) = 0;
-	virtual void leftrotate(Node *) = 0;
-	virtual void rightrotate(Node *) = 0;
 	virtual void del(key_type key) = 0;
 	virtual void delfix(Node *) = 0;
+	void leftrotate(Node *target){ // Biased to the right about target
+		if (target->right == NULL)
+			return ;
+		Node *center = target->right;
+		if (target->parent->right == target)
+			target->parent->right = center;
+		else
+			target->parent->left = center;
+		target->right = center->left;
+		if (center->left)
+			center->left->parent = target;
+		center->prarent = target->parent;
+		if (center->prarent == NULL)
+			root = center;
+		target->parent = center;
+		center->left = target;
+	}
+	void rightrotate(Node *target){ // Biased to the left about target
+		if (target->left == NULL)
+			return ;
+		Node *center = target->left;
+		if (target->parent->left == target)
+			target->parent->left = center;
+		else
+			target->parent->right = center;
+		target->left = center->right;
+		if (center->right)
+			center->right->parent = target;
+		center->prarent = target->parent;
+		if (center->prarent == NULL)
+			root = center;
+		target->parent = center;
+		center->right = target;
+	}
 	void search(key_type key){
 		if(root == NULL){
 			std::cout <<"Empty." << std::endl;
