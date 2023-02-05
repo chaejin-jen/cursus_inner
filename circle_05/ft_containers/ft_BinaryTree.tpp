@@ -42,7 +42,35 @@ public:
 		else
 			p->left = target;
 	}
-	virtual void del(key_type key) = 0;
+	virtual void del(key_type key){
+		Node *x(NULL);
+		Node *target = find(key);
+
+		if (target == NULL){
+			return ;
+		}
+		if (target->left == NULL){
+			x = target->right;
+			transplant(target, x);
+		}
+		else if (target->left){
+			x = target->left;
+			transplant(target, x);
+		}
+		else{
+			Node *y = successor(target);
+
+			if y->p != target{
+				transplant(y, y->right);
+				y->right = target->right;
+				y->right->parent = y;
+			}
+			transplant(target, x);
+			y->left = target->left;
+			y->left->parent = y;
+		}
+		delete target; // delete target->key
+	};
 	void leftrotate(Node *target){ // Biased to the right about target
 		if (target->right == NULL)
 			return ;
@@ -77,44 +105,45 @@ public:
 		target->parent = center;
 		center->right = target;
 	}
+	Node* find(key_type key){
+		Node *y = root;
+		while(y){
+			if(y->key == key)
+				break ;
+			if(!found){
+				if(y->key < key)
+					y = y->right;
+				else
+					y = y->left;
+			}
+		}
+		return y;
+	}
 	void search(key_type key){
 		if(root == NULL){
 			std::cout <<"Empty." << std::endl;
 			return  ;
 		}
-		Node *curr = root;
-		bool found = false;
-		while(curr && !found){
-			if(curr->key == key)
-				found = true;
-			if(!found){
-				if(curr->key < key)
-					curr = curr->right;
-				else
-					curr = curr->left;
-			}
-		}
-		if(!found){
+		Node *y = find(key);
+		if(!y){
 			std::cout << "Element Not Found." << std::endl;
 			return ;
 		}
-		else{
-			std::cout << "FOUND NODE: ";
-			std::cout << curr;
-			if(curr->parent)
-				std::cout << "\t Parent: "<< p->parent->key;
-			else
-				std::cout << "✗";
-			if(curr->right)
-				std::cout << "\t Right Child: "<< curr->right->key;
-			else
-				std::cout << "✗";
-			if(curr->left)
-				std::cout << "\t Left Child: "<< curr->left->key;
-			else
-				std::cout << "✗";
-			std::cout << std::endl;
-		}
+		std::cout << "FOUND NODE: ";
+		std::cout << y;
+		if(y->parent)
+			std::cout << "\t Parent: "<< p->parent->key;
+		else
+			std::cout << "✗";
+		if(y->right)
+			std::cout << "\t Right Child: "<< y->right->key;
+		else
+			std::cout << "✗";
+		if(y->left)
+			std::cout << "\t Left Child: "<< y->left->key;
+		else
+			std::cout << "✗";
+		std::cout << std::endl;
 	}
 	void preorder(Node *node){
 		std::cout << node << " ";
@@ -196,6 +225,16 @@ public:
 
 protected:
 	Node *root;
+
+	void transplant(Node* u, Node* v){
+		if (u->parent == NULL)
+			root = v;
+		else if (u == u->parent->left)
+			u->parent->left = v;
+		else
+			u->parent->right = v;
+		v->parent = u->parent;
+	}
 
 private:
 	size_type height(Node *root){
