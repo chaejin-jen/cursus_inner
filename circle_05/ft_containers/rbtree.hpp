@@ -8,6 +8,13 @@
 #include "ft_utility.hpp"
 //#include <cstdlib>
 
+/*
+insertfix
+	red itself
+	case 1 : red parent, red uncle
+	case 2 : red parent, black uncle
+*/
+
 namespace ft{
 
 namespace rbt{
@@ -62,12 +69,74 @@ public:
 			return *this;
 		BinaryTree::operator=(x);
 	};
-	void insert(T key);
-	void insertfix(Node *target);
-	void leftrotate(Node *target);
-	void rightrotate(Node *target);
+	void insert(T key){
+		BinaryTree::insert(key);
+		insertfix(target);
+	}
 	void del(key_type key);
-	void delfix(Node *);
+
+private:
+	void insertfix(Node *target){
+		if (root == target){
+			target->red = false;
+			return;
+		}
+		Node *u, *g; // uncle, grand parent
+		// red - red
+		while (target->parent && target->parent->red){
+			g = target->parent->parent;
+			if (g->left == target->parent){
+				if (g->right){
+					u = g->right;
+					// case 1
+					if (u->red){
+						target->parent->red = false;
+						u->red = false;
+						g->red = true;
+						target = g;
+					}
+					//else // violation before insert
+					//	std::cout << "rbtree : somthing wrong before insert" << std::endl;
+				}
+				// case 2
+				else{
+					if (target->parent->right == target){
+						t = target->parent;
+						leftrotate(target);
+					}
+					target->parent->red = false;
+					g->red = true;
+					rightrotate(g);
+				}
+			}
+			else{
+				if (g->left){
+					u = g->left;
+					// case 1
+					if (u->red){
+						target->parent->red = false;
+						u->red = false;
+						g->red = true;
+						target = g;
+					}
+					//else // violation before insert
+					//	std::cout << "rbtree : somthing wrong before insert" << std::endl;
+				}
+				// case 2
+				else{
+					if (target->parent->left == target){
+						target = target->parent;
+						rightrotate(target);
+					}
+					target->parent->red = false;
+					g->red = true;
+					leftrotate(g);
+				}
+			}
+			root->red = false;
+		}
+	}
+	void delfix(Node *target);
 };
 
 
