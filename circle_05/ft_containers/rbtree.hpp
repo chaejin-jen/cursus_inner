@@ -13,6 +13,12 @@ insertfix
 	red itself
 	case 1 : red parent, red uncle
 	case 2 : red parent, black uncle
+delfix
+	black itself
+	case 1 : red sibling
+	case 2 : black sibling, black sibling-children
+	case 3 : black sibling, red left s-child, black right s-child
+	case 4 : black sibling, black left s-child, red right s-child
 */
 
 namespace ft{
@@ -73,7 +79,39 @@ public:
 		BinaryTree::insert(key);
 		insertfix(target);
 	}
-	void del(key_type key);
+	void del(key_type key){
+		Node *x(NULL);
+		Node *target = find(key);
+		bool del_red = target->red;
+
+		if (target == NULL){
+			return ;
+		}
+		if (target->left == NULL){
+			x = target->right;
+			transplant(target, x);
+		}
+		else if (target->left){
+			x = target->left;
+			transplant(target, x);
+		}
+		else{
+			Node *y = successor(target);
+			del_red = y->red;
+
+			if y->p != target{
+				transplant(y, y->right);
+				y->right = target->right;
+				y->right->parent = y;
+			}
+			transplant(target, x);
+			y->left = target->left;
+			y->left->parent = y;
+		}
+		delete target;  // delete target->key
+		if (del_red == false)
+			delfix(x);
+	}
 
 private:
 	void insertfix(Node *target){
@@ -136,7 +174,74 @@ private:
 			root->red = false;
 		}
 	}
-	void delfix(Node *target);
+	void delfix(Node *target){
+		node *s; // sibling
+
+		while (target != root && !target->red){
+			if (target->parent->left == target){
+				s = target->parent->right;
+				// case 1
+				if (s->red){
+					s->red = false;
+					target->parent->red = true;
+					leftrotate(target->parent);
+					s = target->parent->right;
+				}
+				// case 2
+				if (!s->right->red && !s->left->red){
+					s->red = true;
+					target = target->parent;
+				}
+				else{
+					// case 3
+					if (!s->right->red){
+						s->left->red = false;
+						s->red = true;
+						rightrotate(s);
+						s = target->parent->right;
+					}
+					// case 4
+					s->red = target->parent->red;
+					target->parent->red = false;
+					s->right->red = false;
+					leftrotate(target->parent);
+					target = root;
+				}
+			}
+			else{
+				s = target->parent->left;
+				// case 1
+				if (s->red){
+					s->red = false;
+					target->parent->red = true;
+					rightrotate(target->parent);
+					s = target->parent->left;
+				}
+				// case 2
+				if (!s->left->red && !s->right->red){
+					s->red = true;
+					target = target->parent;
+				}
+				else{
+					// case 3
+					if (!s->left->red){
+						s->right->red = false;
+						s->red = true;
+						leftrotate(s);
+						s = target->parent->left;
+					}
+					// case 4
+					s->red = target->parent->red;
+					target->parent->red = false;
+					s->left->red = false;
+					rightrotate(target->parent);
+					target = root;
+				}
+			}
+			target->red = false;
+			root->red = false;
+		}
+	}
 };
 
 
