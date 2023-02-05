@@ -22,10 +22,27 @@ public:
 		clear();
 		copy_tree(&root, x.root);
 	};
-	virtual void insert(key_type key) = 0;
-	virtual void insertfix(Node *) = 0;
+	virtual void insert(key_type key){
+		Node *target = new Node(key);
+		if (!root){
+			root = target;
+			return ;
+		}
+		Node *curr(root), *p;
+		while (!curr){
+			p = curr;
+			if (curr->key < target->key)
+				curr = curr->right;
+			else
+				curr = curr->left;
+		}
+		target->parent = p;
+		if (p->key < target->key)
+			p->right = target;
+		else
+			p->left = target;
+	}
 	virtual void del(key_type key) = 0;
-	virtual void delfix(Node *) = 0;
 	void leftrotate(Node *target){ // Biased to the right about target
 		if (target->right == NULL)
 			return ;
