@@ -3,9 +3,13 @@
 #define __FT_TREE_H__
 
 #include <memory>
+#include <algorithm>
+#include "ft_iterator.hpp"
 #include "ft_tree_utility.hpp"
 
-template <class Allocator>
+namespace ft{
+
+template <typename Allocator>
 class tree_node_destructor
 {
 	typedef Allocator                      allocator_type;
@@ -27,9 +31,9 @@ public:
 
 	void operator()(pointer __p){
 		if (__value_constructed)
-			allocator_type::destroy(__na_, addressof(__p->__value_));
+			::ft::destroy(addressof(__p->__value_));
 		if (__p)
-			allocator_type::deallocate(__na_, __p, 1);
+			__na_.deallocate(__p, 1);
 	}
 };
 
@@ -45,7 +49,7 @@ struct tree_end_node
 };
 
 
-struct tree_node_base : protected tree_end_node<tree_node_base *>{
+struct tree_node_base : public tree_end_node<tree_node_base *>{
 	typedef tree_node_base*              pointer;
 	typedef const tree_node_base*        const_pointer;
 	typedef tree_end_node<pointer>       base;
@@ -125,18 +129,17 @@ tree_prev(NodePtr x)
 
 // iterator
 
-template <typename Tp, typename NodePtr, typename DiffType = std::ptrdiff_t>
+template <typename Tp, typename NodePtr, typename DiffType = ::std::ptrdiff_t>
 class tree_iterator
 {
 	typedef NodePtr                     node_pointer;
 	// typedef node* node_pointer; // const_pointer?
 	typedef tree_node<Tp>               node; //typename
-	typedef typename tree_node_base     node_base;
+	typedef tree_node_base              node_base;
 	typedef typename node_base::pointer node_base_pointer;
 
 	node_pointer __ptr_;
 
-	typedef pointer_traits<node_pointer> __pointer_traits;
 public:
 	typedef bidirectional_iterator_tag iterator_category;
 	typedef Tp                         value_type;
@@ -181,7 +184,7 @@ bool operator!=(const tree_iterator<T, Ptr1>& x, const tree_iterator<U, Ptr2>& y
 }
 
 template <typename Tp, typename Compare, typename Allocator = ::std::allocator<Tp> >
-class _tree
+class tree
 {
 public:
 	typedef Tp                                  value_type;
@@ -209,8 +212,8 @@ public:
 	typedef tree_iterator<value_type, node_pointer, difference_type>       iterator;
 	typedef tree_iterator<value_type, node_const_pointer, difference_type> const_iterator;
 
-	typedef reverse_iterator<iterator>       reverse_iterator;
-	typedef reverse_iterator<const_iterator> const_reverse_iterator;
+	typedef ::ft::reverse_iterator<iterator>       reverse_iterator;
+	typedef ::ft::reverse_iterator<const_iterator> const_reverse_iterator;
 
 private:
 	typedef typename node_base::base end_node;
@@ -223,8 +226,8 @@ private:
 	size_type                    __size_;
 	node_allocator               __alloc_;
 
-	node_pointer& __begin_node(){return begin_node;}
-	const node_pointer& __begin_node() const{return begin_node;}
+	node_pointer& __begin_node(){return __begin_node_;}
+	const node_pointer& __begin_node() const{return __begin_node_;}
 
 	size_type& size(){return __size_;}
 
@@ -265,5 +268,7 @@ public:
 
 	~tree();
 };
+
+}
 
 #endif /* __FT_TREE_H__ */

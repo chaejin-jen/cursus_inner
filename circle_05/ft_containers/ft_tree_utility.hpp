@@ -61,7 +61,7 @@ public:
 		reset();
 	}
 
-	typename reference operator*() const{
+	reference operator*() const{
 		return *ptr.first();
 	}
 	pointer operator->() const {
@@ -105,11 +105,11 @@ private:
 	pair<pointer, deleter_type> ptr;
 
 	unique_ptr(unique_ptr&);
-	template <class Up>
-		unique_ptr(unique_ptr<Up>&);
+	template <class Up, class Dp2>
+		unique_ptr(unique_ptr<Up, Dp2>&);
 	unique_ptr& operator=(unique_ptr&);
-	template <class Up>
-		unique_ptr& operator=(unique_ptr<Up>&);
+	template <class Up, class Dp2>
+		unique_ptr& operator=(unique_ptr<Up, Dp2>&);
 
 	typedef Tp&                 reference;
 	typedef deleter_type&       Dp_reference;

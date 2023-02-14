@@ -137,7 +137,7 @@ void swap(map<Key, T, Compare,Allocator>& x,
 
 namespace ft {
 
-template <class Key, class T, class Compare = std::less<Key>,
+template <class Key, class T, class Compare = ::std::less<Key>,
 	class Allocator = ::std::allocator<pair<const Key, T> > >
 	class map{
 public:
@@ -152,8 +152,9 @@ public:
 
 
 private:
-	typedef map_value_compare<key_type, mapped_type, key_compare> vc;
-	typedef ft:tree<value_type, vc, allocator_type> base;
+	// typedef map_value_compare<key_type, mapped_type, key_compare> vc;
+	// typedef ::ft::tree<value_type, vc, allocator_type> base;
+	typedef ::ft::tree<value_type, key_compare, allocator_type> base;
 
 	base __tree_;
 
@@ -164,8 +165,8 @@ public:
 	typedef typename Allocator::difference_type  difference_type;
 	typedef typename Allocator::pointer          pointer;
 	typedef typename Allocator::const_pointer    const_pointer;
-	typedef ft::reverse_iterator<iterator>       reverse_iterator;
-	typedef ft::reverse_iterator<const_iterator> const_reverse_iterator;
+	typedef ::ft::reverse_iterator<iterator>       reverse_iterator;
+	typedef ::ft::reverse_iterator<const_iterator> const_reverse_iterator;
 
 public:
 	class value_compare
@@ -186,11 +187,13 @@ public:
 	// 23.3.1.1 construct/copy/destroy:
 	explicit map(const Compare& comp = Compare(),
 		const Allocator& alloc = Allocator())
-		: __tree_(vc(comp), alloc) {}
+		// : __tree_(vc(comp), alloc) {}
+		: __tree_(key_comp(comp), alloc) {}
 	template <class InputIterator>
 	map(InputIterator first, InputIterator last,
 		const Compare& comp = Compare(), const Allocator& alloc= Allocator())
-			: __tree_(vc(comp), alloc){
+			// : __tree_(vc(comp), alloc){
+			: __tree_(key_comp(comp), alloc){
 				insert(first, last);
 			}
 	map(const map<Key,T,Compare,Allocator>& x)
@@ -209,16 +212,16 @@ public:
 
 	// iterators:
 	iterator begin(){
-		return _tree_.begin();
+		return __tree_.begin();
 	}
 	const_iterator begin() const{
-		return _tree_.begin();
+		return __tree_.begin();
 	}
 	iterator end(){
-		return _tree_.end();
+		return __tree_.end();
 	}
 	const_iterator end() const{
-		return _tree_.end();
+		return __tree_.end();
 	}
 	reverse_iterator rbegin(){
 		return reverse_iterator(end());
@@ -246,20 +249,21 @@ public:
 
 	// 23.3.1.2 element access:
 	T& operator[](const key_type& x){
-		return (*((insert(ft::make_pair(x, T()))).first)).second
+		return (*((insert(ft::make_pair(x, T()))).first)).second;
 	}
 
 	// modifiers:
 	pair<iterator, bool> insert(const value_type& x){
-		return __tree_.__insert_unique(x)
+		return __tree_.__insert_unique(x);
 	}
 	iterator insert(iterator position, const value_type& x){
-		return _tree_.__insert_unique(position._i, x);
+		return __tree_.__insert_unique(position._i, x);
 		
 	}
 	template <class InputIterator>
 	void insert(InputIterator first, InputIterator last){
-		for (const_iterator e = cend(); first != last; ++first)
+		// for (const_iterator e = cend(); first != last; ++first)
+		for (const_iterator e = end(); first != last; ++first)
 			insert(e._i, *first);
 	}
 
@@ -281,12 +285,12 @@ public:
 
 	// observers:
 	key_compare key_comp() const{
-		return __tree_.value_comp().key_comp();
-		//return __tree_.value_comp();
+		// return __tree_.value_comp().key_comp();
+		return __tree_.key_comp();
 	}
 	value_compare value_comp() const{
-		return value_compare(__tree_.value_comp().key_comp());
-		//return value_compare(__tree_.value_comp());
+		// return value_compare(__tree_.value_comp().key_comp());
+		return value_compare(__tree_.key_comp());
 	}
 
 	// 23.3.1.3 map operations:
