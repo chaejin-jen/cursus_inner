@@ -27,8 +27,7 @@ public:
 
 	void operator()(pointer __p){
 		if (__value_constructed)
-			allocator_type::destroy(__na_, &__p->__value_);
-			// allocator_type::destroy(__na_, addressof(__p->__value_));
+			allocator_type::destroy(__na_, addressof(__p->__value_));
 		if (__p)
 			allocator_type::deallocate(__na_, __p, 1);
 	}
@@ -136,7 +135,7 @@ class tree_iterator
 	typedef typename node_base::pointer node_base_pointer;
 
 	node_pointer __ptr_;
-	
+
 	typedef pointer_traits<node_pointer> __pointer_traits;
 public:
 	typedef bidirectional_iterator_tag iterator_category;
@@ -202,7 +201,7 @@ public:
 	typedef typename node_allocator::const_pointer node_const_pointer;
 	typedef typename node_base::pointer            node_base_pointer;
 	typedef typename node_base::const_pointer      node_base_const_pointer;
-	
+
 	typedef tree_node_destructor<node_allocator> Dp;
 	typedef unique_ptr<node, Dp>                 node_holder;
 
@@ -217,7 +216,7 @@ private:
 	typedef typename node_base::base end_node;
 	typedef end_node*                end_node_pointer;
 	typedef const end_node*          end_node_const_pointer; // CHECK
-	
+
 	end_node_pointer             __end_node_const_ptr_;
 	node_pointer                 __begin_node_;
 	value_compare                __comp_;
@@ -228,7 +227,7 @@ private:
 	const node_pointer& __begin_node() const{return begin_node;}
 
 	size_type& size(){return __size_;}
-	
+
 	const node_allocator& __node_alloc() const{return __alloc_;}
 
 public:
@@ -240,12 +239,12 @@ public:
 	}
 
 	const size_type& size() const{return __size_;}   // map.max_size
-	
+
 	node_allocator& __node_alloc(){return __alloc_;} // assignment operator
 	allocator_type __alloc() const{                  // map.get_allocator
 		return allocator_type(__node_alloc());
 	}
-	
+
 	value_compare& value_comp(){return __comp_;}     // assignment operator
 	const value_compare& value_comp() const{return __comp_;} 
 

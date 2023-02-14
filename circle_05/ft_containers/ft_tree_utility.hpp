@@ -6,10 +6,21 @@
 
 /*
 memory
+	addressof
 	unique_ptr
 */ 
 
 namespace ft{
+
+// addressof
+
+template <class Tp>
+inline
+Tp*
+addressof(Tp& x)
+{
+	return (Tp*)&reinterpret_cast<const volatile char&>(x);
+}
 
 template <class Tp, class Dp>
 class unique_ptr
