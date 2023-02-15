@@ -138,6 +138,269 @@ tree_prev(NodePtr x)
 	return x->__parent_;
 }
 
+// Use:  if biased to the right for target x, rotate left about center y
+// Effects:  Makes x->__right_ the subtree root with x as its left child
+//           while preserving in-order order.
+// Precondition:  x->__right_ != NULL
+template <typename NodePtr>
+void
+tree_left_rotate(NodePtr x)
+{
+	NodePtr y = x->__right_;
+	x->__right_ = y->__left_;
+	if (x->__right_ != NULL)
+		x->__right_->__parent_ = x;
+	y->__parent_ = x->__parent_;
+	if (tree_is_left_child(x))
+		x->__parent_->__left_ = y;
+	else
+		x->__parent_->__right_ = y;
+	y->__left_ = x;
+	x->__parent_ = y;
+}
+
+// Use:  if biased to the left for target x, rotate right about center y
+// Effects:  Makes x->__left_ the subtree root with x as its right child
+//           while preserving in-order order.
+// Precondition:  x->__left_ != NULL
+template <typename NodePtr>
+void
+tree_right_rotate(NodePtr x)
+{
+	NodePtr y = x->__left_;
+	x->__left_ = y->__right_;
+	if (x->__left_ != NULL)
+		x->__left_->__parent_ = x;
+	y->__parent_ = x->__parent_;
+	if (tree_is_left_child(x))
+		x->__parent_->__left_ = y;
+	else
+		x->__parent_->__right_ = y;
+	y->__right_ = x;
+	x->__parent_ = y;
+}
+
+// Effects:  Rebalances root after attaching x to a leaf.
+// case: x starts with red color
+//      case 1 : red parent, red uncle
+//      case 2 : red parent, black uncle
+template <typename NodePtr>
+void
+tree_balance_after_insert(NodePtr root, NodePtr x)
+{
+	x->__is_black_ = x == root;
+	while (x != root && !x->__parent_->__is_black_)
+	{
+		// double red
+		if (tree_is_left_child(x->__parent_))
+		{
+			NodePtr y = x->__parent_->__parent_->__right_;
+			if (y != NULL && !y->__is_black_)
+			{
+				// case 1
+				x = x->__parent_;
+				x->__is_black_ = true;        // parent b
+				x = x->__parent_;
+				x->__is_black_ = x == root; // grand  r
+				y->__is_black_ = true;        // uncle  b
+			}
+			else
+			{
+				// case 2
+				if (!tree_is_left_child(x))
+				{
+					x = x->__parent_;
+					tree_left_rotate(x);
+				}
+				x = x->__parent_;
+				x->__is_black_ = true;        // parent b
+				x = x->__parent_;
+				x->__is_black_ = false;       // grand  r
+				tree_right_rotate(x);
+				break;
+			}
+		}
+		else
+		{
+			NodePtr y = x->__parent_->__parent_->__left_;
+			if (y != NULL && !y->__is_black_)
+			{
+				// case 1
+				x = x->__parent_;
+				x->__is_black_ = true;        // parent b
+				x = x->__parent_;
+				x->__is_black_ = x == root; // grand  r
+				y->__is_black_ = true;        // uncle  b
+			}
+			else
+			{
+				// case 2
+				if (tree_is_left_child(x))
+				{
+					x = x->__parent_;
+					tree_right_rotate(x);
+				}
+				x = x->__parent_;
+				x->__is_black_ = true;        // parent b
+				x = x->__parent_;
+				x->__is_black_ = false;       // grand  r
+				tree_left_rotate(x);
+				break;
+			}
+		}
+	}
+}
+
+
+// Effects:  Rebalances root after erase x to a leaf. (sibling w)
+// case: x starts with black color
+//      case 1 : red sibling
+//      case 2 : black sibling, black sibling-children
+//      case 3 : black sibling, red left s-child, black right s-child
+//      case 2 : black sibling, black left s-child, red right s-child
+template <typename NodePtr>
+void
+tree_balance_after_erase(NodePtr x, NodePtr w)
+{
+	while (x != root && !x->__is_black_)
+	{
+		if (x->parent->left == x)
+		{
+			w = x->parent->right;
+			if (w->__is_black_)
+			{
+				// case 1
+				w->__is_black_ = true;
+				x->parent->__is_black_ = false;
+				tree_left_rotate(x->parent);
+				w = x->parent->right;
+			}
+			if (!w->right->__is_black_ && !w->left->__is_black_)
+			{
+				// case 2
+				w->__is_black_ = false;
+				x = x->parent;
+			}
+			else{
+				// case 3
+				if (!w->right->__is_black_)
+				{
+					w->left->__is_black_ = true;
+					w->__is_black_ = false;
+					tree_right_rotate(w);
+					w = x->parent->right;
+				}
+				// case 4
+				w->__is_black_ = x->parent->__is_black_;
+				x->parent->__is_black_ = true;
+				w->right->__is_black_ = true;
+				tree_left_rotate(x->parent);
+				x = root;
+			}
+		}
+		else{
+			w = x->parent->left;
+			if (w->__is_black_)
+			{
+				// case 1
+				w->__is_black_ = true;
+				x->parent->__is_black_ = false;
+				tree_right_rotate(x->parent);
+				w = x->parent->left;
+			}
+			if (!w->left->__is_black_ && !w->right->__is_black_)
+			{
+				// case 2
+				w->__is_black_ = false;
+				x = x->parent;
+			}
+			else{
+				// case 3
+				if (!w->left->__is_black_)
+				{
+					w->right->__is_black_ = true;
+					w->__is_black_ = false;
+					tree_left_rotate(w);
+					w = x->parent->left;
+				}
+				// case 4
+				w->__is_black_ = x->parent->__is_black_;
+				x->parent->__is_black_ = true;
+				w->left->__is_black_ = true;
+				tree_right_rotate(x->parent);
+				x = root;
+			}
+		}
+		x->__is_black_ = true;
+		root->__is_black_ = true;
+	}
+}
+
+// Effects:  unlinks z from the tree rooted at root, rebalancing as needed.
+template <typename NodePtr>
+void
+tree_remove(NodePtr root, NodePtr z)
+{
+	// y is z or tree_minimum(z->right)
+	NodePtr y = (z->__left_ == NULL || z->__right_ == NULL) ?
+					z : tree_next(z);
+	// x priority : right_child, left_child, NULL
+	NodePtr x = y->__left_ != NULL ? y->__left_ : y->__right_;
+	// w is x's possibly null uncle (will become x's sibling)
+	NodePtr w = NULL;
+	// link child node x to y's parent, and find sibling w
+	if (x != NULL)
+		x->__parent_ = y->__parent_;
+	if (tree_is_left_child(y))
+	{
+		// (1) y == z  && tree_is_left_child(z)
+		// (2) y == tree_next(z) && y != z->right
+		y->__parent_->__left_ = x;
+		if (y != root)
+			w = y->__parent_->__right_;
+		else
+			root = x;  // w == NULL
+	}
+	else
+	{
+		// (1) y == z  && !tree_is_left_child(z)
+		// (2) y == z->right
+		y->__parent_->__right_ = x;
+		w = y->__parent_->__left_;
+	}
+	bool __removed_black = y->__is_black_;
+
+	if (y != z)
+	{
+		// when z has children, y == z->right or tree_min(z)
+		// link child node y to z's parent
+		y->__parent_ = z->__parent_;
+		if (tree_is_left_child(z))
+			y->__parent_->__left_ = y;
+		else
+			y->__parent_->__right_ = y;
+		y->__left_ = z->__left_;
+		y->__left_->__parent_ = y;
+
+		y->__right_ = z->__right_;
+		if (y->__right_ != NULL)
+			y->__right_->__parent_ = y;
+		y->__is_black_ = z->__is_black_;
+		if (root == z)
+			root = y;
+	}
+	if (__removed_black && root != NULL)
+	{
+		if (x == __root || (x != NULL && !x->__is_black_))
+		// (1) z-right->__is_black == true
+		// (2) tree_min(z)->__is_black == true
+			x->__is_black_ = true;
+		else
+			tree_balance_after_remove(x, w);
+	}
+	// There is no need to rebalance if we removed a red, or if we removed the last node.
+}
+
 // iterator
 
 template <typename Tp, typename NodePtr, typename DiffType = ::std::ptrdiff_t>
