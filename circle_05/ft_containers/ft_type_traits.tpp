@@ -59,6 +59,10 @@ namespace ft
 		typedef T type;
 	};
 
+	// is_const
+	template <class Tp> struct is_const            : public false_type {};
+	template <class Tp> struct is_const<Tp const> : public true_type {};
+
 }
 
 #endif /* __FT_TYPE_TRAITS_TPP__ */

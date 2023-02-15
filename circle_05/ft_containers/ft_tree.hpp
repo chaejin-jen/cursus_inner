@@ -4,6 +4,7 @@
 
 #include <memory>
 #include <algorithm>
+#include "ft_type_traits.tpp"
 #include "ft_iterator.hpp"
 #include "ft_tree_utility.hpp"
 
@@ -29,7 +30,7 @@ public:
 		: __na_(__na),
 		__value_constructed(false){}
 
-	void operator()(pointer __p){
+	void operator()(pointer __p) {
 		if (__value_constructed)
 			::ft::destroy(addressof(__p->__value_));
 		if (__p)
@@ -48,21 +49,31 @@ struct tree_end_node
 	tree_end_node() : __left_() {}
 };
 
-
 struct tree_node_base : public tree_end_node<tree_node_base *>{
-	typedef tree_node_base*              pointer;
-	typedef const tree_node_base*        const_pointer;
-	typedef tree_end_node<pointer>       base;
-	// typedef tree_end_node<const_pointer> const_base;
+	typedef tree_node_base*        pointer;
+	typedef const tree_node_base*  const_pointer;
+	typedef tree_end_node<pointer> base;
 
 	pointer __right_;
 	pointer __parent_;
-	bool __is_black_;
+	bool    __is_black_;
+};
+
+template <typename Tp, typename T = void>
+struct tree_node_base_selector{
+	typedef tree_node_base type;
 };
 
 template <typename Tp>
-struct tree_node : protected tree_node_base{
+struct tree_node_base_selector<Tp, typename enable_if<is_const<Tp>::value>::type>{
+	typedef const tree_node_base type;
+};
+
+template <typename Tp>
+struct tree_node : public tree_node_base{
 public:
+	typedef typename tree_node_base_selector<Tp>::type base;
+
 	typedef Tp value_type;
 
 	value_type __value_;
@@ -133,10 +144,9 @@ template <typename Tp, typename NodePtr, typename DiffType = ::std::ptrdiff_t>
 class tree_iterator
 {
 	typedef NodePtr                     node_pointer;
-	// typedef node* node_pointer; // const_pointer?
-	typedef tree_node<Tp>               node; //typename
-	typedef tree_node_base              node_base;
-	typedef typename node_base::pointer node_base_pointer;
+	typedef tree_node<Tp>               node;
+	typedef typename node::base         node_base;
+	typedef node_base*                  node_base_pointer; // CHECK
 
 	node_pointer __ptr_;
 
@@ -148,7 +158,9 @@ public:
 	typedef value_type*                pointer;
 
 	tree_iterator(){}
-	//~tree_iterator(){}
+	explicit tree_iterator(node_pointer __p) : __ptr_(__p) {}
+
+	node_pointer base() const{ return __ptr_; } // explicit
 
 	reference operator*() const {return __ptr_->__value_;}
 	pointer operator->() const {return &__ptr_->__value_;}
@@ -176,14 +188,14 @@ public:
 
 template <typename T, typename U, typename Ptr1, typename Ptr2>
 bool operator==(const tree_iterator<T, Ptr1>& x, const tree_iterator<U, Ptr2>& y){
-	return x.__ptr_ == y.__ptr_;
+	return x.base() == y.base();
 }
 template <typename T, typename U, typename Ptr1, typename Ptr2>
 bool operator!=(const tree_iterator<T, Ptr1>& x, const tree_iterator<U, Ptr2>& y){
 	return !(x == y);
 }
 
-template <typename Tp, typename Compare, typename Allocator = ::std::allocator<Tp> >
+template <typename Tp, typename Compare, typename Allocator>
 class tree
 {
 public:
@@ -197,7 +209,7 @@ public:
 
 // CHECK visibility
 	typedef tree_node<value_type>                  node;
-	typedef tree_node_base                         node_base;
+	typedef typename node::base                    node_base;
 	typedef typename Allocator::template
 			rebind<node>::other                    node_allocator;
 	typedef typename node_allocator::pointer       node_pointer;
@@ -209,8 +221,10 @@ public:
 	typedef unique_ptr<node, Dp>                 node_holder;
 
 // public:
-	typedef tree_iterator<value_type, node_pointer, difference_type>       iterator;
-	typedef tree_iterator<value_type, node_const_pointer, difference_type> const_iterator;
+	typedef tree_iterator<value_type,
+		node_pointer, difference_type>             iterator;
+	typedef tree_iterator<const value_type,
+		node_const_pointer, difference_type>       const_iterator;
 
 	typedef ::ft::reverse_iterator<iterator>       reverse_iterator;
 	typedef ::ft::reverse_iterator<const_iterator> const_reverse_iterator;
@@ -220,11 +234,11 @@ private:
 	typedef end_node*                end_node_pointer;
 	typedef const end_node*          end_node_const_pointer; // CHECK
 
-	end_node_pointer             __end_node_const_ptr_;
-	node_pointer                 __begin_node_;
-	value_compare                __comp_;
-	size_type                    __size_;
-	node_allocator               __alloc_;
+	end_node       __end_node_;
+	node_pointer   __begin_node_;
+	value_compare  __comp_;
+	size_type      __size_;
+	node_allocator __alloc_;
 
 	node_pointer& __begin_node(){return __begin_node_;}
 	const node_pointer& __begin_node() const{return __begin_node_;}
@@ -235,10 +249,10 @@ private:
 
 public:
 	node_pointer __end_node(){
-		return static_cast<node_pointer>(__end_node_const_ptr_);
+		return static_cast<node_pointer>(addressof(__end_node_));
 	}
 	node_const_pointer __end_node() const{
-		return static_cast<node_const_pointer>(__end_node_const_ptr_);
+		return static_cast<node_const_pointer>(addressof(__end_node_));
 	}
 
 	const size_type& size() const{return __size_;}   // map.max_size
@@ -267,6 +281,7 @@ public:
 	void __assign_unique(InputIterator __first, InputIterator __last);
 
 	~tree();
+
 };
 
 }
