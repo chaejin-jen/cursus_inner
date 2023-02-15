@@ -131,46 +131,129 @@ void swap(map<Key, T, Compare,Allocator>& x,
 */
 
 #include <memory>
+#include <functional>
 #include "ft_tree.hpp"
 #include "ft_utility.hpp"
 #include "ft_algorithm.tpp"
+#include "ft_type_traits.tpp"
 
 namespace ft {
+
+template <class Key, class Tp, class Compare, bool = is_empty<Compare>::value>
+class map_value_compare
+	: public Compare // CHECK private
+{
+	typedef pair<typename ft::remove_const<Key>::type, Tp> Pp;
+	typedef pair<const Key, Tp> CP;
+public:
+	map_value_compare()
+		: Compare() {}
+	map_value_compare(Compare c)
+		: Compare(c) {}
+	const Compare& key_comp() const {return *this;}
+	bool operator()(const CP& x, const CP& y) const
+		{return static_cast<const Compare&>(*this)(x.first, y.first);}
+	bool operator()(const CP& x, const Pp& y) const
+		{return static_cast<const Compare&>(*this)(x.first, y.first);}
+	bool operator()(const CP& x, const Key& y) const
+		{return static_cast<const Compare&>(*this)(x.first, y);}
+	bool operator()(const Pp& x, const CP& y) const
+		{return static_cast<const Compare&>(*this)(x.first, y.first);}
+	bool operator()(const Pp& x, const Pp& y) const
+		{return static_cast<const Compare&>(*this)(x.first, y.first);}
+	bool operator()(const Pp& x, const Key& y) const
+		{return static_cast<const Compare&>(*this)(x.first, y);}
+	bool operator()(const Key& x, const CP& y) const
+		{return static_cast<const Compare&>(*this)(x, y.first);}
+	bool operator()(const Key& x, const Pp& y) const
+		{return static_cast<const Compare&>(*this)(x, y.first);}
+	bool operator()(const Key& x, const Key& y) const
+		{return static_cast<const Compare&>(*this)(x, y);}
+};
+
+template <class Key, class Tp, class Compare>
+class map_value_compare<Key, Tp, Compare, false>
+{
+	Compare __comp_;
+
+	typedef pair<typename ft::remove_const<Key>::type, Tp> Pp;
+	typedef pair<const Key, Tp> CP;
+
+public:
+
+	map_value_compare()
+		: __comp_() {}
+
+	map_value_compare(Compare c)
+		: __comp_(c) {}
+
+	const Compare& key_comp() const {return __comp_;}
+
+
+	bool operator()(const CP& x, const CP& y) const
+		{return __comp_(x.first, y.first);}
+
+	bool operator()(const CP& x, const Pp& y) const
+		{return __comp_(x.first, y.first);}
+
+	bool operator()(const CP& x, const Key& y) const
+		{return __comp_(x.first, y);}
+
+	bool operator()(const Pp& x, const CP& y) const
+		{return __comp_(x.first, y.first);}
+
+	bool operator()(const Pp& x, const Pp& y) const
+		{return __comp_(x.first, y.first);}
+
+	bool operator()(const Pp& x, const Key& y) const
+		{return __comp_(x.first, y);}
+	bool operator()(const Key& x, const CP& y) const
+		{return __comp_(x, y.first);}
+	bool operator()(const Key& x, const Pp& y) const
+		{return __comp_(x, y.first);}
+	bool operator()(const Key& x, const Key& y) const
+		{return __comp_(x, y);}
+};
 
 template <class Key, class T, class Compare = ::std::less<Key>,
 	class Allocator = ::std::allocator<pair<const Key, T> > >
 	class map{
 public:
 	// types:
-	typedef Key key_type;
-	typedef T mapped_type;
-	typedef pair<const Key, T> value_type;
-	typedef Compare key_compare;
-	typedef Allocator allocator_type;
-	typedef typename Allocator::reference reference;
+	typedef Key                                 key_type;
+	typedef T                                   mapped_type;
+	typedef pair<const key_type, mapped_type>   value_type;
+	typedef Compare                             key_compare;
+	typedef Allocator                           allocator_type;
+	typedef typename Allocator::reference       reference;
 	typedef typename Allocator::const_reference const_reference;
 
 
 private:
-	// typedef map_value_compare<key_type, mapped_type, key_compare> vc;
-	// typedef ::ft::tree<value_type, vc, allocator_type> base;
-	typedef ::ft::tree<value_type, key_compare, allocator_type> base;
 
-	base __tree_;
+	typedef pair<key_type, mapped_type>                      __value_type;
+	typedef map_value_compare<key_type, mapped_type,
+								key_compare>                 __vc;
+	typedef typename Allocator::template
+		rebind<__value_type>::other                          __allocator_type;
+	typedef ::ft::tree<__value_type, __vc, __allocator_type> __base;       // map
+	// typedef ::ft::tree<value_type, key_compare, allocator_type> base; // set
+
+	__base __tree_;
 
 public:
-	typedef typename base::iterator              iterator;
-	typedef typename base::const_iterator        const_iterator; 
-	typedef typename Allocator::size_type        size_type;
-	typedef typename Allocator::difference_type  difference_type;
-	typedef typename Allocator::pointer          pointer;
-	typedef typename Allocator::const_pointer    const_pointer;
-	typedef ::ft::reverse_iterator<iterator>       reverse_iterator;
-	typedef ::ft::reverse_iterator<const_iterator> const_reverse_iterator;
+	typedef typename __base::iterator                  iterator;
+	typedef typename __base::const_iterator            const_iterator; 
+	typedef typename __allocator_type::size_type       size_type;
+	typedef typename __allocator_type::difference_type difference_type;
+	typedef typename __allocator_type::pointer         pointer;
+	typedef typename __allocator_type::const_pointer   const_pointer;
+	typedef ::ft::reverse_iterator<iterator>           reverse_iterator;
+	typedef ::ft::reverse_iterator<const_iterator>     const_reverse_iterator;
 
 public:
 	class value_compare
-	: public std::binary_function<value_type, value_type, bool> {
+	: public ::std::binary_function<value_type, value_type, bool> {
 		friend class map;
 		// friend class map<Key, T, Compare, Allocator>;
 
@@ -188,12 +271,12 @@ public:
 	explicit map(const Compare& comp = Compare(),
 		const Allocator& alloc = Allocator())
 		// : __tree_(vc(comp), alloc) {}
-		: __tree_(key_comp(comp), alloc) {}
+		: __tree_(comp, alloc) {}
 	template <class InputIterator>
 	map(InputIterator first, InputIterator last,
 		const Compare& comp = Compare(), const Allocator& alloc= Allocator())
 			// : __tree_(vc(comp), alloc){
-			: __tree_(key_comp(comp), alloc){
+			: __tree_(comp, alloc){
 				insert(first, last);
 			}
 	map(const map<Key,T,Compare,Allocator>& x)
@@ -256,25 +339,25 @@ public:
 	pair<iterator, bool> insert(const value_type& x){
 		return __tree_.__insert_unique(x);
 	}
-	iterator insert(iterator position, const value_type& x){
-		return __tree_.__insert_unique(position._i, x);
-		
+	iterator insert(const_iterator position, const value_type& x){
+		return __tree_.__insert_unique(position, x);
 	}
 	template <class InputIterator>
-	void insert(InputIterator first, InputIterator last){
-		// for (const_iterator e = cend(); first != last; ++first)
-		for (const_iterator e = end(); first != last; ++first)
-			insert(e._i, *first);
-	}
+	void insert(InputIterator first, 
+		typename enable_if<!is_integral<InputIterator>::value,
+			InputIterator>::type last){
+				for ( ; first != last; ++first)
+					insert(*first);
+			}
 
 	void erase(iterator position){
-		__tree_.erase(position._i);
+		__tree_.erase(position);
 	}
 	size_type erase(const key_type& x){
 		return __tree_.__erase_unique(x);
 	}
 	void erase(iterator first, iterator last){
-		__tree_.erase(first._i, last._i);
+		__tree_.erase(first, last);
 	}
 	void swap(map<Key,T,Compare,Allocator>& other){
 		__tree_.swap(other.tree);

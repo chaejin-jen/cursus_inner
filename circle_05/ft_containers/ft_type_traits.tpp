@@ -63,6 +63,24 @@ namespace ft
 	template <class Tp> struct is_const            : public false_type {};
 	template <class Tp> struct is_const<Tp const> : public true_type {};
 
+	// remove_const
+	template <class Tp> struct remove_const            {typedef Tp type;};
+	template <class Tp> struct remove_const<const Tp> {typedef Tp type;};
+
+	// is_empty
+	// Note : not guaranteed by the C++ standard
+	//        Assumeing compiler uses the "null pointer optimization"
+	//         to ensure that casting a null pointer to a pointer
+	//         to a non-empty class or struct results in a non-null pointer
+	template <typename T>
+	struct is_empty {
+		struct empty_helper{
+			char padding;
+		};
+		static bool const value = sizeof(empty_helper) == sizeof(T) && !static_cast<T*>(0);
+		// static bool const value = sizeof(empty_helper) == sizeof(T) && !ft::is_integral<T>::value);
+	};
+
 }
 
 #endif /* __FT_TYPE_TRAITS_TPP__ */

@@ -260,7 +260,7 @@ tree_balance_after_insert(NodePtr root, NodePtr x)
 //      case 2 : black sibling, black left s-child, red right s-child
 template <typename NodePtr>
 void
-tree_balance_after_erase(NodePtr x, NodePtr w)
+tree_balance_after_erase(NodePtr root, NodePtr x, NodePtr w)
 {
 	while (x != root && !x->__is_black_)
 	{
@@ -391,12 +391,12 @@ tree_remove(NodePtr root, NodePtr z)
 	}
 	if (__removed_black && root != NULL)
 	{
-		if (x == __root || (x != NULL && !x->__is_black_))
+		if (x == root || (x != NULL && !x->__is_black_))
 		// (1) z-right->__is_black == true
 		// (2) tree_min(z)->__is_black == true
 			x->__is_black_ = true;
 		else
-			tree_balance_after_remove(x, w);
+			tree_balance_after_erase(root, x, w);
 	}
 	// There is no need to rebalance if we removed a red, or if we removed the last node.
 }
@@ -506,8 +506,6 @@ private:
 	node_pointer& __begin_node(){return __begin_node_;}
 	const node_pointer& __begin_node() const{return __begin_node_;}
 
-	size_type& size(){return __size_;}
-
 	const node_allocator& __node_alloc() const{return __alloc_;}
 
 public:
@@ -518,6 +516,7 @@ public:
 		return static_cast<node_const_pointer>(addressof(__end_node_));
 	}
 
+	size_type& size(){return __size_;}               // CHECK private
 	const size_type& size() const{return __size_;}   // map.max_size
 
 	node_allocator& __node_alloc(){return __alloc_;} // assignment operator
@@ -580,7 +579,7 @@ public:
 
 	template <typename Key>
 	iterator lower_bound(const Key& __v){
-			return __lower_bound(__v, root(), __end_node());
+			return __lower_bound(__v, __root(), __end_node());
 	}
 	template <typename Key>
 	iterator __lower_bound(const Key& __v,
@@ -588,7 +587,7 @@ public:
 							node_pointer __result);
 	template <typename Key>
 	const_iterator lower_bound(const Key& __v) const{
-			return __lower_bound(__v, root(), __end_node());
+			return __lower_bound(__v, __root(), __end_node());
 	}
 	template <typename Key>
 	const_iterator __lower_bound(const Key& __v,
@@ -596,7 +595,7 @@ public:
 									node_const_pointer __result) const;
 	template <typename Key>
 	iterator upper_bound(const Key& __v){
-			return __upper_bound(__v, root(), __end_node());
+			return __upper_bound(__v, __root(), __end_node());
 	}
 	template <typename Key>
 	iterator __upper_bound(const Key& __v,
@@ -604,7 +603,7 @@ public:
 							node_pointer __result);
 	template <typename Key>
 	const_iterator upper_bound(const Key& __v) const{
-		return __upper_bound(__v, root(), __end_node());
+		return __upper_bound(__v, __root(), __end_node());
 	}
 	template <typename Key>
 	const_iterator __upper_bound(const Key& __v,
@@ -733,7 +732,7 @@ template <typename Tp, typename Compare, typename Allocator>
 void
 tree<Tp, Compare, Allocator>::clear()
 {
-	destroy(root());
+	destroy(__root());
 	size() = 0;
 	__begin_node() = __end_node();
 	__end_node()->__left_ = NULL;
@@ -745,7 +744,7 @@ typename tree<Tp, Compare, Allocator>::node_base::pointer&
 tree<Tp, Compare, Allocator>::__find_equal(typename node_base::pointer& __parent,
 												const Key& __v)
 {
-	node_pointer __nd = root();
+	node_pointer __nd = __root();
 	if (__nd != NULL)
 	{
 		while (true)
@@ -941,7 +940,7 @@ template <typename Key>
 typename tree<Tp, Compare, Allocator>::iterator
 tree<Tp, Compare, Allocator>::find(const Key& __v)
 {
-	iterator __p = __lower_bound(__v, root(), __end_node());
+	iterator __p = __lower_bound(__v, __root(), __end_node());
 	if (__p != end() && !value_comp()(__v, *__p))
 		return __p;
 	return end();
@@ -952,7 +951,7 @@ template <typename Key>
 typename tree<Tp, Compare, Allocator>::const_iterator
 tree<Tp, Compare, Allocator>::find(const Key& __v) const
 {
-	const_iterator __p = __lower_bound(__v, root(), __end_node());
+	const_iterator __p = __lower_bound(__v, __root(), __end_node());
 	if (__p != end() && !value_comp()(__v, *__p))
 		return __p;
 	return end();
@@ -964,7 +963,7 @@ typename tree<Tp, Compare, Allocator>::size_type
 tree<Tp, Compare, Allocator>::__count_unique(const Key& __k) const
 {
 	node_const_pointer __result = __end_node();
-	node_const_pointer __rt = root();
+	node_const_pointer __rt = __root();
 	while (__rt != NULL)
 	{
 		if (value_comp()(__k, __rt->__value_))
@@ -1068,7 +1067,7 @@ tree<Tp, Compare, Allocator>::__equal_range_unique(const Key& __k)
 {
 	typedef pair<iterator, iterator> _Pp;
 	node_pointer __result = __end_node();
-	node_pointer __rt = root();
+	node_pointer __rt = __root();
 	while (__rt != NULL)
 	{
 		if (value_comp()(__k, __rt->__value_))
@@ -1096,7 +1095,7 @@ tree<Tp, Compare, Allocator>::__equal_range_unique(const Key& __k) const
 {
 	typedef pair<const_iterator, const_iterator> _Pp;
 	node_const_pointer __result = __end_node();
-	node_const_pointer __rt = root();
+	node_const_pointer __rt = __root();
 	while (__rt != NULL)
 	{
 		if (value_comp()(__k, __rt->__value_))
