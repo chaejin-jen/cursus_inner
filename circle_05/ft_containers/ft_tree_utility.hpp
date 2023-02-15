@@ -5,6 +5,9 @@
 #include "ft_utility.hpp"
 
 /*
+for rebind
+	construct/destruct
+
 memory
 	addressof
 	unique_ptr
@@ -12,144 +15,81 @@ memory
 
 namespace ft{
 
+// construct/destruct
+template <typename T1, typename T2>
+inline void construct(T1* p, const T2& value) {
+	new (p) T1(value);
+}
+
+template <typename T1>
+inline void construct(T1* p) {
+	new (p) T1();
+}
+
+template <typename Tp>
+inline void destroy(Tp* pointer) {
+	pointer->~Tp();
+}
+
 // addressof
 
 template <class Tp>
 inline
 Tp*
-addressof(Tp& x)
-{
+addressof(Tp& x){
 	return (Tp*)&reinterpret_cast<const volatile char&>(x);
 }
 
-template <class Tp, class Dp>
-class unique_ptr
-{
+template<typename Tp, typename Dp>
+class unique_ptr {
 public:
-	typedef Tp  element_type;
-	typedef Dp  deleter_type;
-	typedef Tp* pointer;
-private:
-	pair<pointer, deleter_type> ptr;
-
-	unique_ptr(unique_ptr&);
-	template <class Up, class Ep>
-		unique_ptr(unique_ptr<Up, Ep>&);
-	unique_ptr& operator=(unique_ptr&);
-	template <class Up, class Ep>
-		unique_ptr& operator=(unique_ptr<Up, Ep>&);
-
-	typedef Tp&                 reference;
-	typedef deleter_type&       Dp_reference;
-	typedef const deleter_type& Dp_const_reference;
-public:
-	unique_ptr()
-		: ptr(pointer()){}
-	explicit unique_ptr(pointer p)
-		: ptr(p){}
-
-	template <class Up, class Ep>
-	unique_ptr& operator=(unique_ptr<Up, Ep> __u){
-		reset(__u.release());
-		ptr.second() = __u.get_deleter();
-		return *this;
-	}
-
-	unique_ptr(pointer p, deleter_type d)
-		: ptr(p, d) {}
+	// Constructors
+	explicit unique_ptr(Tp* ptr = 0) : __ptr_(ptr), __dp_(0) {}
+	// explicit unique_ptr(Tp* ptr, Dp&=* dptr) : __ptr_(ptr), __dptr_(dptr) {}
+	explicit unique_ptr(Tp* ptr, Dp dp) : __ptr_(ptr), __dp_(dp) {}
+	
+	// Destructor
 	~unique_ptr() {
-		reset();
+		if (__ptr_)
+			__dp_(__ptr_);
 	}
-
-	reference operator*() const{
-		return *ptr.first();
+	
+	// Release ownership
+	Tp* release() {
+		Tp* ptr = __ptr_;
+		__ptr_ = 0;
+		return ptr;
 	}
-	pointer operator->() const {
-		return ptr.first();
+	
+	// Reset pointer
+	void reset(Tp* ptr = 0) {
+		if (__ptr_ != ptr) {
+			if (__ptr_)
+				__dp_(__ptr_);
+			__ptr_ = ptr;
+		}
 	}
-	pointer get() const {
-		return ptr.first();
-	}
-    Dp_reference get_deleter(){
-		return ptr.second();
-	}
-	Dp_const_reference get_deleter() const{
-		return ptr.second();
-	}
-	operator bool() const{
-		return ptr.first() != NULL;
-	}
-
-	pointer release(){
-		pointer t = ptr.first();
-		ptr.first() = pointer();
-		return t;
-	}
-
-	void reset(pointer p = pointer()){
-		pointer tmp = ptr.first();
-		ptr.first() = p;
-		if (tmp)
-			ptr.second()(tmp);
-	}
-};
-
-template <class Tp, class Dp>
-class unique_ptr<Tp[], Dp>
-{
-public:
-	typedef Tp element_type;
-	typedef Dp deleter_type;
-	typedef Tp* pointer;
+	
+	// Overload operators
+	Tp& operator*() const { return *__ptr_; }
+	Tp* operator->() const { return __ptr_; }
+	
+	// Getters
+	Tp* get() const { return __ptr_; }
+	Dp& get_deleter() { return __dp_; }
+	const Dp& get_deleter() const { return __dp_; }
+	
+	// Boolean conversion operator
+	operator bool() const { return __ptr_ != 0; }
+	
 private:
-	pair<pointer, deleter_type> ptr;
+	Tp* __ptr_;
+	Dp __dp_;
 
-	unique_ptr(unique_ptr&);
-	template <class Up, class Dp2>
-		unique_ptr(unique_ptr<Up, Dp2>&);
-	unique_ptr& operator=(unique_ptr&);
-	template <class Up, class Dp2>
-		unique_ptr& operator=(unique_ptr<Up, Dp2>&);
-
-	typedef Tp&                 reference;
-	typedef deleter_type&       Dp_reference;
-	typedef const deleter_type& Dp_const_reference;
 public:
-	unique_ptr()
-		: ptr(pointer()){}
-
-	explicit unique_ptr(pointer p)
-		: ptr(p){}
-
-	unique_ptr(pointer p, deleter_type d)
-		: ptr(p, d) {}
-
-	~unique_ptr() {
-		reset();
-	}
-
-	pointer get() const {
-		return ptr.first();
-	}
-	Dp_reference get_deleter(){
-		return ptr.second();
-	}
-	Dp_const_reference get_deleter() const{
-		return ptr.second();
-	}
-
-	pointer release(){
-		pointer t = ptr.first();
-		ptr.first() = pointer();
-		return t;
-	}
-
-	void reset(pointer p = pointer()){
-		pointer tmp = ptr.first();
-		ptr.first() = p;
-		if (tmp)
-			ptr.second()(tmp);
-	}
+	// Disable copy constructor and copy assignment operator
+	unique_ptr(const unique_ptr&);
+	unique_ptr& operator=(const unique_ptr&);
 };
 
 }
