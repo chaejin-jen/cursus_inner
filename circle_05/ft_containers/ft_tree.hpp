@@ -284,6 +284,71 @@ public:
 
 };
 
+template <typename Tp, typename Compare, typename Allocator>
+tree<Tp, Compare, Allocator>::tree(const value_compare& __comp)
+	: __size_(0), __comp_(__comp)
+
+{
+	__begin_node() = __end_node();
+}
+
+template <typename Tp, typename Compare, typename Allocator>
+tree<Tp, Compare, Allocator>::tree(const allocator_type& __a)
+	: __begin_node_(node_pointer()),
+	__size_(0),
+	__alloc_(node_allocator(__a))
+{
+	__begin_node() = __end_node();
+}
+
+template <typename Tp, typename Compare, typename Allocator>
+tree<Tp, Compare, Allocator>::tree(const value_compare& __comp,
+										const allocator_type& __a)
+	: __begin_node_(node_pointer()),
+	__comp_(__comp),
+	__size_(0),
+	__alloc_(node_allocator(__a))
+{
+	__begin_node() = __end_node();
+}
+
+template <typename Tp, typename Compare, typename Allocator>
+tree<Tp, Compare, Allocator>::tree(const tree& __t)
+	: __begin_node_(node_pointer()),
+	__comp_(__t.value_comp()),
+	__size_(0),
+	__alloc_(__t.__node_alloc())
+
+{
+	__begin_node() = __end_node();
+}
+
+template <typename Tp, typename Compare, typename Allocator>
+tree<Tp, Compare, Allocator>&
+tree<Tp, Compare, Allocator>::operator=(const tree& __t)
+{
+	if (this != &__t)
+	{
+		value_comp() = __t.value_comp();
+		__alloc() = __t.__alloc();
+		__assign_unique(__t.begin(), __t.end());
+	}
+	return *this;
+}
+
+template <typename Tp, typename Compare, typename Allocator>
+template <typename InputIterator>
+void
+tree<Tp, Compare, Allocator>::__assign_unique(InputIterator __first, InputIterator __last)
+{
+}
+
+template <typename Tp, typename Compare, typename Allocator>
+tree<Tp, Compare, Allocator>::~tree()
+{
+	destroy(__root());
+}
+
 }
 
 #endif /* __FT_TREE_H__ */
