@@ -242,8 +242,8 @@ private:
 	__base __tree_;
 
 public:
-	typedef typename __base::iterator                  iterator;
-	typedef typename __base::const_iterator            const_iterator; 
+	typedef typename __base::iterator    iterator;
+	typedef typename __base::const_iterator  const_iterator;
 	typedef typename __allocator_type::size_type       size_type;
 	typedef typename __allocator_type::difference_type difference_type;
 	typedef typename __allocator_type::pointer         pointer;
@@ -270,13 +270,11 @@ public:
 	// 23.3.1.1 construct/copy/destroy:
 	explicit map(const Compare& comp = Compare(),
 		const Allocator& alloc = Allocator())
-		// : __tree_(vc(comp), alloc) {}
-		: __tree_(comp, alloc) {}
+		: __tree_(__vc(comp), alloc) {}
 	template <class InputIterator>
 	map(InputIterator first, InputIterator last,
 		const Compare& comp = Compare(), const Allocator& alloc= Allocator())
-			// : __tree_(vc(comp), alloc){
-			: __tree_(comp, alloc){
+			: __tree_(__vc(comp), alloc){
 				insert(first, last);
 			}
 	map(const map<Key,T,Compare,Allocator>& x)
@@ -295,16 +293,16 @@ public:
 
 	// iterators:
 	iterator begin(){
-		return __tree_.begin();
+		return iterator(__tree_.begin());
 	}
 	const_iterator begin() const{
-		return __tree_.begin();
+		return const_iterator(__tree_.begin());
 	}
 	iterator end(){
-		return __tree_.end();
+		return iterator(__tree_.end());
 	}
 	const_iterator end() const{
-		return __tree_.end();
+		return const_iterator(__tree_.end());
 	}
 	reverse_iterator rbegin(){
 		return reverse_iterator(end());

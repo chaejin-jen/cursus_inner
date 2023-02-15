@@ -423,6 +423,10 @@ public:
 	tree_iterator(){}
 	explicit tree_iterator(node_pointer __p) : __ptr_(__p) {}
 
+	template <typename _Tp, typename _NodePtr, typename _DiffType>
+	tree_iterator(const tree_iterator<_Tp, _NodePtr, _DiffType>& other)
+		: __ptr_(other.base()) {}
+
 	node_pointer base() const{ return __ptr_; } // explicit
 
 	reference operator*() const {return __ptr_->__value_;}
@@ -539,8 +543,6 @@ public:
 	tree(const value_compare& __comp, const allocator_type& __a);
 	tree(const tree& __t);
 	tree& operator=(const tree& __t); //__node_alloc() = __t.__node_alloc()
-	template <typename InputIterator>
-	void __assign_unique(InputIterator __first, InputIterator __last);
 
 	~tree();
 
@@ -676,18 +678,12 @@ tree<Tp, Compare, Allocator>::operator=(const tree& __t)
 {
 	if (this != &__t)
 	{
+		clear();
 		value_comp() = __t.value_comp();
 		__alloc() = __t.__alloc();
-		__assign_unique(__t.begin(), __t.end());
+		__insert_unique(__t.begin(), __t.end());
 	}
 	return *this;
-}
-
-template <typename Tp, typename Compare, typename Allocator>
-template <typename InputIterator>
-void
-tree<Tp, Compare, Allocator>::__assign_unique(InputIterator __first, InputIterator __last)
-{
 }
 
 template <typename Tp, typename Compare, typename Allocator>

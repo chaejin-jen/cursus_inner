@@ -157,8 +157,10 @@ int main(){
 				
 		// typedef ::ft::tree<__value_type, __vc, __allocator_type> tree;
 		typedef ::ft::tree<value_type, __vc, __allocator_type> tree;
-		typedef typename tree::iterator                iterator;
-		typedef typename tree::const_iterator                const_iterator;
+		// typedef typename tree::iterator                iterator;
+		// typedef typename tree::const_iterator                const_iterator;
+		typedef typename ft::map<Key, Tp>::iterator                iterator;
+		typedef typename ft::map<Key, Tp>::const_iterator                const_iterator;
 		// __value_type __v(ft::make_pair(111, 222)); // CHECK
 		{
 			tree tree1(__comp);
@@ -184,12 +186,12 @@ int main(){
 
 			ft::map<Key, Tp> mp(lst.begin(), lst.end());
 			ft::map<Key, Tp>::iterator it(mp.begin());
-			// ft::map<Key, Tp>::const_iterator ite(mp.begin());
-			// for (const_iterator iter = tree1.begin() ; iter !=  tree1.end(); iter++)
-			// {
-			//     std::cout << iter->first << " " << iter->second << std::endl;
-			// }
-			// std::cout << std::endl;
+			ft::map<Key, Tp>::const_iterator ite(mp.begin());
+			for (const_iterator iter = mp.begin() ; iter !=  mp.end(); iter++)
+			{
+			    std::cout << iter->first << " " << iter->second << std::endl;
+			}
+			std::cout << std::endl;
 			
 
 		}
