@@ -32,7 +32,7 @@ public:
 
 	void operator()(pointer __p) {
 		if (__value_constructed)
-			::ft::destroy(addressof(__p->__value_));
+			::ft::destroy(::ft::addressof(__p->__value_));
 		if (__p)
 			__na_.deallocate(__p, 1);
 	}
@@ -260,74 +260,75 @@ tree_balance_after_insert(NodePtr root, NodePtr x)
 //      case 2 : black sibling, black left s-child, red right s-child
 template <typename NodePtr>
 void
-tree_balance_after_erase(NodePtr root, NodePtr x, NodePtr w)
+tree_balance_after_erase(NodePtr root, NodePtr x)
 {
-	while (x != root && !x->__is_black_)
+	NodePtr w = NULL;
+	while (x != root && x->__is_black_)
 	{
-		if (x->parent->left == x)
+		if (x->__parent_->__left_ == x)
 		{
-			w = x->parent->right;
-			if (w->__is_black_)
+			w = x->__parent_->__right_;
+			if (!w->__is_black_)
 			{
 				// case 1
 				w->__is_black_ = true;
-				x->parent->__is_black_ = false;
-				tree_left_rotate(x->parent);
-				w = x->parent->right;
+				x->__parent_->__is_black_ = false;
+				tree_left_rotate(x->__parent_);
+				w = x->__parent_->__right_;
 			}
-			if (!w->right->__is_black_ && !w->left->__is_black_)
+			if (!w->__right_->__is_black_ && w->__left_->__is_black_)
 			{
 				// case 2
 				w->__is_black_ = false;
-				x = x->parent;
+				x = x->__parent_;
 			}
 			else{
 				// case 3
-				if (!w->right->__is_black_)
+				if (w->__right_->__is_black_)
 				{
-					w->left->__is_black_ = true;
+					w->__left_->__is_black_ = true;
 					w->__is_black_ = false;
 					tree_right_rotate(w);
-					w = x->parent->right;
+					w = x->__parent_->__right_;
 				}
 				// case 4
-				w->__is_black_ = x->parent->__is_black_;
-				x->parent->__is_black_ = true;
-				w->right->__is_black_ = true;
-				tree_left_rotate(x->parent);
+				w->__is_black_ = x->__parent_->__is_black_;
+				x->__parent_->__is_black_ = true;
+				w->__right_->__is_black_ = true;
+				tree_left_rotate(x->__parent_);
 				x = root;
 			}
 		}
 		else{
-			w = x->parent->left;
-			if (w->__is_black_)
+			w = x->__parent_->__left_;
+			if (!w->__is_black_)
 			{
 				// case 1
 				w->__is_black_ = true;
-				x->parent->__is_black_ = false;
-				tree_right_rotate(x->parent);
-				w = x->parent->left;
+				x->__parent_->__is_black_ = false;
+				tree_right_rotate(x->__parent_);
+				w = x->__parent_->__left_;
 			}
-			if (!w->left->__is_black_ && !w->right->__is_black_)
+			if (!w->__left_->__is_black_ && w->__right_->__is_black_)
 			{
 				// case 2
 				w->__is_black_ = false;
-				x = x->parent;
+				x = x->__parent_;
 			}
 			else{
 				// case 3
-				if (!w->left->__is_black_)
+				if (w->__left_->__is_black_)
 				{
-					w->right->__is_black_ = true;
+					w->__right_->__is_black_ = true;
 					w->__is_black_ = false;
 					tree_left_rotate(w);
-					w = x->parent->left;
+					w = x->__parent_->__left_;
 				}
 				// case 4
-				w->__is_black_ = x->parent->__is_black_;
-				x->parent->__is_black_ = true;
-				w->left->__is_black_ = true;
-				tree_right_rotate(x->parent);
+				w->__is_black_ = x->__parent_->__is_black_;
+				x->__parent_->__is_black_ = true;
+				w->__left_->__is_black_ = true;
+				tree_right_rotate(x->__parent_);
 				x = root;
 			}
 		}
@@ -336,69 +337,53 @@ tree_balance_after_erase(NodePtr root, NodePtr x, NodePtr w)
 	}
 }
 
+// Effects:  link child node v to u's parent node
+template <typename NodePtr>
+void
+tree_transplant(NodePtr root, NodePtr u, NodePtr v)
+{
+		if (u->__parent_ == NULL)
+			root = v;
+		else if (u == u->__parent_->__left_)
+			u->__parent_->__left_ = v;
+		else
+			u->__parent_->__right_ = v;
+		v->__parent_ = u->__parent_;
+}
+
 // Effects:  unlinks z from the tree rooted at root, rebalancing as needed.
 template <typename NodePtr>
 void
 tree_remove(NodePtr root, NodePtr z)
 {
-	// y is z or tree_minimum(z->right)
-	NodePtr y = (z->__left_ == NULL || z->__right_ == NULL) ?
-					z : tree_next(z);
-	// x priority : right_child, left_child, NULL
-	NodePtr x = y->__left_ != NULL ? y->__left_ : y->__right_;
-	// w is x's possibly null uncle (will become x's sibling)
-	NodePtr w = NULL;
-	// link child node x to y's parent, and find sibling w
-	if (x != NULL)
-		x->__parent_ = y->__parent_;
-	if (tree_is_left_child(y))
-	{
-		// (1) y == z  && tree_is_left_child(z)
-		// (2) y == tree_next(z) && y != z->right
-		y->__parent_->__left_ = x;
-		if (y != root)
-			w = y->__parent_->__right_;
-		else
-			root = x;  // w == NULL
-	}
+	NodePtr x = z->__left_ != NULL ? z->__left_ : z->__right_;
+	bool __removed_black = z->__is_black_;
+
+	if (z == NULL)
+		return ;
+	if (z->__left_ == NULL || z->__right_ == NULL)
+		tree_transplant(root, z, x);
 	else
 	{
-		// (1) y == z  && !tree_is_left_child(z)
-		// (2) y == z->right
-		y->__parent_->__right_ = x;
-		w = y->__parent_->__left_;
-	}
-	bool __removed_black = y->__is_black_;
-
-	if (y != z)
-	{
-		// when z has children, y == z->right or tree_min(z)
-		// link child node y to z's parent
-		y->__parent_ = z->__parent_;
-		if (tree_is_left_child(z))
-			y->__parent_->__left_ = y;
+		//  lx
+		NodePtr y = tree_next(z);
+		__removed_black = y->__is_black_;
+		x = y->__right_;
+		if (y->__parent_ == z)
+			x->__parent_ = y;
 		else
-			y->__parent_->__right_ = y;
+		{
+			tree_transplant(root, y, y->__right_);
+			y->__right_ = z->__right_;
+			y->__right_->__parent_ = y;
+		}
+		tree_transplant(root, z, x);
 		y->__left_ = z->__left_;
 		y->__left_->__parent_ = y;
-
-		y->__right_ = z->__right_;
-		if (y->__right_ != NULL)
-			y->__right_->__parent_ = y;
 		y->__is_black_ = z->__is_black_;
-		if (root == z)
-			root = y;
 	}
-	if (__removed_black && root != NULL)
-	{
-		if (x == root || (x != NULL && !x->__is_black_))
-		// (1) z-right->__is_black == true
-		// (2) tree_min(z)->__is_black == true
-			x->__is_black_ = true;
-		else
-			tree_balance_after_erase(root, x, w);
-	}
-	// There is no need to rebalance if we removed a red, or if we removed the last node.
+	if (__removed_black == false)
+		tree_balance_after_erase(root, x);
 }
 
 // iterator
@@ -422,12 +407,22 @@ public:
 
 	tree_iterator(){}
 	explicit tree_iterator(node_pointer __p) : __ptr_(__p) {}
-
-	template <typename _Tp, typename _NodePtr, typename _DiffType>
-	tree_iterator(const tree_iterator<_Tp, _NodePtr, _DiffType>& other)
+	template <typename T, typename U, typename V>
+	tree_iterator(const tree_iterator<T, U, V>& other)
 		: __ptr_(other.base()) {}
+	template <typename T, typename U, typename V>
+	tree_iterator& operator=(const tree_iterator<T, U, V>& other){
+		__ptr_ = other.base();
+		return *this;
+	}
 
 	node_pointer base() const{ return __ptr_; } // explicit
+	node_pointer& refbase() { return __ptr_; } // explicit
+
+	tree_iterator next() const{
+		tree_iterator tmp(__ptr_);
+		return ++tmp;
+	}
 
 	reference operator*() const {return __ptr_->__value_;}
 	pointer operator->() const {return &__ptr_->__value_;}
@@ -514,10 +509,10 @@ private:
 
 public:
 	node_pointer __end_node(){
-		return static_cast<node_pointer>(addressof(__end_node_));
+		return static_cast<node_pointer>(::ft::addressof(__end_node_));
 	}
 	node_const_pointer __end_node() const{
-		return static_cast<node_const_pointer>(addressof(__end_node_));
+		return static_cast<node_const_pointer>(::ft::addressof(__end_node_));
 	}
 
 	size_type& size(){return __size_;}               // CHECK private
@@ -529,7 +524,7 @@ public:
 	}
 
 	value_compare& value_comp(){return __comp_;}     // assignment operator
-	const value_compare& value_comp() const{return __comp_;} 
+	const value_compare& value_comp() const{return __comp_;}
 
 	node_pointer __root(){
 		return static_cast<node_pointer>(__end_node()->__left_);
@@ -681,7 +676,10 @@ tree<Tp, Compare, Allocator>::operator=(const tree& __t)
 		clear();
 		value_comp() = __t.value_comp();
 		__alloc() = __t.__alloc();
-		__insert_unique(__t.begin(), __t.end());
+		const_iterator first = __t.begin();
+		const_iterator last = __t.end();
+		for ( ; first != last; ++first)
+			__insert_unique(*first);
 	}
 	return *this;
 }
@@ -701,7 +699,7 @@ tree<Tp, Compare, Allocator>::destroy(node_pointer __nd)
 		destroy(static_cast<node_pointer>(__nd->__left_));
 		destroy(static_cast<node_pointer>(__nd->__right_));
 		node_allocator& __na = __node_alloc();
-		::ft::destroy(addressof(__nd->__value_));
+		::ft::destroy(::ft::addressof(__nd->__value_));
 		__na.deallocate(__nd, 1);
 	}
 }
@@ -711,9 +709,9 @@ void
 tree<Tp, Compare, Allocator>::swap(tree& __t){
 	::std::swap(__begin_node_, __t.__begin_node_);
 	::std::swap(__end_node_, __t.__end_node_);
-	__swap_alloc(__node_alloc(), __t.__node_alloc());
-	__size_.swap(__t.__size_);
-	__comp_.swap(__t.__comp_);
+	::std::swap(__node_alloc(), __t.__node_alloc());
+	::std::swap(__size_, __t.__size_);
+	::std::swap(__comp_, __t.__comp_);
 	if (size() == 0)
 		__begin_node() = __end_node();
 	else
@@ -792,12 +790,12 @@ tree<Tp, Compare, Allocator>::__find_equal(const_iterator __hint,
 			// *prev(__hint) < __v < *__hint
 			if (__hint.base()->__left_ == NULL)
 			{
-				__parent = const_cast<node_pointer&>(__hint.base());
+				__parent = const_cast<node_pointer&>(__hint.refbase());
 				return __parent->__left_;
 			}
 			else
 			{
-				__parent = const_cast<node_pointer&>(__prior.base());
+				__parent = const_cast<node_pointer&>(__prior.refbase());
 				return __parent->__right_;
 			}
 		}
@@ -807,18 +805,18 @@ tree<Tp, Compare, Allocator>::__find_equal(const_iterator __hint,
 	else if (value_comp()(*__hint, __v))  // check after
 	{
 		// *__hint < __v
-		const_iterator __next = next(__hint);
+		const_iterator __next = __hint.next();
 		if (__next == end() || value_comp()(__v, *__next))
 		{
 			// *__hint < __v < *next(__hint)
 			if (__hint.base()->__right_ == NULL)
 			{
-				__parent = const_cast<node_pointer&>(__hint.base());
+				__parent = const_cast<node_pointer&>(__hint.refbase());
 				return __parent->__right_;
 			}
 			else
 			{
-				__parent = const_cast<node_pointer&>(__next.base());
+				__parent = const_cast<node_pointer&>(__next.refbase());
 				return __parent->__left_;
 			}
 		}
@@ -826,7 +824,7 @@ tree<Tp, Compare, Allocator>::__find_equal(const_iterator __hint,
 		return __find_equal(__parent, __v);
 	}
 	// else __v == *__hint
-	__parent = const_cast<node_pointer&>(__hint.base());
+	__parent = const_cast<node_pointer&>(__hint.refbase());
 	return __parent;
 }
 
@@ -852,7 +850,7 @@ tree<Tp, Compare, Allocator>::__construct_node(const value_type& __v)
 {
 	node_allocator& __na = __node_alloc();
 	node_holder __h(__na.allocate(1), Dp(__na));
-	::ft::construct(addressof(__h->__value_), __v);
+	::ft::construct(::ft::addressof(__h->__value_), __v);
 	__h.get_deleter().__value_constructed = true;
 	return __h;
 }
@@ -902,8 +900,8 @@ tree<Tp, Compare, Allocator>::erase(const_iterator __p)
 		__begin_node() = __r.base();
 	--size();
 	node_allocator& __na = __node_alloc();
-	__na.destroy(const_cast<value_type*>(addressof(*__p)));
-	// ::ft::destroy(const_cast<value_type*>(addressof(*__p)));
+	//__na.destroy(const_cast<value_type*>(::ft::addressof(*__p)));
+	::ft::destroy(const_cast<value_type*>(::ft::addressof(*__p)));
 	tree_remove(__end_node()->__left_,
 				static_cast<node_base_pointer>(__np));
 	__na.deallocate(__np, 1);
@@ -1077,7 +1075,7 @@ tree<Tp, Compare, Allocator>::__equal_range_unique(const Key& __k)
 			return _Pp(iterator(__rt),
 					iterator(
 						__rt->__right_ != NULL ?
-							static_cast<node_pointer>(__tree_min(__rt->__right_))
+							static_cast<node_pointer>(tree_min(__rt->__right_))
 							: __result));
 	}
 	return _Pp(iterator(__result), iterator(__result));
@@ -1105,7 +1103,7 @@ tree<Tp, Compare, Allocator>::__equal_range_unique(const Key& __k) const
 			return _Pp(const_iterator(__rt),
 					const_iterator(
 						__rt->__right_ != NULL ?
-							static_cast<node_const_pointer>(__tree_min(__rt->__right_))
+							static_cast<node_const_pointer>(tree_min(__rt->__right_))
 							: __result));
 	}
 	return _Pp(const_iterator(__result), const_iterator(__result));

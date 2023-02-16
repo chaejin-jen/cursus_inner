@@ -341,7 +341,7 @@ public:
 		return __tree_.__insert_unique(position, x);
 	}
 	template <class InputIterator>
-	void insert(InputIterator first, 
+	void insert(InputIterator first,
 		typename enable_if<!is_integral<InputIterator>::value,
 			InputIterator>::type last){
 				for ( ; first != last; ++first)
@@ -358,7 +358,7 @@ public:
 		__tree_.erase(first, last);
 	}
 	void swap(map<Key,T,Compare,Allocator>& other){
-		__tree_.swap(other.tree);
+		__tree_.swap(other.__tree_);
 	}
 	void clear(){
 		__tree_.clear();
@@ -366,12 +366,10 @@ public:
 
 	// observers:
 	key_compare key_comp() const{
-		// return __tree_.value_comp().key_comp();
-		return __tree_.key_comp();
+		 return __tree_.value_comp().key_comp();
 	}
 	value_compare value_comp() const{
-		// return value_compare(__tree_.value_comp().key_comp());
-		return value_compare(__tree_.key_comp());
+		 return value_compare(__tree_.value_comp().key_comp());
 	}
 
 	// 23.3.1.3 map operations:
