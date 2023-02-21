@@ -67,6 +67,13 @@ namespace ft
 	template <class Tp> struct remove_const            {typedef Tp type;};
 	template <class Tp> struct remove_const<const Tp> {typedef Tp type;};
 
+	// remove_pointer
+	template <class _Tp> struct remove_pointer                      {typedef _Tp type;};
+	template <class _Tp> struct remove_pointer<_Tp*>                {typedef _Tp type;};
+	template <class _Tp> struct remove_pointer<_Tp* const>          {typedef _Tp type;};
+	template <class _Tp> struct remove_pointer<_Tp* volatile>       {typedef _Tp type;};
+	template <class _Tp> struct remove_pointer<_Tp* const volatile> {typedef _Tp type;};
+
 	// is_empty
 	template <typename T>
 	struct is_empty {

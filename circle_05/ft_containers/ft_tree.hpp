@@ -57,26 +57,44 @@ struct tree_node_base : public tree_end_node<tree_node_base *>{
 	pointer __right_;
 	pointer __parent_;
 	bool    __is_black_;
+
+	tree_node_base()
+		: __right_(), __parent_(), __is_black_(false) {}
 };
 
-template <typename Tp, typename T = void>
-struct tree_node_base_selector{
+//template <bool Select, typename T = void>
+//struct tree_node_base_selector{
+//	typedef tree_node_base type;
+//};
+
+//template <bool Select>
+//struct tree_node_base_selector<Select, typename enable_if<Select>::type>{
+//	typedef const tree_node_base type;
+//};
+
+template<bool Shared>
+struct tree_node_base_selector;
+
+template<>
+struct tree_node_base_selector<false> {
 	typedef tree_node_base type;
 };
 
-template <typename Tp>
-struct tree_node_base_selector<Tp, typename enable_if<is_const<Tp>::value>::type>{
+template<>
+struct tree_node_base_selector<true>{
 	typedef const tree_node_base type;
 };
 
-template <typename Tp>
+template <typename Tp, bool Select = false>
 struct tree_node : public tree_node_base{
 public:
-	typedef typename tree_node_base_selector<Tp>::type base;
+	typedef typename tree_node_base_selector<Select>::type base;
 
 	typedef Tp value_type;
 
 	value_type __value_;
+	explicit tree_node(const value_type& value)
+		: __value_(value){};
 };
 
 // NodePtr
@@ -431,7 +449,8 @@ template <typename Tp, typename NodePtr, typename DiffType = ::std::ptrdiff_t>
 class tree_iterator
 {
 	typedef NodePtr                     node_pointer;
-	typedef tree_node<Tp>               node;
+	typedef tree_node<Tp,
+		is_const<typename remove_pointer<NodePtr>::type>::value>      node;
 	typedef typename node::base         node_base;
 	typedef node_base*                  node_base_pointer; // CHECK
 
@@ -509,7 +528,7 @@ public:
 	typedef typename Allocator::const_pointer   const_pointer;
 
 // CHECK visibility
-	typedef tree_node<value_type>                  node;
+	typedef tree_node<value_type>          node;
 	typedef typename node::base                    node_base;
 	typedef typename Allocator::template
 			rebind<node>::other                    node_allocator;
@@ -546,7 +565,6 @@ private:
 
 	const node_allocator& __node_alloc() const{return __alloc_;}
 
-public:
 	node_pointer __end_node(){
 		return static_cast<node_pointer>(::ft::addressof(__end_node_));
 	}
@@ -554,6 +572,7 @@ public:
 		return static_cast<node_const_pointer>(::ft::addressof(__end_node_));
 	}
 
+public:
 	size_type& size(){return __size_;}               // CHECK private
 	const size_type& size() const{return __size_;}   // map.max_size
 
@@ -584,6 +603,11 @@ public:
 	const_iterator begin() const{return const_iterator(__begin_node());}
 	iterator end(){return iterator(__end_node());}
 	const_iterator end() const{return const_iterator(__end_node());}
+
+	reverse_iterator rbegin(){return reverse_iterator(end());}
+	const_reverse_iterator rbegin() const{return const_reverse_iterator(end());}
+	reverse_iterator rend(){return reverse_iterator(begin());}
+	const_reverse_iterator rend() const{return const_reverse_iterator(begin());}
 
 	size_type max_size() const{
 		return __alloc_.max_size(); // CHECK
