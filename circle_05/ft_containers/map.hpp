@@ -236,20 +236,19 @@ private:
 								key_compare>                 __vc;
 	typedef typename Allocator::template
 		rebind<__value_type>::other                          __allocator_type;
-	typedef ::ft::tree<__value_type, __vc, __allocator_type> __base;       // map
-	// typedef ::ft::tree<value_type, key_compare, allocator_type> base; // set
+	typedef ::ft::tree<value_type, __vc, __allocator_type>   __base;
 
 	__base __tree_;
 
 public:
-	typedef typename __base::iterator    iterator;
-	typedef typename __base::const_iterator  const_iterator;
+	typedef typename __base::iterator                  iterator;
+	typedef typename __base::const_iterator            const_iterator;
 	typedef typename __allocator_type::size_type       size_type;
 	typedef typename __allocator_type::difference_type difference_type;
 	typedef typename __allocator_type::pointer         pointer;
 	typedef typename __allocator_type::const_pointer   const_pointer;
-	typedef ::ft::reverse_iterator<iterator>           reverse_iterator;
-	typedef ::ft::reverse_iterator<const_iterator>     const_reverse_iterator;
+	typedef typename __base::reverse_iterator          reverse_iterator;
+	typedef typename __base::const_reverse_iterator    const_reverse_iterator;
 
 public:
 	class value_compare
@@ -293,28 +292,28 @@ public:
 
 	// iterators:
 	iterator begin(){
-		return iterator(__tree_.begin());
+		return __tree_.begin();
 	}
 	const_iterator begin() const{
-		return const_iterator(__tree_.begin());
+		return __tree_.begin();
 	}
 	iterator end(){
-		return iterator(__tree_.end());
+		return __tree_.end();
 	}
 	const_iterator end() const{
-		return const_iterator(__tree_.end());
+		return __tree_.end();
 	}
 	reverse_iterator rbegin(){
-		return reverse_iterator(end());
+		return __tree_.rbegin();
 	}
 	const_reverse_iterator rbegin() const{
-		return reverse_iterator(end());
+		return __tree_.rbegin();
 	}
 	reverse_iterator rend(){
-		return reverse_iterator(begin());
+		return __tree_.rend();
 	}
 	const_reverse_iterator rend() const{
-		return reverse_iterator(begin());
+		return __tree_.rend();
 	}
 
 	// capacity:
