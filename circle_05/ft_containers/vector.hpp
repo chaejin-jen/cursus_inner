@@ -17,11 +17,11 @@ public:
 	typedef T                                              value_type;
 	typedef Allocator                                      allocator_type;
 	typedef size_t                                         size_type;
-	typedef ft::iterator_traits<iterator>::difference_type difference_type;
+	typedef ::ft::iterator_traits<iterator>::difference_type difference_type;
 	typedef typename Allocator::pointer                    pointer;
 	typedef typename Allocator::const_pointer              const_pointer;
-	typedef ft::reverse_iterator<iterator>                 reverse_iterator;
-	typedef ft::reverse_iterator<const_iterator>           const_reverse_iterator;
+	typedef ::ft::reverse_iterator<iterator>                 reverse_iterator;
+	typedef ::ft::reverse_iterator<const_iterator>           const_reverse_iterator;
 
 	explicit vector(const Allocator & = Allocator());
 	explicit vector(size_type n, const T& value = T(),
@@ -117,14 +117,14 @@ public:
 	typedef typename Allocator::const_reference const_reference;
 	typedef typename Allocator::pointer pointer;
 	typedef typename Allocator::const_pointer const_pointer;
-	typedef ft::random_access_iterator<pointer> iterator;
-	typedef ft::random_access_iterator<const_pointer> const_iterator;
+	typedef ::ft::random_access_iterator<pointer> iterator;
+	typedef ::ft::random_access_iterator<const_pointer> const_iterator;
 	typedef size_t size_type;
 	typedef T value_type;
 	typedef Allocator allocator_type;
-	typedef typename ft::iterator_traits<pointer>::difference_type difference_type; // Difference between two pointers
-	typedef ft::reverse_iterator<iterator> reverse_iterator;
-	typedef ft::reverse_iterator<const_iterator> const_reverse_iterator;
+	typedef typename ::ft::iterator_traits<pointer>::difference_type difference_type; // Difference between two pointers
+	typedef ::ft::reverse_iterator<iterator> reverse_iterator;
+	typedef ::ft::reverse_iterator<const_iterator> const_reverse_iterator;
 
 	// construct/copy/destroy:
 	explicit vector(const Allocator& alloc = Allocator())
@@ -136,7 +136,12 @@ public:
 			assign(n, value);
 		}
 	template <typename InputIterator>
-	vector(typename ft::enable_if<!ft::is_integral<InputIterator>::value, InputIterator>::type first, InputIterator last,
+	vector(InputIterator first,
+		typename ::ft::enable_if
+			<
+				!ft::is_integral<InputIterator>::value,
+				InputIterator
+			>::type last,
 		const Allocator& alloc = Allocator())
 			: start_(0), finish_(0), end_of_storage_(0), alloc_(alloc){
 			assign(first, last);
@@ -147,8 +152,7 @@ public:
 				assign(x.begin(), x.end());
 		}
 	~vector() {
-		if (start_)
-		{
+		if (start_){
 			destroy(start_, finish_, end_of_storage_ - start_);
 			start_ = finish_ = end_of_storage_ = 0;
 		}
@@ -160,7 +164,12 @@ public:
 		return *this;
 	}
 	template <typename InputIterator>
-	void assign(typename ft::enable_if<!ft::is_integral<InputIterator>::value, InputIterator>::type first, InputIterator last){
+	typename ::ft::enable_if
+	<
+		!ft::is_integral<InputIterator>::value,
+		void
+	>::type
+	assign(InputIterator first, InputIterator last){
 		erase(begin(), end());
 		insert(begin(), first, last);
 	}
@@ -220,8 +229,6 @@ public:
 		return begin() == end();
 	}
 	void reserve(size_type n){
-		if (n > max_size())
-			throw ::std::length_error("over max_size");
 		if (n > capacity()){
 			pointer tmp = create(start_, finish_, n);
 			size_type i = finish_ - start_;
@@ -267,7 +274,16 @@ public:
 	void push_back(const T& x){
 		if (finish_ == end_of_storage_)
 			reserve(recommend());
-		alloc_.construct(finish_++, x);
+		try{
+			alloc_.construct(finish_++, x);
+		}
+		catch(...){
+			if (start_){
+				destroy(start_, finish_, end_of_storage_ - start_);
+				start_ = finish_ = end_of_storage_ = 0;
+			}
+			throw ::std::runtime_error("vector push back construct failed");
+		}
 	}
 	void pop_back(){
 		alloc_.destroy(--finish_);
@@ -293,38 +309,26 @@ public:
 		pointer p = start_ + pos;
 		finish_ += n;
 		while (n-- > 0){
-			alloc_.construct(p++, x);
+			try{
+				alloc_.construct(p++, x);
+			}
+			catch(...){
+				if (start_){
+					destroy(start_, finish_, end_of_storage_ - start_);
+					start_ = finish_ = end_of_storage_ = 0;
+				}
+				throw ::std::runtime_error("vector push back construct failed");
+			}
 		}
 	}
 	template <typename InputIterator>
-	void insert(iterator position, typename ft::enable_if<!ft::is_integral<InputIterator>::value, InputIterator>::type first, InputIterator last){
-		difference_type pos = position - begin();
-		difference_type n = end() - position;
-		pointer tmp = 0;
-
-		if (first == last)
-			return ;
-		if (n > 0){
-			tmp = create(start_ + pos, finish_, n);
-			erase(position, end());
-		}
-		while (first != last){
-			if (finish_ == end_of_storage_){
-				reserve(recommend());
-			}
-			alloc_.construct(finish_++, *first++);
-		}
-		if (n > 0){
-			difference_type i = 0;
-			if (finish_ + n > end_of_storage_){
-				reserve(recommend(size() + n));
-			}
-			while (i < n){
-				alloc_.construct(finish_++, *(tmp + i));
-				i++;
-			}
-			destroy(tmp, tmp + n, n);
-		}
+	typename ::ft::enable_if
+	<
+		!is_integral<InputIterator>::value,
+		void
+	>::type
+	insert(iterator position, InputIterator first, InputIterator last){
+		__insert(position, first, last);
 	}
 	iterator erase(iterator position){
 		difference_type pos = position - begin();
@@ -400,12 +404,30 @@ private:
 		while (p < finish_)
 			alloc_.destroy(p++);
 	}
-	//template<>
-	void insert(iterator position, iterator first, iterator last){
+	template <typename InputIterator>
+	typename enable_if
+	<
+		is_input_iterator<InputIterator>::value &&
+		!is_forward_iterator<InputIterator>::value,
+		void
+	>::type
+	__insert(iterator position, InputIterator first, InputIterator last) {
 		difference_type pos = position - begin();
-		difference_type n = last - first;
 
-		if (n < 0)
+		while (first != last)
+			insert(begin() + pos, 1, *first++);
+	}
+	template <typename ForwardIterator>
+	typename enable_if
+	<
+		is_forward_iterator<ForwardIterator>::value,
+		void
+	>::type
+	__insert(iterator position, ForwardIterator first, ForwardIterator last) {
+		difference_type pos = position - begin();
+		difference_type n = ::ft::distance(first, last);
+
+		if (first == last)
 			return ;
 		if (finish_ + n > end_of_storage_)
 			reserve(recommend(size() + n));
@@ -413,15 +435,29 @@ private:
 		pointer p = start_ + pos;
 		finish_ += n;
 		while (n-- > 0){
-			alloc_.construct(p++, *first++);
+			try{
+				alloc_.construct(p++, *first++);
+			}
+			catch(...){
+				if (start_){
+					destroy(start_, finish_, end_of_storage_ - start_);
+					start_ = finish_ = end_of_storage_ = 0;
+				}
+				throw ::std::runtime_error("vector push back construct failed");
+			}
 		}
 	}
-	size_type recommend(size_type new_size = 0) const{
+	size_type recommend(size_type new_size = 0){
 		if (!new_size && start_ == end_of_storage_)
 			return 1;
 		const size_type msize = max_size();
-		if (new_size > msize)
-			throw ::std::length_error("over max_size");
+		if (new_size > msize){
+			if (start_){
+				destroy(start_, finish_, end_of_storage_ - start_);
+				start_ = finish_ = end_of_storage_ = 0;
+			}
+			throw ::std::length_error("vector over max_size");
+		}
 		const size_type cap = capacity();
 		if (cap >= msize / 2)
 			return msize;
