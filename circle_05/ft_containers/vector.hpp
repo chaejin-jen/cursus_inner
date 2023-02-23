@@ -266,7 +266,7 @@ public:
 	// modifiers:
 	void push_back(const T& x){
 		if (finish_ == end_of_storage_)
-			reserve(start_ == end_of_storage_ ? 1 : capacity() * 2);
+			reserve(recommend());
 		alloc_.construct(finish_++, x);
 	}
 	void pop_back(){
@@ -276,7 +276,7 @@ public:
 		difference_type pos = position - begin();
 
 		if (finish_ == end_of_storage_)
-			reserve(start_ == end_of_storage_ ? 1 : capacity() * 2);
+			reserve(recommend());
 		move_r(start_ + pos, 1);
 		alloc_.construct(start_ + pos, x);
 		finish_++;
@@ -288,7 +288,7 @@ public:
 		if (n == 0)
 			return ;
 		if (finish_ + n > end_of_storage_)
-			reserve(size() + n);
+			reserve(recommend(size() + n));
 		move_r(start_ + pos, n);
 		pointer p = start_ + pos;
 		finish_ += n;
@@ -310,14 +310,14 @@ public:
 		}
 		while (first != last){
 			if (finish_ == end_of_storage_){
-				reserve(start_ == end_of_storage_ ? 1 : capacity() * 2);
+				reserve(recommend());
 			}
 			alloc_.construct(finish_++, *first++);
 		}
 		if (n > 0){
 			difference_type i = 0;
 			if (finish_ + n > end_of_storage_){
-				reserve(size() + n);
+				reserve(recommend(size() + n));
 			}
 			while (i < n){
 				alloc_.construct(finish_++, *(tmp + i));
@@ -400,7 +400,7 @@ private:
 		while (p < finish_)
 			alloc_.destroy(p++);
 	}
-	template<>
+	//template<>
 	void insert(iterator position, iterator first, iterator last){
 		difference_type pos = position - begin();
 		difference_type n = last - first;
@@ -408,13 +408,24 @@ private:
 		if (n < 0)
 			return ;
 		if (finish_ + n > end_of_storage_)
-			reserve(size() + n);
+			reserve(recommend(size() + n));
 		move_r(start_ + pos, n);
 		pointer p = start_ + pos;
 		finish_ += n;
 		while (n-- > 0){
 			alloc_.construct(p++, *first++);
 		}
+	}
+	size_type recommend(size_type new_size = 0) const{
+		if (!new_size && start_ == end_of_storage_)
+			return 1;
+		const size_type msize = max_size();
+		if (new_size > msize)
+			throw ::std::length_error("over max_size");
+		const size_type cap = capacity();
+		if (cap >= msize / 2)
+			return msize;
+		return ::std::max(2 * cap, new_size);
 	}
 };
 
