@@ -62,16 +62,6 @@ struct tree_node_base : public tree_end_node<tree_node_base *>{
 		: __right_(), __parent_(), __is_black_(false) {}
 };
 
-//template <bool Select, typename T = void>
-//struct tree_node_base_selector{
-//	typedef tree_node_base type;
-//};
-
-//template <bool Select>
-//struct tree_node_base_selector<Select, typename enable_if<Select>::type>{
-//	typedef const tree_node_base type;
-//};
-
 template<bool Shared>
 struct tree_node_base_selector;
 
@@ -445,19 +435,20 @@ tree_remove(NodePtr root, NodePtr z)
 
 // iterator
 
-template <typename Tp, typename NodePtr, typename DiffType = ::std::ptrdiff_t>
+template <typename Tp, typename
+NodePtr, typename DiffType = ::std::ptrdiff_t>
 class tree_iterator
 {
 	typedef NodePtr                     node_pointer;
 	typedef tree_node<Tp,
 		is_const<typename remove_pointer<NodePtr>::type>::value>      node;
 	typedef typename node::base         node_base;
-	typedef node_base*                  node_base_pointer; // CHECK
+	typedef node_base*                  node_base_pointer;
 
 	node_pointer __ptr_;
 
 public:
-	typedef bidirectional_iterator_tag iterator_category;
+	typedef ::std::bidirectional_iterator_tag iterator_category;
 	typedef Tp                         value_type;
 	typedef DiffType                   difference_type;
 	typedef value_type&                reference;
@@ -474,8 +465,8 @@ public:
 		return *this;
 	}
 
-	node_pointer base() const{ return __ptr_; } // explicit
-	node_pointer& refbase() { return __ptr_; } // explicit
+	node_pointer base() const{ return __ptr_; }
+	node_pointer& refbase() { return __ptr_; }
 
 	tree_iterator next() const{
 		tree_iterator tmp(__ptr_);
@@ -527,7 +518,7 @@ public:
 	typedef typename Allocator::pointer         pointer;
 	typedef typename Allocator::const_pointer   const_pointer;
 
-// CHECK visibility
+private:
 	typedef tree_node<value_type>          node;
 	typedef typename node::base                    node_base;
 	typedef typename Allocator::template
@@ -540,7 +531,7 @@ public:
 	typedef tree_node_destructor<node_allocator> Dp;
 	typedef unique_ptr<node, Dp>                 node_holder;
 
-// public:
+public:
 	typedef tree_iterator<value_type,
 		node_pointer, difference_type>             iterator;
 	typedef tree_iterator<const value_type,
@@ -552,7 +543,7 @@ public:
 private:
 	typedef typename node_base::base end_node;
 	typedef end_node*                end_node_pointer;
-	typedef const end_node*          end_node_const_pointer; // CHECK
+	typedef const end_node*          end_node_const_pointer;
 
 	end_node       __end_node_;
 	node_pointer   __begin_node_;
@@ -572,17 +563,7 @@ private:
 		return static_cast<node_const_pointer>(::ft::addressof(__end_node_));
 	}
 
-public:
-	size_type& size(){return __size_;}               // CHECK private
-	const size_type& size() const{return __size_;}   // map.max_size
-
-	node_allocator& __node_alloc(){return __alloc_;} // assignment operator
-	allocator_type __alloc() const{                  // map.get_allocator
-		return allocator_type(__node_alloc());
-	}
-
-	value_compare& value_comp(){return __comp_;}     // assignment operator
-	const value_compare& value_comp() const{return __comp_;}
+	size_type& size(){return __size_;}
 
 	node_pointer __root(){
 		return static_cast<node_pointer>(__end_node()->__left_);
@@ -591,11 +572,22 @@ public:
 		return static_cast<node_const_pointer>(__end_node()->__left_);
 	}
 
+public:
+	const size_type& size() const{return __size_;}   // map.max_size
+
+	node_allocator& __node_alloc(){return __alloc_;} // assignment operator
+	allocator_type __alloc() const{                  // map.get_allocator
+		return allocator_type(__node_alloc());
+	}
+
+	value_compare& value_comp(){return __comp_;}     // assignment operator
+	const value_compare& value_comp() const{return __comp_;} // map.key_comp
+
 	explicit tree(const value_compare& __comp);
 	explicit tree(const allocator_type& __a);
 	tree(const value_compare& __comp, const allocator_type& __a);
 	tree(const tree& __t);
-	tree& operator=(const tree& __t); //__node_alloc() = __t.__node_alloc()
+	tree& operator=(const tree& __t);
 
 	~tree();
 
@@ -610,7 +602,7 @@ public:
 	const_reverse_iterator rend() const{return const_reverse_iterator(begin());}
 
 	size_type max_size() const{
-		return __alloc_.max_size(); // CHECK
+		return __alloc_.max_size();
 	}
 
 	void clear();
@@ -963,7 +955,6 @@ tree<Tp, Compare, Allocator>::erase(const_iterator __p)
 		__begin_node() = __r.base();
 	--size();
 	node_allocator& __na = __node_alloc();
-	//__na.destroy(const_cast<value_type*>(::ft::addressof(*__p)));
 	::ft::destroy(const_cast<value_type*>(::ft::addressof(*__p)));
 	tree_remove(__end_node()->__left_,
 				static_cast<node_base_pointer>(__np));
