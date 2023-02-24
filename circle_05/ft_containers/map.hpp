@@ -141,16 +141,19 @@ namespace ft {
 
 template <class Key, class Tp, class Compare, bool = is_empty<Compare>::value>
 class map_value_compare
-	: public Compare // CHECK private
+	: private Compare
 {
 	typedef pair<typename ft::remove_const<Key>::type, Tp> Pp;
 	typedef pair<const Key, Tp> CP;
+
 public:
 	map_value_compare()
 		: Compare() {}
 	map_value_compare(Compare c)
 		: Compare(c) {}
+
 	const Compare& key_comp() const {return *this;}
+
 	bool operator()(const CP& x, const CP& y) const
 		{return static_cast<const Compare&>(*this)(x.first, y.first);}
 	bool operator()(const CP& x, const Pp& y) const
@@ -180,31 +183,23 @@ class map_value_compare<Key, Tp, Compare, false>
 	typedef pair<const Key, Tp> CP;
 
 public:
-
 	map_value_compare()
 		: __comp_() {}
-
 	map_value_compare(Compare c)
 		: __comp_(c) {}
 
 	const Compare& key_comp() const {return __comp_;}
 
-
 	bool operator()(const CP& x, const CP& y) const
 		{return __comp_(x.first, y.first);}
-
 	bool operator()(const CP& x, const Pp& y) const
 		{return __comp_(x.first, y.first);}
-
 	bool operator()(const CP& x, const Key& y) const
 		{return __comp_(x.first, y);}
-
 	bool operator()(const Pp& x, const CP& y) const
 		{return __comp_(x.first, y.first);}
-
 	bool operator()(const Pp& x, const Pp& y) const
 		{return __comp_(x.first, y.first);}
-
 	bool operator()(const Pp& x, const Key& y) const
 		{return __comp_(x.first, y);}
 	bool operator()(const Key& x, const CP& y) const
@@ -228,9 +223,7 @@ public:
 	typedef typename Allocator::reference       reference;
 	typedef typename Allocator::const_reference const_reference;
 
-
 private:
-
 	typedef pair<key_type, mapped_type>                      __value_type;
 	typedef map_value_compare<key_type, mapped_type,
 								key_compare>                 __vc;
@@ -254,7 +247,6 @@ public:
 	class value_compare
 	: public ::std::binary_function<value_type, value_type, bool> {
 		friend class map;
-		// friend class map<Key, T, Compare, Allocator>;
 
 	protected:
 		key_compare comp;
@@ -397,12 +389,10 @@ public:
 
 	ft::pair<iterator, iterator>
 		equal_range(const key_type& x){
-			//return ft::make_pair(lower_bound(x), upper_bound(x));
 			return __tree_.__equal_range_unique(x);
 		}
 	ft::pair<const_iterator, const_iterator>
 		equal_range(const key_type& x) const{
-			//return ft::make_pair(lower_bound(x), upper_bound(x));
 			return  __tree_.__equal_range_unique(x);
 		}
 };
