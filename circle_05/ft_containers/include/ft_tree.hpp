@@ -190,8 +190,9 @@ tree_right_rotate(NodePtr x)
 
 // Effects:  Rebalances root after attaching x to a leaf.
 // case: x starts with red color
-//      case 1 : red parent, red uncle
-//      case 2 : red parent, black uncle
+//      case 1 : red uncle
+//      case 2 : black uncle(triangle)
+//      case 3 : black uncle(line)
 template <typename NodePtr>
 void
 tree_balance_after_insert(NodePtr root, NodePtr x)
@@ -209,7 +210,7 @@ tree_balance_after_insert(NodePtr root, NodePtr x)
 				x = x->__parent_;
 				x->__is_black_ = true;        // parent b
 				x = x->__parent_;
-				x->__is_black_ = x == root; // grand  r
+				x->__is_black_ = x == root;   // grand  r
 				y->__is_black_ = true;        // uncle  b
 			}
 			else
@@ -220,6 +221,7 @@ tree_balance_after_insert(NodePtr root, NodePtr x)
 					x = x->__parent_;
 					tree_left_rotate(x);
 				}
+				//case 3
 				x = x->__parent_;
 				x->__is_black_ = true;        // parent b
 				x = x->__parent_;
@@ -237,7 +239,7 @@ tree_balance_after_insert(NodePtr root, NodePtr x)
 				x = x->__parent_;
 				x->__is_black_ = true;        // parent b
 				x = x->__parent_;
-				x->__is_black_ = x == root; // grand  r
+				x->__is_black_ = x == root;   // grand  r
 				y->__is_black_ = true;        // uncle  b
 			}
 			else
@@ -248,6 +250,7 @@ tree_balance_after_insert(NodePtr root, NodePtr x)
 					x = x->__parent_;
 					tree_right_rotate(x);
 				}
+				//case 3
 				x = x->__parent_;
 				x->__is_black_ = true;        // parent b
 				x = x->__parent_;
@@ -262,14 +265,13 @@ tree_balance_after_insert(NodePtr root, NodePtr x)
 
 // Effects:  Rebalances after erase z color black. (child x, and sibling w)
 // Precondition: x can be NULL, w != NULL
-//               if deleted node is black, sibling node always exist
-//               (if w is red, all child of sibling is black)
-//               (if w is black, all child of sibling is red)
+//               if deleted node is black,
+//                sibling node w always exist for same number of black nodes.
 // case: x starts with black color
-//      case 1 : red sibling
-//      case 2 : black sibling, black sibling-children
-//      case 3 : black sibling, red left s-child, black right s-child
-//      case 2 : black sibling, black left s-child, red right s-child
+//      case 1 : w is red
+//      case 2 : w is black, and w.left & w. right are black.
+//      case 3 : w is black, and w.left is red and w. right is black.
+//      case 4 : w is black, and w.right is red
 template <typename NodePtr>
 void
 tree_balance_after_remove(NodePtr root, NodePtr x, NodePtr w)
