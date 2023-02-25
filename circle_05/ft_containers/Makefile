@@ -4,7 +4,7 @@ CXX = c++
 CXXFLAGS = -Wall -Wextra -Werror -std=c++98
 SANFLAG = # -g3 -fsanitize=address
 
-INC = -I./
+INC = -I./include/
 
 SRC = main.cpp
 TEST_SRC = test.cpp
